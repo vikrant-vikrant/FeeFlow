@@ -5,11 +5,11 @@
   <div class="main">
     <div class="page1">
       <%- include('../includes/navbar')%>
-      <div class="new-student">
-        <a href="/newStudent" title="Add New Student">
-          <i class="fa-solid fa-user-plus"></i
-        ></a>
-      </div>
+      <a href="/newStudent" title="Add New Student">
+        <div class="new-student">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+      </a>
       <div class="students">
         <%for(let students of studentsData){%>
         <a href="/student/<%=students._id%>">

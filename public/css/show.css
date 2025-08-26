@@ -4,9 +4,8 @@
 .student-info {
   background-color: grey;
   /* border: 2px solid black; */
-  width: 40%;
-  margin: 4vh 3vw;
-  padding: 1vw;
+  width: 60%;
+  padding: 20px;
   border-radius: 10px;
   font-size: 1.4rem;
 }
@@ -27,9 +26,34 @@
   text-transform: capitalize;
 }
 .edit-info {
-  margin: 0 3vw;
+  margin-right: 1vw;
   padding: 1vw;
   font-size: 1.2rem;
   border-radius: 10px;
   cursor: pointer;
+}
+.flex {
+  display: flex;
+  margin: 2vh 0vw;
+}
+.list {
+  display: flex;
+  margin: 3vw 4vw;
+}
+.student {
+  width: 50vw;
+}
+.fees {
+  width: 50vw;
+}
+.addFess {
+  width: 50%;
+  background-color: grey;
+  border-radius: 10px;
+  padding: 20px;
+}
+.addFess form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

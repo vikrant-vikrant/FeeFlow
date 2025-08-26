@@ -177,6 +177,29 @@ app.delete("/student/:id", async (req, res) => {
   }
   res.redirect("/students");
 });
+//addFees
+app.post("/student/:id/addFees", async (req, res) => {
+  let { id } = req.params;
+  const { month, amount, paidOn } = req.body;
+  try {
+    const student = await Student.findById(id);
+    if (!student) {
+      return res.status(404).send("Student not found");
+    }
+    // Add fees entry to the student's feesHistory
+    student.feesHistory.push({
+      month,
+      amount,
+      paidDate: paidOn ? new Date(paidOn) : new Date(),
+    });
+    await student.save();
+    console.log("Fees added successfully");
+    res.redirect(`/student/${id}`);
+  } catch (err) {
+    console.error("Error adding fees:", err);
+    res.status(500).send("Something went wrong");
+  }
+});
 app.listen(8000, () => {
   console.log(`App is listing to port : 8000`);
 });

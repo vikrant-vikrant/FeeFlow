@@ -9,6 +9,16 @@ const studentSchema = new mongoose.Schema({
   note: { type: String },
   joiningDate: { type: Date, require: true },
   fees: { type: Number },
+  dueFees: { type: Number, default: 0 },
+  feesHistory: [
+    {
+      month: { type: String, require: true }, // "Aug 2025"
+      // dueDate: Date, // e.g., 15 Aug 2025
+      amount: { type: Number, require: true }, // e.g., 700
+      // paid: { type: Boolean, default: false },
+      paidDate: { type: Date, default: Date.now },
+    },
+  ],
   //sibling info, fees payment history(amount paid & date)
 });
 
