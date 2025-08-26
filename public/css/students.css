@@ -50,3 +50,17 @@
   color: #31312f;
   font-size: 2.5rem;
 }
+.normal {
+  color: #31312f; /* all dues are clear */
+}
+
+.yellow {
+  color: #ff9800; /* Orange/Yellow  - pending fee less than 2 months*/
+}
+
+.red {
+  color: #bd3026; /* Red - pending fee more than 2 months*/
+}
+.none {
+  display: none;
+}

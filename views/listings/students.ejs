@@ -19,8 +19,13 @@
               alt=""
             />
             <div class="details">
-              <h2><%= students.name %></h2>
+              <h2
+                class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
+              >
+                <%= students.name %>
+              </h2>
               <p>GRADE : <%= students.grade %></p>
+              <p class="<%= students.dueFees <= 0? 'none':'' %>">DUE FEES : <%= students.dueFees %></p>
             </div>
           </div>
         </a>
