@@ -27,6 +27,31 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
+async function addMonthlyDueFees() {
+  try {
+    const students = await Student.find();
+
+    for (let student of students) {
+      if (!student.joiningDate) continue;
+
+      const today = new Date();
+      const joinDay = student.joiningDate.getDate(); // e.g., 15
+      // if today is student's due day
+      if (today.getDate() === joinDay) {
+        student.dueFees += student.fees; // add monthly fee
+        await student.save();
+        console.log(`Added due fee for ${student.name}`);
+      }
+    }
+  } catch (err) {
+    console.error("Error in auto due fees:", err);
+  }
+}
+const cron = require("node-cron");
+// Run every day at midnight
+cron.schedule("0 0 * * *", () => {
+  addMonthlyDueFees();
+});
 
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
@@ -60,11 +85,12 @@ app.get("/student/:id", async (req, res, next) => {
       month: "short", // Aug
       year: "numeric", // 2025
     });
+    const todayDate = new Date().toISOString().substr(0, 10);
     if (!student) {
       req.flash("error", "Student not found");
       return res.redirect("/students");
     }
-    res.render("listings/show", { student, formattedDate }); // create this view
+    res.render("listings/show", { student, formattedDate, todayDate });
   } catch (err) {
     next(err);
   }
@@ -97,21 +123,11 @@ app.get("/student/:id/edit", async (req, res, next) => {
 app.put("/student/:id/edit", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      grade,
-      status,
-      parent,
-      contact,
-      phone,
-      note,
-      joiningDate,
-      fees,
-    } = req.body;
+    const { name, grade, parent, contact, phone, note, joiningDate, fees } =
+      req.body;
     let updatedStudent = await Student.findByIdAndUpdate(id, {
       name: name,
       grade: grade,
-      status: status,
       parent: parent,
       contact: contact,
       phone: phone,
@@ -192,6 +208,7 @@ app.post("/student/:id/addFees", async (req, res) => {
       amount,
       paidDate: paidOn ? new Date(paidOn) : new Date(),
     });
+    student.dueFees -= amount;
     await student.save();
     console.log("Fees added successfully");
     res.redirect(`/student/${id}`);
