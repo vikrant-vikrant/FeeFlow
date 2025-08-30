@@ -1,13 +1,13 @@
 <% layout('layouts/boilerPlate') -%>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/newStudent.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/newStudent.css" />
 <body>
   <div class="main">
     <div class="page1">
       <%- include('../includes/navbar')%>
       <div class="container">
         <img src="/img/addStudent.jpg" alt="Student reading a book" />
-        <form action="/newStudent" method="post" class="form">
+        <form action="/students/newStudent" method="post" class="form">
           <p class="title">Register</p>
           <p class="message">
             <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new student

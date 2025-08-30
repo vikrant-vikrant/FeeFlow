@@ -43,13 +43,13 @@
             <p><strong>Due Fees:</strong> <%= student.dueFees %></p>
           </div>
           <div class="flex">
-            <a href="/student/<%= student.id%>/edit">
+            <a href="/students/<%= student.id%>/edit">
               <button class="edit-info">
                 Edit Information <i class="fa-regular fa-pen-to-square"></i>
               </button>
             </a>
             <form
-              action="/student/<%= student.id%>?_method=DELETE"
+              action="/students/<%= student.id%>?_method=DELETE"
               method="post"
             >
               <button class="edit-info">
@@ -61,7 +61,7 @@
         </div>
         <div class="fees">
           <div class="addFess">
-            <form action="/student/<%= student.id%>/addFees" method="post">
+            <form action="/students/<%= student.id%>/addFees" method="post">
               <label for="">
                 <input type="text" name="month" id="month" />Month
               </label>

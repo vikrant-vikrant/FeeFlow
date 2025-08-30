@@ -5,7 +5,7 @@
     <div class="page1">
       <%- include('../includes/navbar')%>
       <h1>Edit Student</h1>
-      <form action="/student/<%= student.id %>/edit?_method=PUT " method="post">
+      <form action="/students/<%= student.id %>/edit?_method=PUT " method="post">
         <label for="name">name</label>
         <input
           type="text"

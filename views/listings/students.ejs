@@ -5,14 +5,15 @@
   <div class="main">
     <div class="page1">
       <%- include('../includes/navbar')%>
-      <a href="/newStudent" title="Add New Student">
+      <a href="students/newStudent" title="Add New Student">
         <div class="new-student">
           <i class="fa-solid fa-user-plus"></i>
         </div>
       </a>
+      <p><strong>Total Students : </strong><%=studentsData.length%></p>
       <div class="students">
         <%for(let students of studentsData){%>
-        <a href="/student/<%=students._id%>">
+        <a href="/students/<%=students._id%>">
           <div class="list">
             <img
               src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
