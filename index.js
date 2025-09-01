@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const path = require("path");
-const StudentSchema = require("./models/students.js");
+const students = require("./routes/students.js");
 const Student = require("./models/students");
 const mehtodOverride = require("method-override");
 app.use(mehtodOverride("_method"));
@@ -58,8 +58,11 @@ app.get("/home", (req, res) => {
 app.get("/blog", (req, res) => {
   res.render("listings/blog.ejs");
 });
-const students = require("./routes/students.js")
 app.use("/students", students);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong! 🚨");
+});
 app.listen(8000, () => {
   console.log(`App is listing to port : 8000`);
 });
