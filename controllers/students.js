@@ -4,11 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports.students = catchAsync(async (req, res) => {
   const students = await Student.find({});
-  let total = 0;
-  students.forEach((student) => {
-    total += student.fees;
-  });
-  res.render("listings/students", { studentsData: students, total });
+  res.render("listings/students", { studentsData: students });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -29,7 +25,8 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
     req.flash("error", "Student not found");
     return res.redirect("/students");
   }
-  res.render("listings/show", { student, formattedDate, todayDate });
+  const backUrl = req.get("Referer") || "/students";
+  res.render("listings/show", { student, formattedDate, todayDate, backUrl });
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -129,4 +126,8 @@ module.exports.addFees = catchAsync(async (req, res) => {
   await student.save();
   console.log("Fees added successfully");
   res.redirect(`/students/${id}`);
+});
+module.exports.dashboard = catchAsync(async (req, res) => {
+  const students = await Student.find({ dueFees: { $gt: 0 } });
+  res.render("listings/dashboard", { studentsData: students });
 });

@@ -47,6 +47,7 @@ async function addMonthlyDueFees() {
   }
 }
 const cron = require("node-cron");
+const { dashboard } = require("./controllers/students.js");
 // Run every day at midnight
 cron.schedule("0 0 * * *", () => {
   addMonthlyDueFees();
@@ -58,6 +59,7 @@ app.get("/home", (req, res) => {
 app.get("/blog", (req, res) => {
   res.render("listings/blog.ejs");
 });
+app.use("/dashboard", dashboard);
 app.use("/students", students);
 app.use((err, req, res, next) => {
   console.error(err.stack);

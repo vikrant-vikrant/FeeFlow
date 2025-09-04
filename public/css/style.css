@@ -82,6 +82,10 @@ nav .info {
   cursor: pointer;
   text-decoration: none;
 }
+.info a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 10px #31312f8f;
+}
 .info a h4 {
   font-size: 14px;
   text-decoration: none;

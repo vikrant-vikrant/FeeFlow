@@ -1,9 +1,30 @@
+.container {
+  width: calc(100% - 10vw);
+  margin: 4vh 5vw;
+  font-family: sans-serif;
+}
+.nav-tabs {
+  color: #31312f;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.quick-actions button {
+  padding: 1vw;
+  border: 1px solid #31312f;
+  border-radius: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  color: #31312f;
+  margin: 1vh;
+}
 .students {
-  width: calc(100% - 6vw);
-  margin: 4vh 6vw;
   display: flex;
   flex-wrap: wrap;
-  font-family: sans-serif;
 }
 .students a {
   text-decoration: none;
@@ -31,24 +52,6 @@
   overflow: hidden;
   font-size: clamp(12px, 2vw, 24px);
   text-transform: capitalize;
-}
-.new-student {
-  background-color: grey;
-  height: 10vh;
-  width: 10vh;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 2vh;
-  position: absolute;
-  /* position: sticky; */
-  bottom: 5vh;
-  right: 3vw;
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 10px 50px 4px;
-}
-.new-student i {
-  text-decoration: none;
-  color: #31312f;
-  font-size: 2.5rem;
 }
 .normal {
   color: #31312f; /* all dues are clear */

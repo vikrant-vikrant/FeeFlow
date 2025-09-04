@@ -6,9 +6,24 @@
     <div class="page1">
       <%- include('../includes/navbar')%>
       <div class="container">
-        <p><strong>Total Students <%=studentsData.length%></strong></p>
+        <div class="nav-tabs">
+          <h1>Student Management System</h1>
+          <div class="quick-actions">
+            <button
+              title="Add New Student"
+              onclick="location.href='students/newStudent'"
+            >
+              <i class="fa-solid fa-user-plus"></i> Add Student
+            </button>
+            <button>
+              <i class="fa-solid fa-bell"></i> Send Bulk Reminders
+            </button>
+          </div>
+        </div>
         <div class="students">
-          <%for(let students of studentsData){%>
+          <% if (studentsData.length === 0) { %>
+          <h1>🎉 All students have paid their fees. No pending dues!</h1>
+          <% } else { %> <%for(let students of studentsData){%>
           <a href="/students/<%=students._id%>">
             <div class="list">
               <img
@@ -28,9 +43,10 @@
               </div>
             </div>
           </a>
-          <%}%>
+          <%}%> <% } %>
         </div>
       </div>
     </div>
   </div>
+  <script src="/js/dashboard.js"></script>
 </body>
