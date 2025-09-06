@@ -5,18 +5,16 @@
   <div class="main">
     <div class="page1">
       <%- include('../includes/navbar')%>
-      <a href="<%= backUrl %>" class="back"><i class="fa-solid fa-left-long"></i>Back</a>
       <div class="list">
         <div class="student">
           <div class="student-info">
             <div class="img-name">
               <img
                 src="https://ui-avatars.com/api/?name=<%= student.name %>&bold=true"
-                alt=""
+                alt="<%= student.name %> Img"
               />
               <h1><%= student.name %></h1>
             </div>
-            <br />
             <p><strong>Grade:</strong> <%= student.grade %></p>
             <p class="parent"><strong>Parent:</strong> <%= student.parent %></p>
             <p>
@@ -45,7 +43,7 @@
           <div class="flex">
             <a href="/students/<%= student.id%>/edit">
               <button class="edit-info">
-                Edit Information <i class="fa-regular fa-pen-to-square"></i>
+                <i class="fa-regular fa-pen-to-square"></i> Edit Information
               </button>
             </a>
             <form
@@ -53,7 +51,7 @@
               method="post"
             >
               <button class="edit-info">
-                Remove Student <i class="fa-solid fa-user-minus"></i>
+                <i class="fa-solid fa-user-minus"></i> Remove Student
                 <!-- add a aleart ("Do you really want to delete") -->
               </button>
             </form>
@@ -62,15 +60,29 @@
         <div class="fees">
           <div class="addFess">
             <form action="/students/<%= student.id%>/addFees" method="post">
-              <label for="">
-                <input type="text" name="month" id="month" />Month
-              </label>
               <label
-                ><input type="number" name="amount" id="amount" value="<%=student.dueFees%>"/>Amount</label
+                ><input
+                  type="number"
+                  name="amount"
+                  id="amount"
+                  value="<%=student.dueFees%>"
+                />Amount</label
               >
               <label
-                ><input type="date" name="paidOn" id="paidOn" value="<%=todayDate%>"/>Paid On</label
+                ><input
+                  type="date"
+                  name="paidOn"
+                  id="paidOn"
+                  value="<%=todayDate%>"
+                />Paid On</label
               >
+              <textarea
+                id="note"
+                name="note"
+                rows="4"
+                cols="30"
+                placeholder="Note..."
+              ></textarea>
               <button>Add Fees</button>
             </form>
           </div>
@@ -80,19 +92,20 @@
             <%student.feesHistory.reverse().forEach(function(fees) { %>
             <div class="fee-entry">
               <p>
-                <strong><%= fees.month %></strong> : ₹<%= fees.amount %>
+                <strong>₹<%= fees.amount %></strong>
                 <br />
                 <small
-                  >Paid On: <%= fees.paidDate.toLocaleDateString("en-GB", {
+                  >Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", {
                   weekday: "short", day: "2-digit", month: "short", year:
                   "numeric" }) %></small
                 >
               </p>
-              <br><hr>
+              <p><%=fees.note%></p>
+              <br />
+              <hr />
             </div>
-            <% }); %>
-            <% } else { %>
-              <p>No payment history found.</p>
+            <% }); %> <% } else { %>
+            <p>No payment history found.</p>
             <% } %>
           </div>
         </div>

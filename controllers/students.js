@@ -25,8 +25,7 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
     req.flash("error", "Student not found");
     return res.redirect("/students");
   }
-  const backUrl = req.get("Referer") || "/students";
-  res.render("listings/show", { student, formattedDate, todayDate, backUrl });
+  res.render("listings/show", { student, formattedDate, todayDate });
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -111,14 +110,14 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
 });
 module.exports.addFees = catchAsync(async (req, res) => {
   let { id } = req.params;
-  const { month, amount, paidOn } = req.body;
+  const { note, amount, paidOn } = req.body;
   const student = await Student.findById(id);
   if (!student) {
     return res.status(404).send("Student not found");
   }
   // Add fees entry to the student's feesHistory
   student.feesHistory.push({
-    month,
+    note,
     amount,
     paidDate: paidOn ? new Date(paidOn) : new Date(),
   });
