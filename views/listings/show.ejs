@@ -43,7 +43,7 @@
           <div class="flex">
             <a href="/students/<%= student.id%>/edit">
               <button class="edit-info">
-                <i class="fa-regular fa-pen-to-square"></i> Edit Information
+                <i class="fa-regular fa-pen-to-square"></i> Edit Details
               </button>
             </a>
             <form
@@ -51,63 +51,78 @@
               method="post"
             >
               <button class="edit-info">
-                <i class="fa-solid fa-user-minus"></i> Remove Student
-                <!-- add a aleart ("Do you really want to delete") -->
+                <i class="fa-solid fa-user-minus"></i> Remove
               </button>
             </form>
           </div>
         </div>
-        <div class="fees">
-          <div class="addFess">
-            <form action="/students/<%= student.id%>/addFees" method="post">
-              <label
-                ><input
-                  type="number"
-                  name="amount"
-                  id="amount"
-                  value="<%=student.dueFees%>"
-                />Amount</label
-              >
-              <label
-                ><input
-                  type="date"
-                  name="paidOn"
-                  id="paidOn"
-                  value="<%=todayDate%>"
-                />Paid On</label
-              >
-              <textarea
+        <div class="addFess">
+          <form
+            action="/students/<%= student.id%>/addFees"
+            method="post"
+            class="form"
+          >
+            <p class="title">
+              <i class="fa-solid fa-indian-rupee-sign"></i>Fees
+            </p>
+            <p class="message">
+              <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new payment
+            </p>
+            <label>
+              <input
+                class="input"
+                type="number"
+                placeholder=""
+                required=""
+                id="amount"
+                name="amount"
+                value="<%=student.dueFees%>"
+              />
+              <span>Amount</span>
+            </label>
+            <label>
+              <input
+                type="date"
+                class="input"
+                placeholder=""
+                required=""
+                id="paidOn"
+                name="paidOn"
+                value="<%=todayDate%>"
+              />
+              <span>Paid On</span>
+            </label>
+            <label>
+              <input
+                class="input"
+                type="text"
+                placeholder=""
+                required=""
                 id="note"
                 name="note"
-                rows="4"
-                cols="30"
-                placeholder="Note..."
-              ></textarea>
-              <button>Add Fees</button>
-            </form>
+              />
+              <span>Note</span>
+            </label>
+            <button class="submit">Add Fees</button>
+          </form>
+        </div>
+        <div class="feeHistory">
+          <h2 class="title">
+            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Payment History
+          </h2>
+          <% if(student.feesHistory && student.feesHistory.length > 0) { %>
+          <%student.feesHistory.reverse().forEach(function(fees) { %>
+          <div class="fee-entry">
+            <p>
+              <strong>₹ <%= fees.amount %></strong>
+              Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", { weekday:
+              "short", day: "2-digit", month: "short", year: "numeric" }) %>
+            </p>
+            <p>Note : <%=fees.note%></p>
           </div>
-          <div class="feeHistory">
-            <h2>Fees History</h2>
-            <% if(student.feesHistory && student.feesHistory.length > 0) { %>
-            <%student.feesHistory.reverse().forEach(function(fees) { %>
-            <div class="fee-entry">
-              <p>
-                <strong>₹<%= fees.amount %></strong>
-                <br />
-                <small
-                  >Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", {
-                  weekday: "short", day: "2-digit", month: "short", year:
-                  "numeric" }) %></small
-                >
-              </p>
-              <p><%=fees.note%></p>
-              <br />
-              <hr />
-            </div>
-            <% }); %> <% } else { %>
-            <p>No payment history found.</p>
-            <% } %>
-          </div>
+          <% }); %> <% } else { %>
+          <p>No payment history found.</p>
+          <% } %>
         </div>
       </div>
     </div>

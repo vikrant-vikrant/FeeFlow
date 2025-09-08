@@ -13,14 +13,44 @@
   align-items: center;
 }
 .quick-actions button {
-  padding: 1vw;
+  padding: 1vw 2vw;
   border: 1px solid #31312f;
+  background-color: #f3efea;
   border-radius: 2rem;
   font-weight: 600;
   cursor: pointer;
+  margin: 0 1vh;
+  position: relative;
+  transition: all ease 0.3s;
+  overflow: hidden;
+}
+.quick-actions button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 10px #31312f8f;
+}
+.quick-actions button p {
   font-size: 14px;
   color: #31312f;
-  margin: 1vh;
+  z-index: 9;
+  position: relative;
+}
+.quick-actions button::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #31312f;
+  left: 0;
+  bottom: -100%;
+  border-radius: 50px;
+  transition: all ease 0.4s;
+}
+.quick-actions button:hover::before {
+  bottom: 0;
+  border-radius: 0;
+}
+.quick-actions button:hover p {
+  color: #f3eaea;
 }
 .students {
   display: flex;
