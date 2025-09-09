@@ -7,10 +7,49 @@
       <%- include('../includes/navbar')%>
       <div class="container">
         <p><strong>Total Students <%=studentsData.length%></strong></p>
+        <div class="radio-inputs">
+          <label class="radio">
+            <input type="radio" name="radio" value="12th" />
+            <span class="name">12th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="11th" />
+            <span class="name">11th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="10th" />
+            <span class="name">10th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="9th" />
+            <span class="name">9th</span>
+          </label>
+
+          <label class="radio">
+            <input type="radio" name="radio" value="8th" />
+            <span class="name">8th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="7th" />
+            <span class="name">7th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="6th" />
+            <span class="name">6th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="6th" />
+            <span class="name">5th</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" value="6th" />
+            <span class="name">4th</span>
+          </label>
+        </div>
         <div class="students">
           <%for(let students of studentsData){%>
           <a href="/students/<%=students._id%>">
-            <div class="list">
+            <div class="list" data-grade="<%= students.grade %>">
               <img
                 src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
                 alt=""
@@ -34,3 +73,4 @@
     </div>
   </div>
 </body>
+<script type="module" src="/js/filter.js"></script>
