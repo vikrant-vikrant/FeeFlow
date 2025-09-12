@@ -21,7 +21,7 @@ body {
   position: relative;
 }
 .page1 {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   width: 100%;
   background-color: #f3efea;
   position: relative;
@@ -286,9 +286,9 @@ nav a:hover::before {
   font-size: 2vw;
   margin: 1vw 0;
 }
-.special div p {
+/* .special div p {
   font-size: 1.5vw;
-}
+} */
 .special div i {
   position: absolute;
   right: 1vw;
@@ -512,7 +512,7 @@ nav a:hover::before {
   }
   .left-text p {
     font-size: 4vw;
-    margin-top: 2vh;
+    margin-top: 2.5vh;
     font-family: sans-serif;
   }
   .right {
@@ -522,10 +522,10 @@ nav a:hover::before {
   .learn-more {
     padding: 2vw 4vw;
     font-size: 5vw;
-    margin-top: 2vh;
+    margin-top: 2.5vh;
   }
   .fetures {
-    margin-top: 2vh;
+    margin-top: 2.5vh;
     width: 100vw;
   }
   .fetures h3 {
@@ -533,7 +533,7 @@ nav a:hover::before {
     border-radius: 20px;
     padding: 2vw;
     font-size: 5vw;
-    margin-top: 1.5vh;
+    margin-top: 0vh;
   }
   .fetures h3 i {
     font-size: 5vw;
@@ -548,5 +548,74 @@ nav a:hover::before {
   }
   .line :nth-child(2) {
     margin-left: 2vw;
+  }
+  .page2 {
+    width: calc(100% - 6vw);
+    min-height: 100vh;
+    margin: 0 3vw;
+  }
+  .points {
+    width: 94vw;
+    height: 15vh;
+    margin: 2.5vh 0vw 0vh 0;
+  }
+  .points div {
+    font-size: 8vw;
+  }
+  .points h2 {
+    font-size: 2.5vw;
+    margin-top: 0.5vh;
+  }
+  .sub-heading {
+    margin-bottom: 0vh;
+  }
+  .sub-heading h1 {
+    font-size: 6.5vw;
+    margin-top: 2.5vh;
+  }
+  .sub-heading h1 span::before {
+    border: 5px solid #eba139;
+    height: 3vh;
+    width: 25vw;
+    right: 18vw;
+  }
+  .sub-heading p {
+    font-size: 3vw;
+    margin-top: 2.5vh;
+  }
+  .special {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 20vh;
+    /* justify-content: space-around; */
+    /* text-align: center; */
+    margin: 2.5vh 0;
+  }
+  .special div {
+    position: relative;
+    cursor: pointer;
+  }
+  .special div a {
+    color: #31312f;
+    text-decoration: none;
+  }
+  .special div img:hover {
+    transition: all 0.3s;
+    box-shadow: 0px 0px 30px #31312f8f;
+    transform: scale(1.02);
+    rotate: -5deg;
+  }
+  .special div img {
+    height: 35vh;
+  }
+  .special div h2 {
+    font-size: 5vw;
+    margin: 2vh 0;
+  }
+  .special div i {
+    right: 14vw;
+    bottom: 10vh;
+    font-size: 10vw;
   }
 }
