@@ -40,7 +40,6 @@ nav {
 }
 
 nav p {
-  height: 12vh;
   font-family: sans-serif;
   font-weight: 900;
   font-size: 1.5vw;
@@ -77,6 +76,7 @@ nav .info {
   overflow: hidden;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
 }
 .info a:hover {
   transform: translateY(-3px);
@@ -88,6 +88,11 @@ nav .info {
   color: #31312f;
   z-index: 9;
   position: relative;
+}
+.info a i {
+  color: #31312f;
+  font-size: 16px;
+  z-index: 9;
 }
 nav .info a::before {
   content: "";
@@ -104,7 +109,8 @@ nav a:hover::before {
   bottom: 0;
   border-radius: 0;
 }
-.info a:hover h4 {
+.info a:hover h4,
+.info a:hover i {
   color: #f3efea;
 }
 .hero {
@@ -126,13 +132,13 @@ nav a:hover::before {
 .left-text h1 span::after {
   content: "";
   position: absolute;
-  right: 16vw;
+  right: 29vw;
   border-radius: 50%;
   rotate: -8deg;
   z-index: -1;
   border: 6px solid #eba139;
-  height: 10vh;
-  width: 18vw;
+  height: 5vw;
+  width: 20vw;
   bottom: 0;
 }
 .left-text p {
@@ -174,7 +180,7 @@ nav a:hover::before {
   margin-right: 5px;
 }
 .deep {
-  width: 14vw;
+  width: 10vw;
 }
 .line {
   display: flex;
@@ -186,7 +192,7 @@ nav a:hover::before {
   background-image: url(../man-readingself.png);
   background-position: center;
   background-size: cover;
-  position: absolute;
+  /* position: absolute; */
   height: 88vh;
   width: 47vw;
   right: 2vw;
@@ -459,4 +465,88 @@ nav a:hover::before {
 .blog-page3 button a {
   color: #f3efea;
   text-decoration: none;
+}
+@media (max-width: 600px) {
+  nav {
+    height: 14vw;
+    padding: 0 3vw;
+  }
+  nav p {
+    font-size: 3.2vw;
+  }
+  nav i {
+    font-size: 5vw;
+  }
+  nav span {
+    margin-left: 0vw;
+  }
+  nav .info {
+    gap: 2vw;
+  }
+  .info a {
+    padding: 1vw 2vw;
+  }
+  .info a h4 {
+    display: none;
+  }
+  .info a i {
+    font-size: 4vw;
+  }
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .left {
+    height: calc(55vh-14vw);
+    width: 100vw;
+    padding: 0vh 3vw;
+  }
+  .left-text {
+    font-size: 4.5vw;
+  }
+  .left-text h1 span::after {
+    left: -3vw;
+    border: 5px solid #eba139;
+    height: 8vw;
+    width: 45vw;
+  }
+  .left-text p {
+    font-size: 4vw;
+    margin-top: 2vh;
+    font-family: sans-serif;
+  }
+  .right {
+    height: 45vh;
+    width: 100vw;
+  }
+  .learn-more {
+    padding: 2vw 4vw;
+    font-size: 5vw;
+    margin-top: 2vh;
+  }
+  .fetures {
+    margin-top: 2vh;
+    width: 100vw;
+  }
+  .fetures h3 {
+    border: 1.5px solid #31312f;
+    border-radius: 20px;
+    padding: 2vw;
+    font-size: 5vw;
+    margin-top: 1.5vh;
+  }
+  .fetures h3 i {
+    font-size: 5vw;
+    margin-right: 2vw;
+  }
+  .fetures .deep {
+    display: none;
+  }
+  .line {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .line :nth-child(2) {
+    margin-left: 2vw;
+  }
 }
