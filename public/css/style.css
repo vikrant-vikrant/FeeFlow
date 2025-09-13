@@ -16,6 +16,7 @@ body {
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 .main {
   position: relative;
@@ -184,6 +185,7 @@ nav a:hover::before {
 }
 .line {
   display: flex;
+  width: 90%;
 }
 .line :nth-child(2) {
   margin-left: 2vh;
@@ -498,8 +500,9 @@ nav a:hover::before {
   }
   .left {
     height: calc(55vh-14vw);
-    width: 100vw;
-    padding: 0vh 3vw;
+    width: 90vw;
+    padding: 0vh 0vw;
+    margin: 0 3vw;
   }
   .left-text {
     font-size: 4.5vw;
@@ -517,23 +520,23 @@ nav a:hover::before {
   }
   .right {
     height: 45vh;
-    width: 100vw;
-    margin: 0 2vw;
+    width: 96vw;
+    margin: 0 0vw;
   }
   .learn-more {
-    padding: 2vw 4vw;
+    padding: 3vw 5vw;
     font-size: 5vw;
     margin-top: 2.5vh;
   }
   .fetures {
     margin-top: 2.5vh;
-    width: 100vw;
+    width: 90vw;
   }
   .fetures h3 {
     border: 1.5px solid #31312f;
     border-radius: 20px;
     padding: 2vw;
-    font-size: 5vw;
+    font-size: 4vw;
     margin-top: 0vh;
   }
   .fetures h3 i {
@@ -542,13 +545,6 @@ nav a:hover::before {
   }
   .fetures .deep {
     display: none;
-  }
-  .line {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  .line :nth-child(2) {
-    margin-left: 2vw;
   }
   .page2 {
     width: calc(100% - 6vw);
@@ -644,7 +640,7 @@ nav a:hover::before {
   }
   .banner {
     width: 100%;
-    margin: 2.5vh 0 10vh 0;
+    margin: 2.5vh 0 2.5vh 0;
     flex-direction: column;
     border: 3px solid #31312f;
   }
