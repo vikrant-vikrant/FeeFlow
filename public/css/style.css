@@ -27,93 +27,6 @@ body {
   background-color: #f3efea;
   position: relative;
 }
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 13vh;
-  background-color: #f3efea;
-  border-bottom: 0.5px solid black;
-  position: relative;
-  padding: 0 3vw;
-  font-family: sans-serif;
-}
-
-nav p {
-  font-family: sans-serif;
-  font-weight: 900;
-  font-size: 1.5vw;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-nav p a {
-  color: #31312f;
-  text-decoration: none;
-}
-nav i {
-  font-size: 3vw;
-  margin-right: 0.5vw;
-}
-nav span {
-  font-family: font;
-  margin-left: 0.5vw;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-nav .info {
-  display: flex;
-  align-items: center;
-  gap: 1vw;
-}
-.info a {
-  padding: 1vw 2vw;
-  border: 1px solid #31312f;
-  border-radius: 50px;
-  font-weight: 400;
-  position: relative;
-  transition: all ease 0.3s;
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-}
-.info a:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 0px 10px #31312f8f;
-}
-.info a h4 {
-  font-size: 14px;
-  text-decoration: none;
-  color: #31312f;
-  z-index: 9;
-  position: relative;
-}
-.info a i {
-  color: #31312f;
-  font-size: 16px;
-  z-index: 9;
-}
-nav .info a::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: #31312f;
-  left: 0;
-  bottom: -100%;
-  border-radius: 50px;
-  transition: all ease 0.4s;
-}
-nav a:hover::before {
-  bottom: 0;
-  border-radius: 0;
-}
-.info a:hover h4,
-.info a:hover i {
-  color: #f3efea;
-}
 .hero {
   display: flex;
   /* height: calc(100vh - 13vh); */
@@ -371,129 +284,7 @@ nav a:hover::before {
   cursor: pointer;
   font-size: 1.2vw;
 }
-/* -----BLOG SECTION----- */
-.blog-right-img {
-  background-image: url(../img/flat-creativity-concept-illustration.png);
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  height: 85vh;
-  width: 45vw;
-  right: 2vw;
-  top: 15vh;
-}
-.left-text .explore {
-  margin: 3vh 0;
-}
-.hero-left-text h1 span::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  rotate: -8deg;
-  z-index: -1;
-  border: 6px solid #eba139;
-  height: 10vh;
-  width: 15vw;
-  right: 19vw;
-  bottom: 0;
-}
-.blog-page2,
-.blog-page3 {
-  margin-top: 10vh;
-  border-bottom: 2px solid #31312f;
-}
-.blog-page2 h1,
-.blog-page3 h1 {
-  font-size: 5vw;
-}
-.blog-page2 h1 span,
-.blog-page3 h1 span {
-  border-bottom: 5px dotted #31312f;
-}
-.blog-page2 h1 i,
-.blog-page3 h1 i {
-  color: #204caf;
-  transform: scaleX(-1);
-}
-.art-crafts {
-  display: flex;
-  width: 100%;
-  height: 70vh;
-  justify-content: space-around;
-  text-align: center;
-  color: #31312f;
-  margin: 10vh 0;
-}
-.art-crafts div {
-  position: relative;
-  cursor: pointer;
-}
-.art-crafts div img:hover {
-  transition: all 0.3s;
-  box-shadow: 0px 0px 30px #31312f8f;
-  transform: scale(1.02);
-  rotate: -5deg;
-}
-.art-crafts div img {
-  height: 100%;
-  box-shadow: 0px 0px 10px #31312f8f;
-  border-radius: 30px;
-}
-.art-crafts div h2 {
-  position: absolute;
-  bottom: 12vh;
-  left: 5%;
-  color: #31312f;
-  backdrop-filter: blur(2px);
-  padding: 2.5vh 2vw;
-  font-size: 2.5vw;
-  width: 90%;
-}
-.blog-page3 .art-crafts div img {
-  height: 60vh;
-  width: 25vw;
-}
-.blog-page3 button {
-  padding: 1vw 2vw;
-  font-size: 1.5vw;
-  border-radius: 50px;
-  border: none;
-  background-color: #31312f;
-  position: absolute;
-  bottom: 6vh;
-  left: 3vw;
-  cursor: pointer;
-}
-.blog-page3 button a {
-  color: #f3efea;
-  text-decoration: none;
-}
 @media (max-width: 600px) {
-  nav {
-    height: 14vw;
-    padding: 0 3vw;
-  }
-  nav p {
-    font-size: 3.2vw;
-  }
-  nav i {
-    font-size: 5vw;
-  }
-  nav span {
-    margin-left: 0vw;
-  }
-  nav .info {
-    gap: 2vw;
-  }
-  .info a {
-    padding: 1vw 2vw;
-  }
-  .info a h4 {
-    display: none;
-  }
-  .info a i {
-    font-size: 4vw;
-  }
   .hero {
     display: flex;
     flex-direction: column-reverse;
@@ -602,10 +393,10 @@ nav a:hover::before {
     rotate: -5deg;
   }
   .special div img {
-    height: 35vh;
+    width: 90%;
   }
   .special div h2 {
-    font-size: 5vw;
+    font-size: 7vw;
     margin: 2vh 0;
   }
   .special div i {
