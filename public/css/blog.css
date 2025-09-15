@@ -29,11 +29,11 @@ body {
 }
 .hero {
   display: flex;
-  /* height: calc(100vh - 13vh); */
+  height: calc(100vh - 13vh);
 }
 .left {
-  width: 60%;
-  padding: 10vh 3vw;
+  width: 55%;
+  padding: 10vh 0 10vh 3vw;
   color: #31312f;
   z-index: 10;
 }
@@ -61,9 +61,7 @@ body {
   font-family: sans-serif;
 }
 .fetures {
-  /* background-color: grey; */
   margin-top: 4vh;
-  /* width: 15vw; */
   display: inline-block;
   font-family: sans-serif;
 }
@@ -80,18 +78,14 @@ body {
 }
 .fetures h3 i {
   font-size: 1.5vw;
-  color: #497792;
+  color: #31312f;
   margin-right: 5px;
 }
 .blog-right-img {
   background-image: url(../img/flat-creativity-concept-illustration.png);
   background-position: center;
   background-size: cover;
-  position: absolute;
-  height: 85vh;
-  width: 45vw;
-  right: 2vw;
-  top: 15vh;
+  width: 45%;
 }
 .left-text .explore {
   margin: 3vh 0;
@@ -105,25 +99,20 @@ body {
   border: 6px solid #eba139;
   height: 10vh;
   width: 15vw;
-  right: 19vw;
+  right: 17.5vw;
   bottom: 0;
 }
-.blog-page2,
 .blog-page3 {
-  /* margin-top: 10vh; */
   border-bottom: 1.5px solid #31312f;
-  margin: 10vh 3vw 0 3vw;
+  margin: 0vh 3vw 0 3vw;
 }
-.blog-page2 h1,
 .blog-page3 h1 {
   font-size: 5vw;
   color: #31312f;
 }
-.blog-page2 h1 span,
 .blog-page3 h1 span {
-  border-bottom: 5px dotted #31312f;
+  text-decoration: 2px underline #31312f;
 }
-.blog-page2 h1 i,
 .blog-page3 h1 i {
   color: #204caf;
   transform: scaleX(-1);
@@ -135,7 +124,7 @@ body {
   justify-content: space-around;
   text-align: center;
   color: #31312f;
-  margin: 10vh 0;
+  margin: 5vh 0 5vh 0;
 }
 .art-crafts div {
   position: relative;
@@ -162,24 +151,110 @@ body {
   font-size: 2.5vw;
   width: 90%;
 }
-.blog-page3 .art-crafts div img {
+.art-crafts div img {
   height: 60vh;
   width: 25vw;
 }
-.blog-page3 button {
+.blog-page3 a button {
   padding: 1vw 2vw;
   font-size: 1.5vw;
   border-radius: 50px;
   border: none;
   background-color: #31312f;
   position: absolute;
-  bottom: 6vh;
+  bottom: 4vh;
   left: 3vw;
   cursor: pointer;
-}
-.blog-page3 button a {
   color: #f3efea;
   text-decoration: none;
 }
 @media (max-width: 600px) {
+  .hero {
+    flex-direction: column-reverse;
+    height: calc(100vh - 14vw);
+    height: inherit;
+  }
+  .left {
+    /* height: 55vw; */
+    height: inherit;
+    width: 100%;
+    padding: 0vh 3vw;
+  }
+
+  .left-text p {
+    font-size: 4vw;
+    margin-top: 0;
+  }
+  .left-text .explore {
+    font-size: 8vw;
+    margin: 2vh 0;
+  }
+  .hero-left-text h1 span::after {
+    border: 5px solid #eba139;
+    height: 3vh;
+    width: 25vw;
+    right: 32vw;
+  }
+  .blog-right-img {
+    width: 100%;
+    height: 45vh;
+  }
+  .fetures {
+    margin-top: 2vh;
+    width: 90vw;
+  }
+  .fetures h3 {
+    padding: 2vw 4vw 2vw 2vw;
+    font-size: 4vw;
+    margin-top: 1vh;
+    display: inline-block;
+  }
+  .fetures h3 i {
+    font-size: 5vw;
+    margin-right: 1vw;
+  }
+  .blog-page2,
+  .blog-page3 {
+    border-bottom: 1.5px solid #31312f;
+    margin: 2.5vh 3vw 0 3vw;
+  }
+  .blog-page2 h1,
+  .blog-page3 h1 {
+    font-size: 7vw;
+  }
+
+  .art-crafts {
+    flex-direction: column;
+    width: 100%;
+    height: inherit;
+    margin: 5vh 0 0 0;
+  }
+  .art-crafts div {
+    height: 40vh;
+    width: 100%;
+    margin-bottom: 4vh;
+  }
+  #problem-solving .art-crafts div:nth-child(3) {
+    margin-bottom: 8vh;
+  }
+  .art-crafts div img {
+    height: 38vh;
+    width: 38vh;
+  }
+  .art-crafts div h2 {
+    position: absolute;
+    bottom: 2vh;
+    left: 5%;
+    color: #31312f;
+    backdrop-filter: blur(2px);
+    padding: 2.5vh 2vw;
+    font-size: 6vw;
+    width: 90%;
+  }
+  .blog-page3 a button {
+    padding: 2.5vw;
+    font-size: 4vw;
+    bottom: 3vh;
+    left: 8vw;
+  }
 }
