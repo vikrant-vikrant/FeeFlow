@@ -5,7 +5,7 @@
     <%- include('../includes/navbar')%>
     <div class="container">
       <p><strong>Total Students <%=studentsData.length%></strong></p>
-      <div class="radio-inputs">
+      <!-- <div class="radio-inputs">
         <label class="radio">
           <input type="radio" name="radio" value="12th" />
           <span class="name">12th</span>
@@ -43,7 +43,7 @@
           <input type="radio" name="radio" value="6th" />
           <span class="name">4th</span>
         </label>
-      </div>
+      </div> -->
       <div class="students">
         <%for(let students of studentsData){%>
         <a href="/students/<%=students._id%>">
