@@ -1,50 +1,47 @@
 <% layout('layouts/boilerPlate') -%>
-<link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/students.css" />
 <body>
   <div class="main">
-    <div class="page1">
-      <%- include('../includes/navbar')%>
-      <div class="container">
-        <div class="nav-tabs">
-          <h1>Student Management System</h1>
-          <div class="quick-actions">
-            <button
-              title="Add New Student"
-              onclick="location.href='students/newStudent'"
-            >
-              <p><i class="fa-solid fa-user-plus"></i> Add Student</p>
-            </button>
-            <button>
-              <p><i class="fa-solid fa-bell"></i> Send Bulk Reminders</p>
-            </button>
-          </div>
+    <%- include('../includes/navbar')%>
+    <div class="container">
+      <div class="nav-tabs">
+        <h1>Student Management System</h1>
+        <div class="quick-actions">
+          <button
+            title="Add New Student"
+            onclick="location.href='students/newStudent'"
+          >
+            <p><i class="fa-solid fa-user-plus"></i> Add Student</p>
+          </button>
+          <button>
+            <p><i class="fa-solid fa-bell"></i> Send Bulk Reminders</p>
+          </button>
         </div>
-        <div class="students">
-          <% if (studentsData.length === 0) { %>
-          <h1>🎉 All students have paid their fees. No pending dues!</h1>
-          <% } else { %> <%for(let students of studentsData){%>
-          <a href="/students/<%=students._id%>">
-            <div class="list">
-              <img
-                src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
-                alt=""
-              />
-              <div class="details">
-                <h2
-                  class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
-                >
-                  <%= students.name %>
-                </h2>
-                <p>GRADE : <%= students.grade %></p>
-                <p class="<%= students.dueFees <= 0? 'none':'' %>">
-                  DUE FEES : <%= students.dueFees %>
-                </p>
-              </div>
+      </div>
+      <div class="students">
+        <% if (studentsData.length === 0) { %>
+        <h1>🎉 All students have paid their fees. No pending dues!</h1>
+        <% } else { %> <%for(let students of studentsData){%>
+        <a href="/students/<%=students._id%>">
+          <div class="list">
+            <img
+              src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
+              alt=""
+            />
+            <div class="details">
+              <h2
+                class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
+              >
+                <%= students.name %>
+              </h2>
+              <p>GRADE : <%= students.grade %></p>
+              <p class="<%= students.dueFees <= 0? 'none':'' %>">
+                DUE FEES : <%= students.dueFees %>
+              </p>
             </div>
-          </a>
-          <%}%> <% } %>
-        </div>
+          </div>
+        </a>
+        <%}%> <% } %>
       </div>
     </div>
   </div>

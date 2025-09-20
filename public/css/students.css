@@ -1,3 +1,28 @@
+@font-face {
+  font-family: font;
+  src: url(../MethanerseFreeTrial-0WpE4.otf);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  background-color: #f3efea;
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  /* overflow-x: hidden; */
+}
+.main {
+  position: relative;
+  /* min-height: 100vh; */
+  width: 100%;
+  background-color: #f3efea;
+  position: relative;
+}
 .container {
   width: calc(100% - 10vw);
   margin: 4vh 5vw;
@@ -62,7 +87,7 @@
 }
 .list {
   width: 20vw;
-  height: 15vh;
+  /* height: 15vh; */
   background-color: grey;
   margin: 1vw;
   padding: 1vw;
@@ -133,4 +158,40 @@
 
 .radio-inputs .radio input:checked + .name {
   background-color: #a0d8ff;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: calc(100vw - 6vw);
+    margin: 2vw 3vw;
+  }
+  .nav-tabs {
+    margin-bottom: 2vw;
+    align-items: center;
+  }
+  .nav-tabs h1 {
+    font-size: 6vw;
+    margin-bottom: 2vw;
+  }
+  .quick-actions button {
+    padding: 1vw 2vw;
+    margin: 0 1vw;
+  }
+  .list {
+    width: 45vw;
+    padding: 1.5vw;
+  }
+  .list img {
+    height: 10vw;
+    width: 10vw;
+  }
+  .list .details {
+    margin-left: 1.5vw;
+  }
+  .list .details h2 {
+    font-size: 1.2rem;
+  }
+  .radio-inputs {
+    width: 100%;
+  }
 }

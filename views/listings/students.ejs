@@ -1,74 +1,68 @@
 <% layout('layouts/boilerPlate') -%>
-<link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/students.css" />
 <body>
   <div class="main">
-    <div class="page1">
-      <%- include('../includes/navbar')%>
-      <div class="container">
-        <p><strong>Total Students <%=studentsData.length%></strong></p>
-        <div class="radio-inputs">
-          <label class="radio">
-            <input type="radio" name="radio" value="12th" />
-            <span class="name">12th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="11th" />
-            <span class="name">11th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="10th" />
-            <span class="name">10th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="9th" />
-            <span class="name">9th</span>
-          </label>
+    <%- include('../includes/navbar')%>
+    <div class="container">
+      <p><strong>Total Students <%=studentsData.length%></strong></p>
+      <div class="radio-inputs">
+        <label class="radio">
+          <input type="radio" name="radio" value="12th" />
+          <span class="name">12th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="11th" />
+          <span class="name">11th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="10th" />
+          <span class="name">10th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="9th" />
+          <span class="name">9th</span>
+        </label>
 
-          <label class="radio">
-            <input type="radio" name="radio" value="8th" />
-            <span class="name">8th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="7th" />
-            <span class="name">7th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="6th" />
-            <span class="name">6th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="6th" />
-            <span class="name">5th</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="radio" value="6th" />
-            <span class="name">4th</span>
-          </label>
-        </div>
-        <div class="students">
-          <%for(let students of studentsData){%>
-          <a href="/students/<%=students._id%>">
-            <div class="list" data-grade="<%= students.grade %>">
-              <img
-                src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
-                alt=""
-              />
-              <div class="details">
-                <h2
-                  class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
-                >
-                  <%= students.name %>
-                </h2>
-                <p>GRADE : <%= students.grade %></p>
-                <p class="<%= students.dueFees <= 0? 'none':'' %>">
-                  DUE FEES : <%= students.dueFees %>
-                </p>
-              </div>
+        <label class="radio">
+          <input type="radio" name="radio" value="8th" />
+          <span class="name">8th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="7th" />
+          <span class="name">7th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="6th" />
+          <span class="name">6th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="6th" />
+          <span class="name">5th</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="radio" value="6th" />
+          <span class="name">4th</span>
+        </label>
+      </div>
+      <div class="students">
+        <%for(let students of studentsData){%>
+        <a href="/students/<%=students._id%>">
+          <div class="list" data-grade="<%= students.grade %>">
+            <img
+              src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
+              alt=""
+            />
+            <div class="details">
+              <h2
+                class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
+              >
+                <%= students.name %>
+              </h2>
+              <p>GRADE : <%= students.grade %></p>
             </div>
-          </a>
-          <%}%>
-        </div>
+          </div>
+        </a>
+        <%}%>
       </div>
     </div>
   </div>
