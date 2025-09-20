@@ -8,11 +8,9 @@
   margin: 0;
   box-sizing: border-box;
 }
-body {
-  background-color: #f3efea;
-}
 html,
 body {
+  background-color: #f3efea;
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
@@ -20,12 +18,8 @@ body {
 }
 .main {
   position: relative;
-}
-.page1 {
-  /* min-height: 100vh; */
   width: 100%;
   background-color: #f3efea;
-  position: relative;
 }
 .hero {
   display: flex;

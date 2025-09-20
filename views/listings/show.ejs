@@ -1,129 +1,122 @@
 <% layout('layouts/boilerPlate') -%>
-<link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/show.css" />
 <body>
   <div class="main">
-    <div class="page1">
-      <%- include('../includes/navbar')%>
-      <div class="list">
-        <div class="student">
-          <div class="student-info">
-            <div class="img-name">
-              <img
-                src="https://ui-avatars.com/api/?name=<%= student.name %>&bold=true"
-                alt="<%= student.name %> Img"
-              />
-              <h1><%= student.name %></h1>
-            </div>
-            <p><strong>Grade:</strong> <%= student.grade %></p>
-            <p class="parent"><strong>Parent:</strong> <%= student.parent %></p>
-            <p>
-              <strong>Contact:</strong> <%= student.contact %>
-              <a href="https://wa.me/91<%= student.contact %>" target="_blank"
-                ><i class="fa-brands fa-whatsapp"></i>
-              </a>
-              <a href="tel:+91<%= student.contact %>">
-                <i class="fa-solid fa-phone"></i>
-              </a>
-            </p>
-            <p>
-              <strong>Phone:</strong> <%= student.phone %>
-              <a href="https://wa.me/91<%= student.phone %>" target="_blank"
-                ><i class="fa-brands fa-whatsapp"></i>
-              </a>
-              <a href="tel:+91<%= student.phone %>">
-                <i class="fa-solid fa-phone"></i>
-              </a>
-            </p>
-            <p><strong>Note:</strong> <%= student.note %></p>
-            <p><strong>Joining Date:</strong> <%= formattedDate %></p>
-            <p><strong>Fees:</strong> <%= student.fees %></p>
-            <p><strong>Due Fees:</strong> <%= student.dueFees %></p>
+    <%- include('../includes/navbar')%>
+    <div class="list">
+      <div class="student">
+        <div class="student-info">
+          <div class="img-name">
+            <img
+              src="https://ui-avatars.com/api/?name=<%= student.name %>&bold=true"
+              alt="<%= student.name %> Img"
+            />
+            <h1><%= student.name %></h1>
           </div>
-          <div class="flex">
-            <a href="/students/<%= student.id%>/edit">
-              <button class="edit-info">
-                <i class="fa-regular fa-pen-to-square"></i> Edit Details
-              </button>
+          <p><strong>Grade :</strong> <%= student.grade %></p>
+          <p class="parent"><strong>Parent :</strong> <%= student.parent %></p>
+          <p>
+            <strong>Contact :</strong> <%= student.contact %>
+            <a href="https://wa.me/91<%= student.contact %>" target="_blank"
+              ><i class="fa-brands fa-whatsapp"></i>
             </a>
-            <form
-              action="/students/<%= student.id%>?_method=DELETE"
-              method="post"
-            >
-              <button class="edit-info">
-                <i class="fa-solid fa-user-minus"></i> Remove
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class="addFess">
-          <form
-            action="/students/<%= student.id%>/addFees"
-            method="post"
-            class="form"
-          >
-            <p class="title">
-              <i class="fa-solid fa-indian-rupee-sign"></i>Fees
-            </p>
-            <p class="message">
-              <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new payment
-            </p>
-            <label>
-              <input
-                class="input"
-                type="number"
-                placeholder=""
-                required=""
-                id="amount"
-                name="amount"
-                value="<%=student.dueFees%>"
-              />
-              <span>Amount</span>
-            </label>
-            <label>
-              <input
-                type="date"
-                class="input"
-                placeholder=""
-                required=""
-                id="paidOn"
-                name="paidOn"
-                value="<%=todayDate%>"
-              />
-              <span>Paid On</span>
-            </label>
-            <label>
-              <input
-                class="input"
-                type="text"
-                placeholder=""
-                id="note"
-                name="note"
-              />
-              <span>Note</span>
-            </label>
-            <button class="submit">Add Fees</button>
-          </form>
-        </div>
-        <div class="feeHistory">
-          <h2 class="title">
-            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Payment History
-          </h2>
-          <% if(student.feesHistory && student.feesHistory.length > 0) { %>
-          <%student.feesHistory.reverse().forEach(function(fees) { %>
-          <div class="fee-entry">
-            <p>
-              <strong>₹ <%= fees.amount %></strong>
-              Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", { weekday:
-              "short", day: "2-digit", month: "short", year: "numeric" }) %>
-            </p>
-            <p>Note : <%=fees.note%></p>
-          </div>
-          <% }); %> <% } else { %>
-          <p>No payment history found.</p>
-          <% } %>
+            <a href="tel:+91<%= student.contact %>">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+          </p>
+          <p>
+            <strong>Phone :</strong> <%= student.phone %>
+            <a href="https://wa.me/91<%= student.phone %>" target="_blank"
+              ><i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="tel:+91<%= student.phone %>">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+          </p>
+          <p><strong>Note :</strong> <%= student.note %></p>
+          <p><strong>Joining Date :</strong> <%= formattedDate %></p>
+          <p><strong>Fees :</strong> <%= student.fees %></p>
+          <p><strong>Due Fees :</strong> <%= student.dueFees %></p>
         </div>
       </div>
+      <div class="addFess">
+        <form
+          action="/students/<%= student.id%>/addFees"
+          method="post"
+          class="form"
+        >
+          <p class="title"><i class="fa-solid fa-indian-rupee-sign"></i>Fees</p>
+          <p class="message">
+            <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new payment
+          </p>
+          <label>
+            <input
+              class="input"
+              type="number"
+              placeholder=""
+              required=""
+              id="amount"
+              name="amount"
+              value="<%=student.dueFees%>"
+            />
+            <span>Amount</span>
+          </label>
+          <label>
+            <input
+              type="date"
+              class="input"
+              placeholder=""
+              required=""
+              id="paidOn"
+              name="paidOn"
+              value="<%=todayDate%>"
+            />
+            <span>Paid On</span>
+          </label>
+          <label>
+            <input
+              class="input"
+              type="text"
+              placeholder=""
+              id="note"
+              name="note"
+            />
+            <span>Note</span>
+          </label>
+          <button class="submit">Add Fees</button>
+        </form>
+      </div>
+      <div class="feeHistory">
+        <h2 class="title">
+          <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Payment History
+        </h2>
+        <% if(student.feesHistory && student.feesHistory.length > 0) { %>
+        <%student.feesHistory.reverse().forEach(function(fees) { %>
+        <div class="fee-entry">
+          <p>
+            <strong>₹ <%= fees.amount %></strong>
+            Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", { weekday:
+            "short", day: "2-digit", month: "short", year: "numeric" }) %>
+          </p>
+          <p>Note : <%=fees.note%></p>
+        </div>
+        <hr />
+        <% }); %> <% } else { %>
+        <p>No payment history found.</p>
+        <% } %>
+      </div>
+    </div>
+    <div class="flex">
+      <a href="/students/<%= student.id%>/edit">
+        <button class="edit-info">
+          <i class="fa-regular fa-pen-to-square"></i> Edit Details
+        </button>
+      </a>
+      <form action="/students/<%= student.id%>?_method=DELETE" method="post">
+        <button class="edit-info">
+          <i class="fa-solid fa-user-minus"></i> Remove
+        </button>
+      </form>
     </div>
   </div>
 </body>

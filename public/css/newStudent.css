@@ -1,7 +1,22 @@
 * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
   font-family: sans-serif;
 }
-
+html,
+body {
+  background-color: #f3efea;
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+}
+.main {
+  position: relative;
+  width: 100%;
+  background-color: #f3efea;
+  position: relative;
+}
 .title {
   font-size: 28px;
   font-weight: 600;
@@ -135,11 +150,26 @@
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  height: 87vh;
   width: calc(350px + 87vh);
 }
 .container img {
   width: 87vh;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+@media (max-width: 600px) {
+  .title {
+    font-size: 7vw;
+    padding-left: 8vw;
+  }
+  .form {
+    border-radius: 20px;
+  }
+  .container {
+    margin: 2vh;
+    width: auto;
+  }
+  .container img {
+    display: none;
+  }
 }

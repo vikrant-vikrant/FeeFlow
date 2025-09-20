@@ -1,112 +1,109 @@
 <% layout('layouts/boilerPlate') -%>
-<link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/newStudent.css" />
 <body>
   <div class="main">
-    <div class="page1">
-      <%- include('../includes/navbar')%>
-      <div class="container">
-        <img src="/img/addStudent.jpg" alt="Student reading a book" />
-        <form action="/students/newStudent" method="post" class="form">
-          <p class="title">Register</p>
-          <p class="message">
-            <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new student
-          </p>
+    <%- include('../includes/navbar')%>
+    <div class="container">
+      <img src="/img/addStudent.jpg" alt="Student reading a book" />
+      <form action="/students/newStudent" method="post" class="form">
+        <p class="title">Register</p>
+        <p class="message">
+          <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new student
+        </p>
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required=""
+            id="name"
+            name="name"
+          />
+          <span>Name</span>
+        </label>
+        <div class="flex">
           <label>
             <input
               class="input"
               type="text"
               placeholder=""
               required=""
-              id="name"
-              name="name"
+              id="grade"
+              name="grade"
             />
-            <span>Name</span>
-          </label>
-          <div class="flex">
-            <label>
-              <input
-                class="input"
-                type="text"
-                placeholder=""
-                required=""
-                id="grade"
-                name="grade"
-              />
-              <span>Grade</span>
-            </label>
-            <label>
-              <input
-                class="input"
-                type="number"
-                placeholder=""
-                required=""
-                id="fees"
-                name="fees"
-              />
-              <span>Fees</span>
-            </label>
-          </div>
-          <label>
-            <input
-              type="date"
-              class="input"
-              placeholder=""
-              required=""
-              id="joiningDate"
-              name="joiningDate"
-              value="<%=todayDate%>"
-            />
-            <span>Joining Date</span>
-          </label>
-          <label>
-            <input
-              class="input"
-              type="text"
-              placeholder=""
-              required=""
-              id="parent"
-              name="parent"
-            />
-            <span>Parent</span>
+            <span>Grade</span>
           </label>
           <label>
             <input
               class="input"
               type="number"
-              required=""
-              placeholder=""
-              id="contact"
-              name="contact"
-            />
-            <span>Contact</span>
-          </label>
-          <label>
-            <input
-              class="input"
-              type="number"
-              required=""
-              placeholder=""
-              id="phone"
-              name="phone"
-            />
-            <span>Phone</span>
-          </label>
-          <label>
-            <input
-              class="input"
-              type="text"
               placeholder=""
               required=""
-              id="note"
-              name="note"
+              id="fees"
+              name="fees"
             />
-            <span>Note</span>
+            <span>Fees</span>
           </label>
+        </div>
+        <label>
+          <input
+            type="date"
+            class="input"
+            placeholder=""
+            required=""
+            id="joiningDate"
+            name="joiningDate"
+            value="<%=todayDate%>"
+          />
+          <span>Joining Date</span>
+        </label>
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required=""
+            id="parent"
+            name="parent"
+          />
+          <span>Parent</span>
+        </label>
+        <label>
+          <input
+            class="input"
+            type="number"
+            required=""
+            placeholder=""
+            id="contact"
+            name="contact"
+          />
+          <span>Contact</span>
+        </label>
+        <label>
+          <input
+            class="input"
+            type="number"
+            required=""
+            placeholder=""
+            id="phone"
+            name="phone"
+          />
+          <span>Phone</span>
+        </label>
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required=""
+            id="note"
+            name="note"
+          />
+          <span>Note</span>
+        </label>
 
-          <button class="submit">Add Student</button>
-        </form>
-      </div>
+        <button class="submit">Add Student</button>
+      </form>
     </div>
   </div>
 </body>
