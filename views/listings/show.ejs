@@ -39,16 +39,61 @@
           <p><strong>Due Fees :</strong> <%= student.dueFees %></p>
         </div>
       </div>
+      <div class="addSibling addFess">
+        <form
+          action="/students/<%= student.id%>/addSibling"
+          method="post"
+          class="form"
+        >
+          <p class="title">
+            <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add siblings
+          </p>
+          <p class="message">Add a new student</p>
+          <label>
+            <input
+              class="input"
+              type="text"
+              placeholder=""
+              required=""
+              id="name"
+              name="name"
+            />
+            <span>Name</span>
+          </label>
+          <label>
+            <input
+              type="text"
+              class="input"
+              placeholder=""
+              required=""
+              id="grade"
+              name="grade"
+            />
+            <span>Grade</span>
+          </label>
+          <label>
+            <input
+              class="input"
+              type="number"
+              placeholder=""
+              id="fees"
+              name="fees"
+            />
+            <span>Fess</span>
+          </label>
+          <button class="submit">Add student</button>
+        </form>
+      </div>
       <div class="addFess">
         <form
           action="/students/<%= student.id%>/addFees"
           method="post"
           class="form"
         >
-          <p class="title"><i class="fa-solid fa-indian-rupee-sign"></i>Fees</p>
-          <p class="message">
-            <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Add a new payment
+          <p class="title">
+            <i class="fa-solid fa-indian-rupee-sign"></i>Add Fees
           </p>
+          <p class="message">Add a new payment</p>
           <label>
             <input
               class="input"

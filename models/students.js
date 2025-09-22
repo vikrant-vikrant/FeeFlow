@@ -9,6 +9,7 @@ const studentSchema = new mongoose.Schema({
   note: { type: String },
   joiningDate: { type: Date, require: true },
   fees: { type: Number },
+  // totalFees:(we don't need to store total fees i will show it on show.ejs),
   dueFees: { type: Number, default: 0 },
   feesHistory: [
     {

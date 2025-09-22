@@ -1,3 +1,7 @@
+@font-face {
+  font-family: font;
+  src: url(../MethanerseFreeTrial-0WpE4.otf);
+}
 nav {
   display: flex;
   align-items: center;
@@ -11,7 +15,6 @@ nav {
   font-family: sans-serif;
 }
 nav p {
-  font-family: sans-serif;
   font-weight: 900;
   font-size: 1.5vw;
   display: flex;
