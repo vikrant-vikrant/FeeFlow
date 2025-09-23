@@ -40,8 +40,12 @@ async function addMonthlyDueFees() {
       const today = new Date();
       const joinDay = student.joiningDate.getDate(); // e.g., 15
       // if today is student's due day
+      let totalFees = 0;
+      for (let i = 0; i <= student.student.length - 1; i++) {
+        totalFees += student.student[i].fees;
+      }
       if (today.getDate() === joinDay) {
-        student.dueFees += student.fees; // add monthly fee
+        student.dueFees += totalFees; // add monthly fee
         await student.save();
         console.log(`Added due fee for ${student.name}`);
       }

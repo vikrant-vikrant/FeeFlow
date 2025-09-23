@@ -23,25 +23,31 @@ body {
 .student-info {
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
-  width: 28vw;
+  /* width: 28vw; */
   padding: 3vh;
-  border-radius: 30px;
+  border-radius: 5vh;
+  margin-right: 3vw;
 }
 .student-info .img-name {
   display: flex;
-  align-items: center;
-  padding-bottom: 3vh;
+  padding-bottom: 1.5vh;
 }
 .student-info .img-name h1 {
   margin-left: 3vh;
-  font-size: 6vh;
+  font-size: 4vh;
   text-transform: capitalize;
+  line-height: 5vh;
 }
 .student-info img {
-  border-radius: 20px;
+  border-radius: 2vh;
+  height: 8vh;
+}
+.student-info .grade-fees p {
+  margin-left: 3vh;
+  font-size: 2.5vh;
 }
 .student-info p {
-  margin: 1.5vh;
+  margin: 0 1.5vh 1.5vh 1.5vh;
   font-size: 3vh;
 }
 .parent {
@@ -63,15 +69,15 @@ body {
   margin-left: 4vw;
 }
 .addFess {
-  width: 28vw;
+  /* width: 28vw; */
   border-radius: 10px;
 }
 .feeHistory {
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
-  width: 28vw;
-  padding: 4.5vh;
-  border-radius: 30px;
+  /* width: 28vw; */
+  padding: 3vh;
+  border-radius: 5vh;
   height: 65vh;
   overflow-y: scroll;
 }
@@ -86,7 +92,7 @@ body {
 }
 
 .title {
-  font-size: 5vh;
+  font-size: 4vh;
   font-weight: 600;
   letter-spacing: -1px;
   position: relative;
@@ -98,9 +104,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 87vh;
-  padding: 4.5vh;
-  border-radius: 30px;
+  /* max-width: 87vh; */
+  padding: 3vh;
+  border-radius: 5vh;
   position: relative;
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
@@ -161,7 +167,7 @@ body {
   border: none;
   outline: none;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 2vh;
   color: #fff;
   font-size: 3vh;
   font-weight: bold;
@@ -173,9 +179,6 @@ body {
   background-color: #00bfff96;
 }
 
-.student {
-  margin-right: 3vw;
-}
 .addFess {
   margin-right: 3vw;
 }
@@ -187,6 +190,10 @@ body {
   .student-info {
     width: 100%;
     padding: 3vw;
+    border-radius: 20px;
+  }
+  .student-info .grade-fees p {
+    margin-left: 3vw;
   }
   .student-info .img-name {
     padding-bottom: 2vw;
@@ -209,13 +216,15 @@ body {
     margin-top: 0vh;
   }
   .addFess {
-    width: 28vw;
     width: 100%;
+    border-radius: 20px;
+    margin: 3vw 0;
   }
   .feeHistory {
     width: 100%;
     padding: 3vw;
     height: 40vh;
+    border-radius: 20px;
   }
   .feeHistory h2 {
     margin-bottom: 0vw;
@@ -231,6 +240,7 @@ body {
   }
   .form {
     padding: 3vw;
+    border-radius: 20px;
   }
   .message {
     margin-left: 1.5vw;
@@ -241,12 +251,6 @@ body {
   }
   .submit {
     font-size: 5vw;
-  }
-  .student {
-    margin-right: 0vw;
-  }
-  .addFess {
-    margin: 3vw 0;
   }
   .flex {
     margin: 3vw;

@@ -15,4 +15,5 @@ router
   .get(studentControllers.editStudent)
   .put(studentControllers.saveEditStudent);
 router.post("/:id/addFees", studentControllers.addFees);
+router.post("/:id/addSibling", studentControllers.addSibling);
 module.exports = router;

@@ -4,7 +4,13 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports.students = catchAsync(async (req, res) => {
   const students = await Student.find({});
-  res.render("listings/students", { studentsData: students });
+  const allStudents = students.flatMap((p) =>
+    p.student.map((stu) => ({
+      ...stu.toObject(),
+      parentId: p._id,
+    }))
+  );
+  res.render("listings/students", { studentsData: allStudents });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -25,7 +31,11 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
     req.flash("error", "Student not found");
     return res.redirect("/students");
   }
-  res.render("listings/show", { student, formattedDate, todayDate });
+  let totalFees = 0;
+  for (let i = 0; i <= student.student.length - 1; i++) {
+    totalFees += student.student[i].fees;
+  }
+  res.render("listings/show", { student, formattedDate, todayDate, totalFees });
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -74,27 +84,15 @@ module.exports.newStudentForm = (req, res) => {
   res.render("listings/newStudent", { todayDate });
 };
 module.exports.addNewStudent = catchAsync(async (req, res) => {
-  const {
-    name,
-    grade,
-    status,
-    parent,
-    contact,
-    phone,
-    note,
-    joiningDate,
-    fees,
-  } = req.body;
+  const { name, grade, parent, contact, phone, note, joiningDate, fees } =
+    req.body;
   const newStudent = new Student({
-    name,
-    grade,
-    status,
+    student: [{ name, grade, fees }],
     parent,
     contact,
     phone,
     note,
     joiningDate,
-    fees,
   });
   await newStudent.save();
   console.log("Student saved");
@@ -107,6 +105,22 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
     throw new ExpressError(404, "Student not found");
   }
   res.redirect("/students");
+});
+module.exports.addSibling = catchAsync(async (req, res) => {
+  let { id } = req.params;
+  const { name, grade, fees } = req.body;
+  const student = await Student.findById(id);
+  if (!student) {
+    return res.status(404).send("Student not found");
+  }
+  student.student.push({
+    name,
+    grade,
+    fees,
+  });
+  await student.save();
+  console.log("Sibling added successfully");
+  res.redirect(`/students/${id}`);
 });
 module.exports.addFees = catchAsync(async (req, res) => {
   let { id } = req.params;
