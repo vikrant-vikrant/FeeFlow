@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+// img url and totalFees
 const studentSchema = new mongoose.Schema({
   student: [
     {

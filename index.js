@@ -47,7 +47,7 @@ async function addMonthlyDueFees() {
       if (today.getDate() === joinDay) {
         student.dueFees += totalFees; // add monthly fee
         await student.save();
-        console.log(`Added due fee for ${student.name}`);
+        console.log(`Added due fee `);
       }
     }
   } catch (err) {
@@ -58,6 +58,8 @@ const cron = require("node-cron");
 const { dashboard } = require("./controllers/students.js");
 // Run every day at midnight
 cron.schedule("0 0 * * *", () => {
+  //for every minute(only for testing)
+  // cron.schedule("* * * * *", () => {
   addMonthlyDueFees();
 });
 

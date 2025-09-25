@@ -142,5 +142,12 @@ module.exports.addFees = catchAsync(async (req, res) => {
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({ dueFees: { $gt: 0 } });
-  res.render("listings/dashboard", { studentsData: students });
+  const allStudents = students.flatMap((p) =>
+    p.student.map((stu) => ({
+      ...stu.toObject(),
+      parentId: p._id,
+      dueFees:p.dueFees,
+    }))
+  );
+  res.render("listings/dashboard", { studentsData: allStudents });
 });

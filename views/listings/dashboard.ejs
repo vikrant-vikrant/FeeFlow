@@ -22,22 +22,17 @@
         <% if (studentsData.length === 0) { %>
         <h1>🎉 All students have paid their fees. No pending dues!</h1>
         <% } else { %> <%for(let students of studentsData){%>
-        <a href="/students/<%=students._id%>">
+        <a href="/students/<%=students.parentId%>">
           <div class="list">
             <img
               src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
               alt=""
             />
             <div class="details">
-              <h2
-                class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
-              >
-                <%= students.name %>
-              </h2>
+              <h2><%= students.name %></h2>
               <p>GRADE : <%= students.grade %></p>
-              <p class="<%= students.dueFees <= 0? 'none':'' %>">
-                DUE FEES : <%= students.dueFees %>
-              </p>
+              <!-- if (dueFees > totalFees * 3 == red) else (dueFees > totalFees * 2 == yellow)   -->
+              <p>DUE FEES : <%= students.dueFees %></p>
             </div>
           </div>
         </a>

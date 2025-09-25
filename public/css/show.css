@@ -23,7 +23,7 @@ body {
 .student-info {
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
-  /* width: 28vw; */
+  width: 28vw;
   padding: 3vh;
   border-radius: 5vh;
   margin-right: 3vw;
