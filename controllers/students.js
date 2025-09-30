@@ -58,6 +58,7 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     phone: phone,
     note: note,
     joiningDate: joiningDate,
+    dueFees: dueFees,
     fees: fees,
   });
   const student = await Student.findById(id);
@@ -85,6 +86,7 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
     note,
     joiningDate,
     fees,
+    dueFees,
   } = req.body;
   const newStudent = new Student({
     name,
@@ -96,6 +98,7 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
     note,
     joiningDate,
     fees,
+    dueFees,
   });
   await newStudent.save();
   console.log("Student saved");
