@@ -1,3 +1,7 @@
+@font-face {
+  font-family: font;
+  src: url(../MethanerseFreeTrial-0WpE4.otf);
+}
 nav {
   display: flex;
   align-items: center;

@@ -4,6 +4,20 @@
   <div class="main">
     <%- include('../includes/navbar')%>
     <div class="container">
+      <div class="nav-tabs">
+        <h1>Student Management System</h1>
+        <div class="quick-actions">
+          <button
+            title="Add New Student"
+            onclick="location.href='students/newStudent'"
+          >
+            <p><i class="fa-solid fa-user-plus"></i> Add Student</p>
+          </button>
+          <!-- <button>
+            <p><i class="fa-solid fa-bell"></i> Send Bulk Reminders</p>
+          </button> -->
+        </div>
+      </div>
       <p><strong>Total Students <%=studentsData.length%></strong></p>
       <!-- <div class="radio-inputs">
         <label class="radio">
