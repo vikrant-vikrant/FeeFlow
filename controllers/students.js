@@ -67,7 +67,8 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     month: "short", // Aug
     year: "numeric", // 2025
   });
-  res.render("listings/show", { student, formattedDate });
+  const todayDate = new Date().toISOString().substr(0, 10);
+  res.render("listings/show", { student, formattedDate, todayDate });
 });
 module.exports.newStudentForm = (req, res) => {
   const todayDate = new Date().toISOString().substr(0, 10);
