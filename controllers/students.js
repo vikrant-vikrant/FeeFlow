@@ -48,7 +48,7 @@ module.exports.editStudent = catchAsync(async (req, res, next) => {
 });
 module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { name, grade, parent, contact, phone, note, joiningDate, fees } =
+  const { name, grade, parent, contact, phone, note, joiningDate, fees, dueFees } =
     req.body;
   let updatedStudent = await Student.findByIdAndUpdate(id, {
     name: name,
