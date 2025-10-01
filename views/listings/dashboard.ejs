@@ -30,7 +30,7 @@
             />
             <div class="details">
               <h2
-                class="<%= students.dueFees === 0 ? 'normal' : (students.dueFees > students.fees * 2 ? 'red' : 'yellow') %>"
+                class="<%= students.dueFees > students.fees * 3 ? 'red' : 'normal' %>"
               >
                 <%= students.name %>
               </h2>
