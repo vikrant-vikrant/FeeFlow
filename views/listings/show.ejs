@@ -31,7 +31,11 @@
           </p>
           <p class="call">
             <strong>Phone :</strong> <%= student.phone %>
-            <a href="https://wa.me/91<%= student.phone %>" target="_blank"
+            <a
+              href="<%= student.dueFees >= student.fees 
+          ? `https://wa.me/91${student.phone}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.` 
+          : `https://wa.me/91${student.phone}` %>"
+              target="_blank"
               ><i class="fa-brands fa-whatsapp"></i></a
             >&nbsp;
             <a href="tel:+91<%= student.phone %>">
