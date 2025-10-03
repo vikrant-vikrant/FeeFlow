@@ -17,8 +17,13 @@
           <p class="parent"><strong>Parent :</strong> <%= student.parent %></p>
           <p class="call">
             <strong>Contact :</strong> <%= student.contact %>
-            <a href="https://wa.me/91<%= student.contact %>" target="_blank"
-              ><i class="fa-brands fa-whatsapp"></i
+            <a
+              href="<%= student.dueFees >= student.fees 
+          ? `https://wa.me/91${student.contact}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.` 
+          : `https://wa.me/91${student.contact}` %>"
+              target="_blank"
+            >
+              <i class="fa-brands fa-whatsapp"></i
             ></a>
             <a href="tel:+91<%= student.contact %>">
               <i class="fa-solid fa-phone"></i
