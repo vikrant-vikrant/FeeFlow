@@ -54,7 +54,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 87vh;
+  /* max-width: 87vh; */
+  width: 55vh;
   padding: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -80,7 +81,8 @@ body {
   position: relative;
 }
 
-.form label .input {
+.form label .input,
+.flex label select {
   background-color: #333;
   color: #fff;
   width: 100%;
@@ -89,9 +91,14 @@ body {
   border: 1px solid rgba(105, 105, 105, 0.397);
   border-radius: 10px;
 }
+.flex label select {
+  width: 95px;
+  font-size: 1.2em;
+  padding: 16px 05px 05px 10px;
+}
 
 .form label .input + span {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
   position: absolute;
   left: 10px;
   top: 0px;
@@ -102,14 +109,14 @@ body {
 
 .form label .input:placeholder-shown + span {
   top: 12.5px;
-  font-size: 0.9em;
+  font-size: 1.2rem;
 }
 
 .form label .input:focus + span,
 .form label .input:valid + span {
   color: #00bfff;
   top: 0px;
-  font-size: 0.7em;
+  font-size: 1em;
   font-weight: 600;
 }
 
@@ -148,12 +155,11 @@ body {
 }
 .container {
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: calc(350px + 87vh);
+  width: calc(55vh + 65vh);
+  margin: 5vh auto;
 }
 .container img {
-  width: 87vh;
+  width: 65vh;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -166,7 +172,7 @@ body {
     border-radius: 20px;
   }
   .container {
-    margin: 2vh;
+    margin: 5vh 2vh;
     width: auto;
   }
   .container img {

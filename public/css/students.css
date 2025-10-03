@@ -19,8 +19,8 @@ body {
   position: relative;
 }
 .container {
-  width: calc(100% - 10vw);
-  margin: 4vh 5vw;
+  width: calc(100% - 6vw);
+  margin: 4vh 3vw;
   font-family: sans-serif;
 }
 .nav-tabs {
@@ -32,17 +32,35 @@ body {
   flex-wrap: wrap;
   align-items: center;
 }
+.quick-actions {
+  display: flex;
+}
+.quick-actions label {
+  padding: 1vw 2vw;
+  border: 1px solid #31312f;
+  border-radius: 2rem;
+}
+.quick-actions label input {
+  border: none;
+  background-color: #f3efea;
+  font-size: 16.8px;
+}
+.quick-actions label input:focus {
+  outline: none;
+}
 .quick-actions button {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
   background-color: #f3efea;
-  border-radius: 2rem;
+  border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
-  margin: 0 1vh;
+  margin: 0 0 0 1vw;
   position: relative;
   transition: all ease 0.3s;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 .quick-actions button:hover {
   transform: translateY(-3px);
@@ -53,6 +71,14 @@ body {
   color: #31312f;
   z-index: 9;
   position: relative;
+}
+.quick-actions button i {
+  z-index: 9;
+}
+.quick-actions button i,
+.quick-actions label i {
+  font-size: 16px;
+  margin-right: 0.5vw;
 }
 .quick-actions button::before {
   content: "";
@@ -69,7 +95,8 @@ body {
   bottom: 0;
   border-radius: 0;
 }
-.quick-actions button:hover p {
+.quick-actions button:hover p,
+.quick-actions button:hover i {
   color: #f3eaea;
 }
 .students {
@@ -108,11 +135,11 @@ body {
 }
 
 .yellow {
-  color: #ff9800; /* Orange/Yellow  - pending fee less than 2 months*/
+  color: orange; /* Orange/Yellow  - pending fee less than 2 months*/
 }
 
 .red {
-  color: #bd3026; /* Red - pending fee more than 2 months*/
+  color: orangered; /* Red - pending fee more than 2 months*/
 }
 .none {
   display: none;
@@ -168,9 +195,17 @@ body {
     font-size: 6vw;
     margin-bottom: 2vw;
   }
+  .quick-actions button i,
+  .quick-actions label i,
+  .quick-actions label input {
+    font-size: 4vw;
+  }
+  .quick-actions button p {
+    display: none;
+  }
   .quick-actions button {
     padding: 1vw 2vw;
-    margin: 0 1vw;
+    margin: 0 2vw;
   }
   .list {
     width: 45vw;
