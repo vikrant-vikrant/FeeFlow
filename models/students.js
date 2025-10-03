@@ -19,6 +19,7 @@ const studentSchema = new mongoose.Schema({
       paidDate: { type: Date, default: Date.now },
     },
   ],
+  lastDueAdded: { type: Date, default: null },
   //sibling info, fees payment history(amount paid & date)
 });
 

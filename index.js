@@ -39,11 +39,22 @@ async function addMonthlyDueFees() {
 
       const today = new Date();
       const joinDay = student.joiningDate.getDate(); // e.g., 15
-      // if today is student's due day
+      // check if today is due day
       if (today.getDate() === joinDay) {
-        student.dueFees += student.fees; // add monthly fee
-        await student.save();
-        console.log(`Added due fee for ${student.name}`);
+        const lastDue = student.lastDueAdded;
+        // prevent duplicate due fees in the same month
+        if (
+          !lastDue ||
+          lastDue.getMonth() !== today.getMonth() ||
+          lastDue.getFullYear() !== today.getFullYear()
+        ) {
+          student.dueFees += student.fees; // add fee
+          student.lastDueAdded = today; // update tracker
+          await student.save();
+          console.log(`✅ Added due fee for ${student.name}`);
+        } else {
+          console.log(`⚠️ Already added fees for ${student.name} this month`);
+        }
       }
     }
   } catch (err) {
