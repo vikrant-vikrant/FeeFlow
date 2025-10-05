@@ -25,16 +25,13 @@
           </label>
           <div class="flex">
             <label>
-              <input
-                class="input"
-                type="text"
-                placeholder=""
-                required=""
-                id="grade"
-                name="grade"
-                value="<%= student.grade %>"
-              />
-              <span>Grade</span>
+              <% const grades = ["0","1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th"]; %>
+              <select name="grade" id="grade" required>
+                <option disabled>Grade</option>
+                <% grades.forEach(g => { %>
+                <option value="<%= g %>" <%= student.grade === g ? "selected" : "" %>><%= g %></option>
+                <% }) %>
+              </select>
             </label>
             <label>
               <input
@@ -124,3 +121,4 @@
     </div>
   </div>
 </body>
+<script src="/js/newStudent.js"></script>
