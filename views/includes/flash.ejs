@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/css/flash.css" />
+<% if(success && success.length){ %>
+<div class="notifications">
+  <div class="toast success">
+    <i class="fa-solid fa-circle-check"></i>
+    <div class="content">
+      <div class="title"><%= success %></div>
+    </div>
+    <i class="fa-solid fa-xmark" onclick="this.parentElement.remove()"></i>
+  </div>
+</div>
+<% } %> <% if(error && error.length){ %>
+<div class="notifications">
+  <div class="toast error">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <div class="content">
+      <div class="title"><%= error %></div>
+    </div>
+    <i class="fa-solid fa-xmark" onclick="this.parentElement.remove()"></i>
+  </div>
+</div>
+<% } %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toast = document.querySelector(".toast");
+    if (toast) {
+      // Auto remove after 3 sec
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+  });
+</script>

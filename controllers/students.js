@@ -1,79 +1,79 @@
-const mongoose = require("mongoose");
 const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
 
+function formatDate(date, type = "short") {
+  if (!date) return "";
+  if (type === "input") return date.toISOString().split("T")[0];
+  if (type === "today") return new Date().toISOString().substr(0, 10);
+  return date.toLocaleDateString("en-GB", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
 module.exports.students = catchAsync(async (req, res) => {
   const students = await Student.find({});
   res.render("listings/students", { studentsData: students });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  // validate id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    req.flash("error", "Invalid student id");
-    return res.redirect("/students");
-  }
   const student = await Student.findById(id);
-  const formattedDate = student.joiningDate.toLocaleDateString("en-GB", {
-    weekday: "short", // Fri
-    day: "2-digit", // 15
-    month: "short", // Aug
-    year: "numeric", // 2025
-  });
-  const todayDate = new Date().toISOString().substr(0, 10);
-  if (!student) {
-    req.flash("error", "Student not found");
-    return res.redirect("/students");
-  }
-  res.render("listings/show", { student, formattedDate, todayDate });
+  if (!student) throw new ExpressError(404, "Student not found");
+  const formattedDate = formatDate(student.joiningDate);
+  res.render("listings/show", { student, formattedDate });
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  // validate id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    req.flash("error", "Invalid student id");
-    return res.redirect("/students");
-  }
   const student = await Student.findById(id);
-  if (!student) {
-    req.flash("error", "Student not found");
-    return res.redirect("/students");
-  }
-
-  // Convert to YYYY-MM-DD for input type="date"
-  const formattedDate = student.joiningDate
-    ? student.joiningDate.toISOString().split("T")[0]
-    : "";
+  if (!student) throw new ExpressError(404, "Student not found");
+  const formattedDate = formatDate(student.joiningDate, "input");
   res.render("listings/edit", { student, formattedDate }); // create this view
 });
 module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { name, grade, parent, contact, phone, note, joiningDate, fees, dueFees } =
-    req.body;
-  let updatedStudent = await Student.findByIdAndUpdate(id, {
-    name: name,
-    grade: grade,
-    parent: parent,
-    contact: contact,
-    phone: phone,
-    note: note,
-    joiningDate: joiningDate,
-    dueFees: dueFees,
-    fees: fees,
-  });
+  const {
+    name,
+    grade,
+    parent,
+    contact,
+    phone,
+    note,
+    joiningDate,
+    fees,
+    dueFees,
+  } = req.body;
   const student = await Student.findById(id);
-  const formattedDate = student.joiningDate.toLocaleDateString("en-GB", {
-    weekday: "short", // Fri
-    day: "2-digit", // 15
-    month: "short", // Aug
-    year: "numeric", // 2025
+  if (!student) throw new ExpressError(404, "Student not found");
+  let updatedStudent = await Student.findByIdAndUpdate(
+    id,
+    {
+      name,
+      grade,
+      parent,
+      contact,
+      phone,
+      note,
+      joiningDate,
+      dueFees,
+      fees,
+    },
+    { new: true, runValidators: true }
+  );
+  if (!updatedStudent) {
+    req.flash("error", "Student not found");
+    return res.redirect("/students");
+  }
+  const formattedDate = formatDate(student.joiningDate);
+  res.render("listings/show", {
+    student,
+    formattedDate,
+    // todayDate,
+    success: "Details updated.",
   });
-  const todayDate = new Date().toISOString().substr(0, 10);
-  res.render("listings/show", { student, formattedDate, todayDate });
 });
 module.exports.newStudentForm = (req, res) => {
-  const todayDate = new Date().toISOString().substr(0, 10);
-  res.render("listings/newStudent", { todayDate });
+  res.render("listings/newStudent");
 };
 module.exports.addNewStudent = catchAsync(async (req, res) => {
   const {
@@ -101,7 +101,7 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
     dueFees,
   });
   await newStudent.save();
-  console.log("Student saved");
+  req.flash("success", `New student added`);
   res.redirect("/students");
 });
 module.exports.deleteStudent = catchAsync(async (req, res) => {
@@ -110,6 +110,7 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
   if (!removeStudent) {
     throw new ExpressError(404, "Student not found");
   }
+  req.flash("success", `Student removed.`);
   res.redirect("/students");
 });
 module.exports.addFees = catchAsync(async (req, res) => {
@@ -119,7 +120,6 @@ module.exports.addFees = catchAsync(async (req, res) => {
   if (!student) {
     return res.status(404).send("Student not found");
   }
-  // Add fees entry to the student's feesHistory
   student.feesHistory.push({
     note,
     amount,
@@ -127,7 +127,7 @@ module.exports.addFees = catchAsync(async (req, res) => {
   });
   student.dueFees -= amount;
   await student.save();
-  console.log("Fees added successfully");
+  req.flash("success", `Fees added for ${student.name}. `);
   res.redirect(`/students/${id}`);
 });
 module.exports.dashboard = catchAsync(async (req, res) => {

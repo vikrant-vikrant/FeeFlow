@@ -9,7 +9,25 @@ const students = require("./routes/students.js");
 const Student = require("./models/students");
 const mehtodOverride = require("method-override");
 app.use(mehtodOverride("_method"));
+const setTodayDate = require("./middleware/setTodayDate");
+app.use(setTodayDate);
 
+const flash = require("connect-flash");
+const session = require("express-session");
+app.use(
+  session({
+    secret: "vikrant",
+    saveUninitializ: true,
+    resave: true,
+  })
+);
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  next();
+});
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -18,8 +36,8 @@ const ejsMate = require("ejs-mate");
 app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
-const MONGO_URL = process.env.ATLASDB_URL;
-// const MONGO_URL = "mongodb://127.0.0.1:27017/DynamicVision";
+// const MONGO_URL = process.env.ATLASDB_URL;
+const MONGO_URL = "mongodb://127.0.0.1:27017/DynamicVision";
 main()
   .then(() => {
     console.log("Connected to DB");
