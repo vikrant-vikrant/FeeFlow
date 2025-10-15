@@ -34,11 +34,6 @@ async function connectDB() {
   }
 }
 connectDB();
-const setTodayDate = require("./middleware/setTodayDate");
-const cronJobs = require("./services/cronJobs");
-
-const flash = require("connect-flash");
-const session = require("express-session");
 
 /* ---------- View engine & static ---------- */
 app.engine("ejs", ejsMate);
