@@ -10,6 +10,7 @@ const Student = require("./models/students");
 const mehtodOverride = require("method-override");
 app.use(mehtodOverride("_method"));
 const setTodayDate = require("./middleware/setTodayDate");
+const cronJobs = require("./services/cronJobs");
 app.use(setTodayDate);
 
 const flash = require("connect-flash");
@@ -48,44 +49,8 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
-async function addMonthlyDueFees() {
-  try {
-    const students = await Student.find();
-
-    for (let student of students) {
-      if (!student.joiningDate) continue;
-
-      const today = new Date();
-      const joinDay = student.joiningDate.getDate(); // e.g., 15
-      // check if today is due day
-      if (today.getDate() === joinDay) {
-        const lastDue = student.lastDueAdded;
-        // prevent duplicate due fees in the same month
-        if (
-          !lastDue ||
-          lastDue.getMonth() !== today.getMonth() ||
-          lastDue.getFullYear() !== today.getFullYear()
-        ) {
-          student.dueFees += student.fees; // add fee
-          student.lastDueAdded = today; // update tracker
-          await student.save();
-          console.log(`✅ Added due fee for ${student.name}`);
-        } else {
-          console.log(`⚠️ Already added fees for ${student.name} this month`);
-        }
-      }
-    }
-  } catch (err) {
-    console.error("Error in auto due fees:", err);
-  }
-}
-const cron = require("node-cron");
+cronJobs.startAll();
 const { dashboard } = require("./controllers/students.js");
-// Run every day at midnight
-cron.schedule("0 0 * * *", () => {
-  addMonthlyDueFees();
-});
-
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
