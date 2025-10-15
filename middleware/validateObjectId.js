@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
-
-function validateObjectId(req, res, next) {
+module.exports = (req, res, next) => {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    req.flash("error", "Invalid student id");
+  if (id && !mongoose.Types.ObjectId.isValid(id)) {
+    req.flash("error", "Invalid ID");
     return res.redirect("/students");
   }
   next();
-}
-
-module.exports = validateObjectId;
+};
