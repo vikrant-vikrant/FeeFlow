@@ -1,9 +1,7 @@
-// services/cronJobs.js
 const cron = require("node-cron");
 const Student = require("../models/students");
 
 async function addMonthlyDueFees() {
-  // copy your existing logic here (check lastDueAdded etc.)
   try {
     const students = await Student.find();
     const today = new Date();
@@ -21,6 +19,8 @@ async function addMonthlyDueFees() {
         s.lastDueAdded = today;
         await s.save();
         console.log(`Added due for ${s.name}`);
+      } else {
+        console.log(`⚠️ Already added fees for ${s.name} this month`);
       }
     }
   } catch (err) {
