@@ -6,6 +6,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const flash = require("connect-flash");
 const ejsMate = require("ejs-mate");
@@ -47,6 +48,30 @@ app.use(
     resave: true,
   })
 );
+const store = MongoStore.create({
+  mongoUrl: MONGO_URL,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+store.on("error", (err) => {
+  console.log("ERROR in Mongo Session Store:", err);
+});
+const sessionOptions = {
+  store,
+  name: "session",
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+  },
+};
+
+app.use(session(sessionOptions));
 app.use(flash());
 
 app.use(setTodayDate);
