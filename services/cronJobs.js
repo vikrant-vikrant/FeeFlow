@@ -31,7 +31,7 @@ async function addMonthlyDueFees() {
 function startAll() {
   // run every day at 00:10
   cron.schedule(
-    "0 0 * * *",
+    "10 0 * * *",
     () => {
       console.log("Running daily auto-due check");
       addMonthlyDueFees();
