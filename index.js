@@ -15,9 +15,9 @@ const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
 const cronJobs = require("./services/cronJobs");
 const { dashboard } = require("./controllers/students.js");
-// const mehtodOverride = require("method-override");
-// app.use(mehtodOverride("_method"));
+const mehtodOverride = require("method-override");
 const app = express();
+app.use(mehtodOverride("_method"));
 
 /* ---------- Config ---------- */
 const PORT = process.env.PORT || 8000;

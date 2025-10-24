@@ -106,11 +106,12 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
 });
 module.exports.deleteStudent = catchAsync(async (req, res) => {
   let { id } = req.params;
-  let removeStudent = await Student.findByIdAndDelete(id);
-  if (!removeStudent) {
-    throw new ExpressError(404, "Student not found");
+  let removedStudent = await Student.findByIdAndDelete(id);
+  if (!removedStudent) {
+    req.flash("error", "Student not found or already deleted.");
+    return res.redirect("/students");
   }
-  req.flash("success", `Student removed.`);
+  req.flash("success", `${removedStudent.name} has been removed.`);
   res.redirect("/students");
 });
 module.exports.addFees = catchAsync(async (req, res) => {
