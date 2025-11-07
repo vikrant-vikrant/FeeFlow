@@ -7,13 +7,11 @@ async function addMonthlyDueFees() {
     const today = new Date();
     for (let s of students) {
       if (!s.joiningDate) continue;
-      const joinDay = s.joiningDate.getDate();
-      if (today.getDate() !== joinDay) continue;
+      if (today.getDate() !== s.joiningDate.getDate()) continue;
       const last = s.lastDueAdded;
       if (
         !last ||
-        last.getMonth() !== today.getMonth() ||
-        last.getFullYear() !== today.getFullYear()
+        last.getMonth() !== today.getMonth()
       ) {
         s.dueFees = (s.dueFees || 0) + (s.fees || 0);
         s.lastDueAdded = today;
