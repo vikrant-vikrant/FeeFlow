@@ -13,7 +13,6 @@ const ejsMate = require("ejs-mate");
 
 const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
-const cronJobs = require("./services/cronJobs");
 const { dashboard } = require("./controllers/students.js");
 const mehtodOverride = require("method-override");
 const app = express();
@@ -84,7 +83,6 @@ app.get("/blog", (req, res) => {
 });
 app.use("/dashboard", dashboard);
 app.use("/students", students);
-cronJobs.startAll();
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
