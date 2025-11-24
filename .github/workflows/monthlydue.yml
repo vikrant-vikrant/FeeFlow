@@ -2,7 +2,7 @@ name: Monthly Due Update
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "30 18 * * *"
   workflow_dispatch: # Allows manual run
 
 jobs:
@@ -24,4 +24,4 @@ jobs:
       - name: Run Monthly Due Script
         env:
           MONGO_URL: ${{ secrets.MONGO_URL }}
-        run: node services/cornJobs.js
+        run: node services/cronJobs.js
