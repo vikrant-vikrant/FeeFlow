@@ -1,14 +1,24 @@
-const cron = require("node-cron");
+require("dotenv").config({ path: require("path").join(__dirname, "../.env") });
+const mongoose = require("mongoose");
 const Student = require("../models/students");
 
+const MONGO_URL = process.env.MONGO_URL;
+async function connectDB() {
+  try {
+    await mongoose.connect(MONGO_URL);
+    console.log("✅ Connected to MongoDB");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  }
+}
 async function addMonthlyDueFees() {
   try {
     const students = await Student.find();
     const today = new Date();
     for (let s of students) {
       if (!s.joiningDate) continue;
-      const joinDay = s.joiningDate.getDate();
-      if (today.getDate() !== joinDay) continue;
+      if (today.getDate() !== s.joiningDate.getDate()) continue;
       const last = s.lastDueAdded;
       if (
         !last ||
@@ -18,28 +28,22 @@ async function addMonthlyDueFees() {
         s.dueFees = (s.dueFees || 0) + (s.fees || 0);
         s.lastDueAdded = today;
         await s.save();
-        console.log(`Added due for ${s.name}`);
+        console.log(`✅ Added due for ${s.name}`);
       } else {
         console.log(`⚠️ Already added fees for ${s.name} this month`);
       }
     }
+    console.log("🎉 Monthly due update completed!");
   } catch (err) {
     console.error("Auto-due job error:", err);
+  } finally {
+    await mongoose.disconnect();
+    console.log("🔌 MongoDB disconnected");
+    process.exit(0);
   }
 }
-
-function startAll() {
-  // run every day at 00:10
-  cron.schedule(
-    "0 0 * * *",
-    () => {
-      console.log("Running daily auto-due check");
-      addMonthlyDueFees();
-    },
-    { timezone: "Asia/Kolkata" }
-  );
-
-  // put other cron jobs here
+async function main() {
+  await connectDB();
+  await addMonthlyDueFees();
 }
-
-module.exports = { startAll, addMonthlyDueFees };
+main();

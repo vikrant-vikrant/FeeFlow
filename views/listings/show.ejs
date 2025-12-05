@@ -121,7 +121,11 @@
           <i class="fa-regular fa-pen-to-square"></i> Edit Details
         </button>
       </a>
-      <form action="/students/<%= student.id%>?_method=DELETE" method="post">
+      <form
+        action="/students/<%=student.id%>?_method=delete"
+        method="post"
+        onsubmit="return confirm('Are you sure you want to delete this student?');"
+      >
         <button class="edit-info">
           <i class="fa-solid fa-user-minus"></i> Remove
         </button>

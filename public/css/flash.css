@@ -13,7 +13,7 @@
   color: #fff;
   color: red;
   margin-bottom: 10px;
-  width: 300px;
+  /* width: 300px; */
   display: grid;
   grid-template-columns: 40px 1fr 25px;
   border-radius: 5px;
@@ -34,6 +34,7 @@
   font-size: x-large;
   font-weight: 400;
   color: #fff;
+  padding-right: 15px;
 }
 .toast span,
 .toast i:nth-child(3) {
@@ -81,4 +82,14 @@
 .toast.info {
   --color: #3498db;
   background-image: linear-gradient(to right, #3498db55, #22242f 30%);
+}
+@media (max-width: 600px) {
+  .toast {
+    top: -1.5vh;
+    right: -8vw;
+    padding: 10px;
+  }
+  .toast .title{
+    font-size: 4vw;
+  }
 }
