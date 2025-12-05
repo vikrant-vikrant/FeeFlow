@@ -23,5 +23,5 @@ jobs:
 
       - name: Run Monthly Due Script
         env:
-          MONGO_URL: ${{ 'mongodb+srv://vikrant2003vvikrant_db_user:vzdepN5o6SvltFzo@dynamic.ipwznvc.mongodb.net/DynamicVision?retryWrites=true&w=majority&appName=dynamic' }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
         run: node services/cronJobs.js

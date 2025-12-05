@@ -1,9 +1,8 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, "../.env") });
 const mongoose = require("mongoose");
 const Student = require("../models/students");
 
-const MONGO_URL =
-  process.env.MONGO_URL || "mongodb://127.0.0.1:27017/DynamicVision";
+const MONGO_URL = process.env.MONGO_URL;
 async function connectDB() {
   try {
     await mongoose.connect(MONGO_URL);

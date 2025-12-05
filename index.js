@@ -20,8 +20,7 @@ app.use(mehtodOverride("_method"));
 
 /* ---------- Config ---------- */
 const PORT = process.env.PORT || 8000;
-const MONGO_URL =
-  process.env.MONGO_URL || "mongodb://127.0.0.1:27017/DynamicVision";
+const MONGO_URL = process.env.MONGO_URL;
 /* ---------- Mongoose ---------- */
 async function connectDB() {
   try {
@@ -43,6 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const store = MongoStore.create({
   mongoUrl: MONGO_URL,
+  ttl: 7 * 24 * 60 * 60,
   crypto: {
     secret: process.env.SECRET,
   },
