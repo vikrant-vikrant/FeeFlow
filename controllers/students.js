@@ -117,6 +117,10 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
 module.exports.addFees = catchAsync(async (req, res) => {
   let { id } = req.params;
   const { note, amount, paidOn } = req.body;
+  if (!amount || amount <= 0) {
+    req.flash("error", "Amount must be greater than 0");
+    return res.redirect(`/students/${id}`);
+  }
   const student = await Student.findById(id);
   if (!student) {
     return res.status(404).send("Student not found");
