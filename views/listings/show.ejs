@@ -37,12 +37,16 @@
           <p><strong>Joining Date :</strong> <%= formattedDate %></p>
           <p><strong>Fees :</strong> <%= student.fees %></p>
           <p><strong>Due Fees :</strong> <%= student.dueFees %></p>
-          <p>
+          <p class="remind">
             <strong>Remind on :</strong>
             <a
               href="<%=`https://wa.me/91${student.contact}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.Kindly clear it at the earliest. - The Dynamic Vision`%>"
-              ><i class="fa-brands fa-whatsapp"></i
-            ></a>
+              ><i class="fa-brands fa-whatsapp"></i></a
+            >&nbsp;
+            <a
+              href="<%=`sms:+91${student.phone}?body=${student.name} +, Your monthly fees ₹${student.dueFees} is DUE. Kindly clear it at the earliest. - The Dynamic Vision`%>"
+              ><i class="fa-solid fa-message"></i></a
+            >&nbsp;
             <a href="tel:+91<%= student.phone %>">
               <i class="fa-solid fa-phone"></i>
             </a>

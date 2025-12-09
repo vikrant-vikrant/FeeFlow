@@ -44,7 +44,8 @@ body {
   margin: 1.5vh;
   font-size: 3vh;
 }
-.call a{
+.call a,
+.remind a {
   color: #00bfff;
 
 }
