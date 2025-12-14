@@ -33,6 +33,7 @@ body {
 }
 .nav-tabs .filter {
   display: flex;
+  gap: 1.5vw;
 }
 .nav-tabs .filter a {
   text-decoration: none;
@@ -64,14 +65,17 @@ body {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
   background-color: #f3efea;
+  position: relative;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
-  margin: 0 0 0 1vw;
   transition: all ease 0.3s;
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+.quick-actions button {
+  margin: 0 0 0 1vw;
 }
 .quick-actions button:hover,
 .nav-tabs .filter a:hover {
@@ -206,6 +210,12 @@ body {
     margin-bottom: 2vw;
     align-items: center;
   }
+  .nav-tabs .filter {
+    margin-bottom: 2vw;
+  }
+  .nav-tabs .filter a {
+    padding: 2vw 2.5vw;
+  }
   .nav-tabs h1 {
     font-size: 6vw;
     margin-bottom: 2vw;
@@ -219,7 +229,7 @@ body {
     display: none;
   }
   .quick-actions button {
-    padding: 1vw 2vw;
+    padding: 2vw 2.5vw;
     margin: 0 2vw;
   }
   .list {

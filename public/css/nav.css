@@ -94,7 +94,7 @@ nav a:hover::before {
     padding: 0 3vw;
   }
   nav p {
-    font-size: 3.2vw;
+    font-size: 4vw;
   }
   nav i {
     font-size: 5vw;
@@ -106,7 +106,7 @@ nav a:hover::before {
     gap: 2vw;
   }
   .info a {
-    padding: 1vw 2vw;
+    padding: 2vw 2.5vw;
   }
   .info a h4 {
     display: none;
