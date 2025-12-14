@@ -31,6 +31,18 @@ body {
   flex-wrap: wrap;
   align-items: center;
 }
+.nav-tabs .filter {
+  display: flex;
+}
+.nav-tabs .filter a {
+  text-decoration: none;
+  color: #31312f;
+}
+.filter a h4,
+.filter a i {
+  z-index: 9;
+}
+
 .quick-actions {
   display: flex;
 }
@@ -47,7 +59,8 @@ body {
 .quick-actions label input:focus {
   outline: none;
 }
-.quick-actions button {
+.quick-actions button,
+.nav-tabs .filter a {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
   background-color: #f3efea;
@@ -55,13 +68,13 @@ body {
   font-weight: 600;
   cursor: pointer;
   margin: 0 0 0 1vw;
-  position: relative;
   transition: all ease 0.3s;
   overflow: hidden;
   display: flex;
   align-items: center;
 }
-.quick-actions button:hover {
+.quick-actions button:hover,
+.nav-tabs .filter a:hover {
   transform: translateY(-3px);
   box-shadow: 0px 0px 10px #31312f8f;
 }
@@ -79,7 +92,8 @@ body {
   font-size: 16px;
   margin-right: 0.5vw;
 }
-.quick-actions button::before {
+.quick-actions button::before,
+.nav-tabs .filter a::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -90,12 +104,14 @@ body {
   border-radius: 50px;
   transition: all ease 0.4s;
 }
-.quick-actions button:hover::before {
+.quick-actions button:hover::before,
+.nav-tabs .filter a:hover::before {
   bottom: 0;
   border-radius: 0;
 }
 .quick-actions button:hover p,
-.quick-actions button:hover i {
+.quick-actions button:hover i,
+.nav-tabs .filter a:hover {
   color: #f3eaea;
 }
 .students {
