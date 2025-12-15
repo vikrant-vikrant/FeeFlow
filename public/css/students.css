@@ -124,9 +124,13 @@ body {
 .list .details {
   margin-left: 1vw;
 }
-.list .details h2 {
+.details span {
+  font-size: 1.1rem;
+}
+.list .details p {
   overflow: hidden;
   font-size: clamp(12px, 2vw, 24px);
+  font-weight: 700;
   text-transform: capitalize;
 }
 .normal {
@@ -217,7 +221,7 @@ body {
   .list .details {
     margin-left: 1.5vw;
   }
-  .list .details h2 {
+  .list .details p {
     font-size: 1.2rem;
   }
   .radio-inputs {

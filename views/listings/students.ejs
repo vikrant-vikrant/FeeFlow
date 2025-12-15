@@ -92,15 +92,15 @@
               alt=""
             />
             <div class="details">
-              <h2
+              <p
                 class="<%= students.dueFees >= students.fees * 3 ? 'red' : (students.dueFees >= students.fees * 2 ? 'yellow' : 'normal') %>"
               >
                 <%= students.name %>
-              </h2>
-              <p>GRADE : <%= students.grade %></p>
-              <p class="<%= students.dueFees <= 0? 'none':'' %>">
-                DUE FEES : <%= students.dueFees %>
               </p>
+              <span><%= students.grade %></span>
+              <span class="<%= students.dueFees <= 0? 'none':'' %>"
+                >Due <%= students.dueFees %>&#8377;
+              </span>
             </div>
           </div>
         </a>
