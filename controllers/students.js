@@ -137,5 +137,5 @@ module.exports.addFees = catchAsync(async (req, res) => {
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({ dueFees: { $gt: 0 } });
-  res.render("listings/dashboard", { studentsData: students });
+  res.render("listings/students", { studentsData: students });
 });

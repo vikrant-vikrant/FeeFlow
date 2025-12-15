@@ -98,6 +98,9 @@
                 <%= students.name %>
               </h2>
               <p>GRADE : <%= students.grade %></p>
+              <p class="<%= students.dueFees <= 0? 'none':'' %>">
+                DUE FEES : <%= students.dueFees %>
+              </p>
             </div>
           </div>
         </a>

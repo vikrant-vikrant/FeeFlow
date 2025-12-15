@@ -133,6 +133,11 @@ body {
   border-radius: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .form label .input + span {
   color: rgba(255, 255, 255, 0.5);
   position: absolute;
