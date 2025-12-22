@@ -14,6 +14,7 @@ const ejsMate = require("ejs-mate");
 const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard } = require("./controllers/students.js");
+const { fund } = require("./controllers/fund.js");
 const mehtodOverride = require("method-override");
 const app = express();
 app.use(mehtodOverride("_method"));
@@ -82,6 +83,7 @@ app.get("/blog", (req, res) => {
   res.render("listings/blog.ejs");
 });
 app.use("/dashboard", dashboard);
+app.use("/fund", fund);
 app.use("/students", students);
 app.use((err, req, res, next) => {
   console.error(err.stack);

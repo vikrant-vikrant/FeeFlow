@@ -1,0 +1,39 @@
+<% layout('layouts/boilerPlate') -%>
+<link rel="stylesheet" href="css/students.css" />
+<body>
+  <div class="main">
+    <%- include('../includes/navbar')%>
+    <div class="container">
+      <div class="nav-tabs">
+        <p>Total Students <%=studentsData.length%></p>
+        <p>New Admissions This Month: <%= newAdmissionsCount %></p>
+        <p>Total Earning : <%=totalEarningThisMonth%> &#8377;</p>
+        <p>Total Due : <%=totalDue%> &#8377;</p>
+      </div>
+    </div>
+  </div>
+  <div class="students">
+    <%for(let students of newAdmissions){%>
+    <a href="/students/<%=students._id%>">
+      <div class="list" data-grade="<%= students.grade %>">
+        <img
+          src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
+          alt=""
+        />
+        <div class="details">
+          <p
+            class="<%= students.dueFees >= students.fees * 3 ? 'red' : (students.dueFees >= students.fees * 2 ? 'yellow' : 'normal') %>"
+          >
+            <%= students.name %>
+          </p>
+          <span><%= students.grade %></span>
+          <span class="<%= students.dueFees <= 0? 'none':'' %>"
+            >Due <%= students.dueFees %>&#8377;
+          </span>
+        </div>
+      </div>
+    </a>
+    <%}%>
+  </div>
+</body>
+<script type="module" src="/js/filter.js"></script>
