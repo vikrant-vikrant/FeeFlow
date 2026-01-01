@@ -2,7 +2,7 @@ name: Monthly Due Update
 
 on:
   schedule:
-    - cron: "0 19 * * *"
+    - cron: "30 00 * * *"
   workflow_dispatch: # Allows manual run
 
 jobs:

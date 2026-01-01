@@ -80,6 +80,9 @@ body {
   height: 65vh;
   overflow-y: scroll;
 }
+.feeHistory::-webkit-scrollbar {
+  display: none;
+}
 .feeHistory h2 {
   margin-bottom: 3vh;
 }
@@ -133,6 +136,11 @@ body {
   border-radius: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .form label .input + span {
   color: rgba(255, 255, 255, 0.5);
   position: absolute;

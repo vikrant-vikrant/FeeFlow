@@ -1,5 +1,6 @@
 const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
+const MonthlyReport = require("../models/monthlyReport");
 
 function formatDate(date, type = "short") {
   if (!date) return "";
@@ -106,12 +107,46 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
     fees,
     dueFees,
   });
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  if (!thisMonthData) {
+    thisMonthData = await MonthlyReport.create({
+      month,
+      year,
+      totalEarning: 0,
+      expenses: [],
+      totalExpenses: 0,
+      newStudents: 0,
+      studentsLeft: 0,
+      createdAt: new Date(),
+    });
+  }
+  thisMonthData.newStudents += 1;
+  await thisMonthData.save();
   await newStudent.save();
   req.flash("success", `New student added`);
   res.redirect("/students");
 });
 module.exports.deleteStudent = catchAsync(async (req, res) => {
   let { id } = req.params;
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  if (!thisMonthData) {
+    thisMonthData = await MonthlyReport.create({
+      month,
+      year,
+      totalEarning: 0,
+      expenses: [],
+      totalExpenses: 0,
+      newStudents: 0,
+      studentsLeft: 0,
+      createdAt: new Date(),
+    });
+  }
+  thisMonthData.studentsLeft += 1;
+  await thisMonthData.save();
   let removedStudent = await Student.findByIdAndDelete(id);
   if (!removedStudent) {
     req.flash("error", "Student not found or already deleted.");
@@ -136,12 +171,29 @@ module.exports.addFees = catchAsync(async (req, res) => {
     amount,
     paidDate: paidOn ? new Date(paidOn) : new Date(),
   });
-  student.dueFees -= amount;
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  if (!thisMonthData) {
+    thisMonthData = await MonthlyReport.create({
+      month,
+      year,
+      totalEarning: 0,
+      expenses: [],
+      totalExpenses: 0,
+      newStudents: 0,
+      studentsLeft: 0,
+      createdAt: new Date(),
+    });
+  }
+  thisMonthData.totalEarning += Number(amount);
+  student.dueFees -= Number(amount);
   await student.save();
+  await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
   res.redirect(`/students/${id}`);
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({ dueFees: { $gt: 0 } });
-  res.render("listings/dashboard", { studentsData: students });
+  res.render("listings/students", { studentsData: students });
 });
