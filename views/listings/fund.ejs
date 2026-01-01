@@ -102,10 +102,10 @@
           <div class="fee-entry">
             <p>
               <strong>₹ <%= fee.feesHistory.amount %></strong>
-              — <%= fee.name %> / <%= fee.grade %> | Paid on: <%= new
-              Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
-              weekday: 'short', day: 'numeric', month: 'short' }) .replace(/,/g,
-              '') %>
+              by <%= fee.name %> / <%= fee.grade %> <br />
+              Paid on: <%= new Date(fee.feesHistory.paidDate)
+              .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric',
+              month: 'short' }) .replace(/,/g, '') %>
             </p>
           </div>
           <hr />
@@ -113,58 +113,6 @@
           <p>No fees recorded this month.</p>
           <% } %>
         </div>
-      </div>
-      <div class="nav-tabs">
-        <h1>Previous Reports</h1>
-      </div>
-      <div class="monthly-reports-container">
-        <%for(let data of previousReport){%>
-        <div class="report-card">
-          <div class="report-header">
-            <h2 class="title">
-              <%= new Date(data.year, data.month - 1).toLocaleString('en-US', {
-              month: 'short', year: 'numeric' }) %>
-            </h2>
-          </div>
-
-          <div class="report-stats">
-            <div class="stat earning">
-              <p>
-                Total Revenue :
-                <span
-                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span
-                >
-              </p>
-            </div>
-            <div class="stat new">
-              <span>New Students : <%= data.newStudents %></span>
-              <span>Students Left : <%= data.studentsLeft %></span>
-            </div>
-          </div>
-
-          <div class="expense-section">
-            <h4>Expense Details</h4>
-            <ul>
-              <%for(let exp of data.expenses){%>
-              <li>
-                <span><%= exp.note%></span><br />
-                <span><%= exp.amount%></span><br />
-                <span
-                  ><%= new Date(exp.paidDate) .toLocaleDateString('en-GB', {
-                  weekday: 'short', day: 'numeric', month: 'short' })
-                  .replace(/,/g, '') %></span
-                >
-              </li>
-              <%}%>
-            </ul>
-            <div class="report-stats">
-              <div class="stat expense">
-                <p>Total Expense : <span> XX,XXX&#8377;</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <%}%>
       </div>
     </div>
   </div>

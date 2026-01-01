@@ -241,3 +241,60 @@ input::-webkit-inner-spin-button {
 .student {
   margin-right: 3vw;
 }
+@media (max-width: 600px) {
+  .nav-tabs h1 {
+    font-size: 2rem;
+  }
+  .thisMonth {
+    flex-direction: column;
+    margin: 3vw;
+  }
+  .title {
+    font-size: 5.5vw;
+  }
+  .report-card {
+    width: 100%;
+    padding: 4vw;
+  }
+  .addFess {
+    width: 100%;
+  }
+  .feeHistory {
+    width: 100%;
+    padding: 4vw;
+    height: 50vh;
+  }
+  .feeHistory h2 {
+    margin-bottom: 0vw;
+  }
+  .fee-entry {
+    margin: 1.5vh 0;
+  }
+  .fee-entry p {
+    font-size: 5vw;
+  }
+  .form {
+    padding: 4vw;
+    width: 100%;
+  }
+  .message {
+    margin-left: 1.5vw;
+    font-size: 5.5vw;
+  }
+  .input {
+    font-size: 2.5vh;
+  }
+  .submit {
+    font-size: 5vw;
+    margin-top: 15px;
+  }
+  .student {
+    margin-right: 0vw;
+  }
+  .addFess {
+    margin: 3vw 0;
+  }
+  .flex {
+    margin: 3vw;
+  }
+}
