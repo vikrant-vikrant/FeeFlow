@@ -2,7 +2,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 html,
 body {
@@ -16,69 +15,117 @@ body {
   width: 100%;
   background-color: #f3efea;
 }
-.list {
-  display: flex;
+.container {
+  width: calc(100% - 6vw);
   margin: 2vw 4vw;
+  font-family: sans-serif;
 }
-.student-info {
-  background-color: #31312f;
-  color: rgba(255, 255, 255, 0.7);
-  width: 28vw;
-  padding: 3vh;
-  border-radius: 30px;
-}
-.student-info .img-name {
-  display: flex;
-  align-items: center;
-  padding-bottom: 3vh;
-}
-.student-info .img-name h1 {
-  margin-left: 3vh;
-  font-size: 6vh;
-  text-transform: capitalize;
-}
-.student-info img {
-  border-radius: 20px;
-}
-.student-info p {
-  margin: 1.5vh;
-  font-size: 3vh;
-}
-.call a,
-.remind a {
-  color: #00bfff;
-
-}
-.parent {
-  text-transform: capitalize;
-}
-.edit-info {
-  padding: 1vw 2vw;
-  border: 1px solid #31312f;
-  border-radius: 2rem;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 14px;
+.nav-tabs {
   color: #31312f;
-  margin-top: 2vh;
-  margin-right: 1vw;
+  font-size: 1.2rem;
 }
-.flex {
+.thisMonth {
+  margin: 4vh auto;
   display: flex;
-  margin-left: 4vw;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.monthly-reports-container {
+  margin: 4vh auto;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: grey;
+}
+.report-card {
+  width: 27vw;
+  background: #31312f;
+  border-radius: 30px;
+  padding: 2rem;
+  /* margin-bottom: 25px; */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  /* margin: 0 3vw 0 0; */
+}
+
+/* .report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+/* .report-header h2 {
+  margin: 0;
+  color: #222;
+} */
+
+.report-stats {
+  margin-bottom: 10px;
+}
+
+.stat {
+  padding: 0.6rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #282828;
+  color: white;
+  border-bottom: 1px dashed #ddd;
+}
+.new {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.stat h3 {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.stat.left {
+  background: #f39c12;
+}
+
+.expense-section {
+  margin-top: 20px;
+}
+
+.expense-section h4 {
+  margin-bottom: 10px;
+  /* color: #333; */
+  color: white;
+}
+
+.expense-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-section li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+  /* color: #444; */
+  color: white;
+  /* font-size: 1.5rem; */
 }
 .addFess {
-  width: 28vw;
-  border-radius: 10px;
+  width: 27vw;
 }
 .feeHistory {
   background-color: #31312f;
+  /* background-color: #fcfcfc; */
   color: rgba(255, 255, 255, 0.7);
-  width: 28vw;
-  padding: 4.5vh;
+  /* color: black; */
+  width: 27vw;
+  padding: 2rem;
   border-radius: 30px;
   height: 65vh;
   overflow-y: scroll;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 .feeHistory::-webkit-scrollbar {
   display: none;
@@ -94,12 +141,15 @@ body {
 }
 
 .title {
-  font-size: 5vh;
+  font-size: 2.5rem;
   font-weight: 600;
   letter-spacing: -1px;
-  position: relative;
+  /* position: relative;
   display: flex;
-  align-items: center;
+  align-items: center; */
+  color: #31312f;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
   color: #00bfff;
 }
 .form {
@@ -107,19 +157,16 @@ body {
   flex-direction: column;
   gap: 10px;
   max-width: 87vh;
-  padding: 4.5vh;
+  width: 27vw;
+  padding: 2rem;
   border-radius: 30px;
   position: relative;
   background-color: #31312f;
+  /* background-color: white; */
   color: rgba(255, 255, 255, 0.7);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.message {
-  font-size: 14.5px;
-  font-size: 3vh;
-  color: rgba(255, 255, 255, 0.7);
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 .form label {
   position: relative;
@@ -128,7 +175,9 @@ body {
 
 .form label .input {
   background-color: #333;
+  /* background-color: white; */
   color: rgba(255, 255, 255, 0.7);
+  /* color: black; */
   width: 100%;
   padding: 20px 05px 05px 10px;
   outline: 0;
@@ -160,6 +209,7 @@ input::-webkit-inner-spin-button {
 .form label .input:focus + span,
 .form label .input:valid + span {
   color: #00bfff;
+  /* color: #31312f; */
   top: -5px;
   font-size: 1.2em;
   font-weight: 600;
@@ -180,88 +230,14 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   transform: 0.3s ease;
   background-color: #00bfff;
+  /* background-color: #31312f; */
 }
 
 .submit:hover {
   background-color: #00bfff96;
+  /* background-color: #31312f96; */
 }
 
 .student {
   margin-right: 3vw;
-}
-.addFess {
-  margin-right: 3vw;
-}
-@media (max-width: 600px) {
-  .list {
-    flex-direction: column;
-    margin: 3vw;
-  }
-  .student-info {
-    width: 100%;
-    padding: 3vw;
-  }
-  .student-info .img-name {
-    padding-bottom: 2vw;
-  }
-  .student-info .img-name h1 {
-    margin-left: 3vw;
-    font-size: 8vw;
-  }
-  .student-info p {
-    margin: 1vw;
-    font-size: 5.5vw;
-  }
-  .edit-info {
-    padding: 2vw;
-    font-size: 4vw;
-    margin: 3vw 2vw;
-    margin-right: 1vw;
-  }
-  .flex {
-    margin-top: 0vh;
-  }
-  .addFess {
-    width: 28vw;
-    width: 100%;
-  }
-  .feeHistory {
-    width: 100%;
-    padding: 3vw;
-    height: 40vh;
-  }
-  .feeHistory h2 {
-    margin-bottom: 0vw;
-  }
-  .fee-entry {
-    margin: 1.5vh 0;
-  }
-  .fee-entry p {
-    font-size: 5vw;
-  }
-  .title {
-    font-size: 8vw;
-  }
-  .form {
-    padding: 3vw;
-  }
-  .message {
-    margin-left: 1.5vw;
-    font-size: 5.5vw;
-  }
-  .input {
-    font-size: 2.5vh;
-  }
-  .submit {
-    font-size: 5vw;
-  }
-  .student {
-    margin-right: 0vw;
-  }
-  .addFess {
-    margin: 3vw 0;
-  }
-  .flex {
-    margin: 3vw;
-  }
 }
