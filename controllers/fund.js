@@ -78,8 +78,9 @@ module.exports.addExpense = catchAsync(async (req, res) => {
     req.flash("error", "Amount must be greater than 0");
     return res.redirect(`/fund`);
   }
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
   let report = await MonthlyReport.findOne({ month, year });
-
   if (!report) {
     report = await MonthlyReport.create({
       month,

@@ -17,7 +17,7 @@ body {
 }
 .container {
   width: calc(100% - 6vw);
-  margin: 2vw 4vw;
+  margin: 2vw 3vw;
   font-family: sans-serif;
 }
 .nav-tabs {
@@ -135,6 +135,8 @@ body {
 }
 .fee-entry {
   margin: 2vh 0;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #ddd;
 }
 .fee-entry p {
   font-size: 3vh;
@@ -148,8 +150,6 @@ body {
   display: flex;
   align-items: center; */
   color: #31312f;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
   color: #00bfff;
 }
 .form {
@@ -254,15 +254,15 @@ input::-webkit-inner-spin-button {
   }
   .report-card {
     width: 100%;
-    padding: 4vw;
+    padding: 3.5vw;
   }
   .addFess {
     width: 100%;
   }
   .feeHistory {
     width: 100%;
-    padding: 4vw;
-    height: 50vh;
+    padding: 3.5vw;
+    max-height: 40vh;
   }
   .feeHistory h2 {
     margin-bottom: 0vw;
@@ -274,7 +274,7 @@ input::-webkit-inner-spin-button {
     font-size: 5vw;
   }
   .form {
-    padding: 4vw;
+    padding: 3.5vw;
     width: 100%;
   }
   .message {
