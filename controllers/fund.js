@@ -62,7 +62,12 @@ module.exports.fund = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
-  const previousReport = await MonthlyReport.find();
+  const previousReport = await MonthlyReport.find({
+    $or: [
+      { year: { $lt: year } }, // any past year
+      { year: year, month: { $lt: month } }, // same year but earlier months
+    ],
+  }).sort({ year: -1, month: -1 });
   res.render("listings/fund", {
     totalDue,
     todayDate,
@@ -97,11 +102,9 @@ module.exports.addExpense = catchAsync(async (req, res) => {
   console.log(month, year, report);
   report.expenses.push({
     note,
-    amount,
+    amount: Number(amount),
     paidDate: paidDate ? new Date(paidDate) : new Date(),
   });
-  // Recalculate total expenses
-  // report.totalExpenses = report.expenses.reduce((sum, e) => sum + e.amount, 0);
   await report.save();
   req.flash("success", "Expense added successfully");
   res.redirect("/fund");

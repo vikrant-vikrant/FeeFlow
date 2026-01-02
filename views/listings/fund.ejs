@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="expense-section">
-            <h4>Expense Details</h4>
+            <h3>Expense Details</h3>
             <ul>
               <%for(let exp of thisMonthData.expenses){%>
               <li>
@@ -47,7 +47,9 @@
             </ul>
             <div class="report-stats">
               <div class="stat expense">
-                <p>Total Expense : <span> XX,XXX&#8377;</span></p>
+                <% let total = 0; thisMonthData.expenses.forEach(e => total +=
+                e.amount); %>
+                <h3>Total Expenses: <%= total %> ₹</h3>
               </div>
             </div>
           </div>
@@ -129,7 +131,8 @@
             <div class="stat">
               <div class="total">
                 <span
-                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span><br>Total Revenue
+                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span
+                ><br />Total Revenue
               </div>
             </div>
             <div class="stat new">
@@ -139,7 +142,7 @@
           </div>
 
           <div class="expense-section">
-            <h4>Expense Details</h4>
+            <h3>Expense Details</h3>
             <ul>
               <%for(let exp of data.expenses){%>
               <li>
@@ -155,7 +158,9 @@
             </ul>
             <div class="report-stats">
               <div class="stat expense">
-                <p>Total Expense : <span> XX,XXX&#8377;</span></p>
+                <% let total = 0; data.expenses.forEach(e => total += e.amount);
+                %>
+                <h3>Total Expenses: <%= total %> ₹</h3>
               </div>
             </div>
           </div>
