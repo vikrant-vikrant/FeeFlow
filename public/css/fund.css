@@ -83,8 +83,8 @@ body {
   margin-top: 20px;
 }
 
-.expense-section h4 {
-  margin-bottom: 10px;
+.expense-section h3 {
+  margin: 10px 0;
   color: white;
 }
 

@@ -97,11 +97,9 @@ module.exports.addExpense = catchAsync(async (req, res) => {
   console.log(month, year, report);
   report.expenses.push({
     note,
-    amount,
+    amount: Number(amount),
     paidDate: paidDate ? new Date(paidDate) : new Date(),
   });
-  // Recalculate total expenses
-  // report.totalExpenses = report.expenses.reduce((sum, e) => sum + e.amount, 0);
   await report.save();
   req.flash("success", "Expense added successfully");
   res.redirect("/fund");
