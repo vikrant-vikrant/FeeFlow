@@ -13,18 +13,17 @@
             <h2 class="title"><%= thisMonthYear %></h2>
           </div>
           <div class="report-stats">
-            <div class="stat earning">
-              <p>
-                Total Revenue :
+            <div class="stat">
+              <div class="total">
                 <span
                   ><%=thisMonthData.totalEarning.toLocaleString('en-IN')%>
                   &#8377;</span
-                >
-              </p>
-              <p>
-                Total Due :
-                <span><%=totalDue.toLocaleString('en-IN')%> &#8377;</span>
-              </p>
+                ><br />Total Revenue
+              </div>
+              <div class="total">
+                <span><%=totalDue.toLocaleString('en-IN')%> &#8377;</span
+                ><br />Total Due
+              </div>
             </div>
             <div class="stat new">
               <span>New Students : <%=thisMonthData.newStudents%></span>
@@ -101,7 +100,7 @@
           feesThisMonth.forEach(fee => { %>
           <div class="fee-entry">
             <p>
-              <strong>₹ <%= fee.feesHistory.amount %></strong>
+              <strong><%= fee.feesHistory.amount %>₹</strong>
               — <%= fee.name %> / <%= fee.grade %> | Paid on: <%= new
               Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
               weekday: 'short', day: 'numeric', month: 'short' }) .replace(/,/g,
@@ -128,13 +127,11 @@
           </div>
 
           <div class="report-stats">
-            <div class="stat earning">
-              <p>
-                Total Revenue :
+            <div class="stat">
+              <div class="total">
                 <span
-                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span
-                >
-              </p>
+                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span><br>Total Revenue
+              </div>
             </div>
             <div class="stat new">
               <span>New Students : <%= data.newStudents %></span>
