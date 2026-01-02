@@ -62,7 +62,12 @@ module.exports.fund = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
-  const previousReport = await MonthlyReport.find();
+  const previousReport = await MonthlyReport.find({
+    $or: [
+      { year: { $lt: year } }, // any past year
+      { year: year, month: { $lt: month } }, // same year but earlier months
+    ],
+  }).sort({ year: -1, month: -1 });
   res.render("listings/fund", {
     totalDue,
     todayDate,
