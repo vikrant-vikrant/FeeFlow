@@ -31,61 +31,52 @@ body {
   flex-wrap: wrap;
 }
 .monthly-reports-container {
-  margin: 4vh auto;
+  margin: 2vw auto;
   display: flex;
   flex-wrap: wrap;
-  background-color: grey;
+  justify-content: space-around;
 }
 .report-card {
   width: 27vw;
   background: #31312f;
   border-radius: 30px;
   padding: 2rem;
-  /* margin-bottom: 25px; */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  /* margin: 0 3vw 0 0; */
 }
-
-/* .report-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
-
-/* .report-header h2 {
-  margin: 0;
-  color: #222;
-} */
+.monthly-reports-container .report-card {
+  margin-bottom: 2vw;
+}
 
 .report-stats {
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .stat {
   padding: 0.6rem;
-  border-radius: 8px;
-  text-align: center;
-  color: #282828;
   color: white;
   border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-around;
+}
+.stat .total {
+  border-radius: 30px;
+  justify-content: space-between;
+  padding: 0.6rem;
+  padding: 0.6rem 1.2rem;
+}
+.total span {
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 .new {
   display: flex;
   justify-content: space-between;
 }
 
-.stat p {
+.stat div {
   margin: 0;
   font-size: 14px;
-}
-
-.stat h3 {
-  margin-top: 8px;
-  font-size: 18px;
-}
-
-.stat.left {
-  background: #f39c12;
 }
 
 .expense-section {
@@ -94,7 +85,6 @@ body {
 
 .expense-section h4 {
   margin-bottom: 10px;
-  /* color: #333; */
   color: white;
 }
 
@@ -108,18 +98,14 @@ body {
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px dashed #ddd;
-  /* color: #444; */
   color: white;
-  /* font-size: 1.5rem; */
 }
 .addFess {
   width: 27vw;
 }
 .feeHistory {
   background-color: #31312f;
-  /* background-color: #fcfcfc; */
   color: rgba(255, 255, 255, 0.7);
-  /* color: black; */
   width: 27vw;
   padding: 2rem;
   border-radius: 30px;
@@ -146,9 +132,6 @@ body {
   font-size: 2.5rem;
   font-weight: 600;
   letter-spacing: -1px;
-  /* position: relative;
-  display: flex;
-  align-items: center; */
   color: #31312f;
   color: #00bfff;
 }
@@ -162,10 +145,7 @@ body {
   border-radius: 30px;
   position: relative;
   background-color: #31312f;
-  /* background-color: white; */
   color: rgba(255, 255, 255, 0.7);
-  /* margin-left: auto; */
-  /* margin-right: auto; */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 .form label {
@@ -175,9 +155,7 @@ body {
 
 .form label .input {
   background-color: #333;
-  /* background-color: white; */
   color: rgba(255, 255, 255, 0.7);
-  /* color: black; */
   width: 100%;
   padding: 20px 05px 05px 10px;
   outline: 0;
@@ -209,7 +187,6 @@ input::-webkit-inner-spin-button {
 .form label .input:focus + span,
 .form label .input:valid + span {
   color: #00bfff;
-  /* color: #31312f; */
   top: -5px;
   font-size: 1.2em;
   font-weight: 600;
@@ -230,12 +207,10 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   transform: 0.3s ease;
   background-color: #00bfff;
-  /* background-color: #31312f; */
 }
 
 .submit:hover {
   background-color: #00bfff96;
-  /* background-color: #31312f96; */
 }
 
 .student {
@@ -296,5 +271,8 @@ input::-webkit-inner-spin-button {
   }
   .flex {
     margin: 3vw;
+  }
+  .monthly-reports-container{
+    margin: 2vh 5vw;
   }
 }
