@@ -31,18 +31,6 @@ body {
   flex-wrap: wrap;
   align-items: center;
 }
-.nav-tabs .filter {
-  display: flex;
-  gap: 1.5vw;
-}
-.nav-tabs .filter a {
-  text-decoration: none;
-  color: #31312f;
-}
-.filter a h4,
-.filter a i {
-  z-index: 9;
-}
 
 .quick-actions {
   display: flex;
@@ -60,8 +48,7 @@ body {
 .quick-actions label input:focus {
   outline: none;
 }
-.quick-actions button,
-.nav-tabs .filter a {
+.quick-actions button {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
   background-color: #f3efea;
@@ -77,8 +64,7 @@ body {
 .quick-actions button {
   margin: 0 0 0 1vw;
 }
-.quick-actions button:hover,
-.nav-tabs .filter a:hover {
+.quick-actions button:hover {
   transform: translateY(-3px);
   box-shadow: 0px 0px 10px #31312f8f;
 }
@@ -96,8 +82,7 @@ body {
   font-size: 16px;
   margin-right: 0.5vw;
 }
-.quick-actions button::before,
-.nav-tabs .filter a::before {
+.quick-actions button::before{
   content: "";
   position: absolute;
   height: 100%;
@@ -108,14 +93,11 @@ body {
   border-radius: 50px;
   transition: all ease 0.4s;
 }
-.quick-actions button:hover::before,
-.nav-tabs .filter a:hover::before {
+.quick-actions button:hover::before{
   bottom: 0;
   border-radius: 0;
 }
-.quick-actions button:hover p,
-.quick-actions button:hover i,
-.nav-tabs .filter a:hover {
+.quick-actions button:hover p{
   color: #f3eaea;
 }
 .students {

@@ -14,13 +14,7 @@ function formatDate(date, type = "short") {
   });
 }
 module.exports.students = catchAsync(async (req, res) => {
-  const { filter } = req.query;
-  let students;
-  if (filter === "due") {
-    students = await Student.find({ dueFees: { $gt: 0 } });
-  } else {
-    students = await Student.find({});
-  }
+  const students = await Student.find({});
   res.render("listings/students", { studentsData: students });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {

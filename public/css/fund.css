@@ -121,6 +121,8 @@ body {
 }
 .fee-entry {
   margin: 2vh 0;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #ddd;
 }
 .fee-entry p {
   font-size: 3vh;
@@ -131,8 +133,6 @@ body {
   font-weight: 600;
   letter-spacing: -1px;
   color: #31312f;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
   color: #00bfff;
 }
 .form {
