@@ -48,7 +48,6 @@ body {
 }
 
 .report-stats {
-  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -77,10 +76,6 @@ body {
 .stat div {
   margin: 0;
   font-size: 14px;
-}
-
-.expense-section {
-  margin-top: 20px;
 }
 
 .expense-section h3 {
@@ -123,6 +118,10 @@ body {
   margin: 2vh 0;
   padding-bottom: 5px;
   border-bottom: 1px dashed #ddd;
+}
+.fee-entry a{
+  color: white;
+  text-decoration: none;
 }
 .fee-entry p {
   font-size: 3vh;
