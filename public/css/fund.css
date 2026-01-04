@@ -234,6 +234,9 @@ input::-webkit-inner-spin-button {
   .addFess {
     width: 100%;
   }
+  .total span {
+    font-size: 7vw;
+  }
   .feeHistory {
     width: 100%;
     padding: 3.5vw;
