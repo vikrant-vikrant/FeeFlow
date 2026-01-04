@@ -103,10 +103,11 @@
           <div class="fee-entry">
             <p>
               <strong><%= fee.feesHistory.amount %>₹</strong>
-              — <%= fee.name %> / <%= fee.grade %> | Paid on: <%= new
+              — <%= fee.name %> / <%= fee.grade %> <br> Paid on : <%= new
               Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
               weekday: 'short', day: 'numeric', month: 'short' }) .replace(/,/g,
-              '') %>
+              '') %> <%if(fee.feesHistory.note){%>| Note : <%=
+              fee.feesHistory.note %> <%}%>
             </p>
           </div>
           <% }) %> <% } else { %>

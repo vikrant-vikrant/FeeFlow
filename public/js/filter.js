@@ -28,7 +28,7 @@ document.querySelector("#searchBox").addEventListener("input", function () {
   const students = document.querySelectorAll(".students .list");
 
   students.forEach((student) => {
-    const name = student.querySelector("h2").textContent.toLowerCase();
+    const name = student.querySelector(".details p").textContent.toLowerCase();
     student.style.display = name.includes(search) ? "block" : "none";
   });
 
