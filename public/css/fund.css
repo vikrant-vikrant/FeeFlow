@@ -78,6 +78,21 @@ body {
   font-size: 14px;
 }
 
+.new-stu {
+  max-height: 25vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #6e6e6e;
+  border-radius: 10px;
+}
 .expense-section h3 {
   margin: 10px 0;
   color: white;
@@ -98,18 +113,17 @@ body {
 .addFess {
   width: 27vw;
 }
-.feeHistory {
+.history {
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
-  width: 27vw;
   padding: 2rem;
   border-radius: 30px;
-  height: 65vh;
-  overflow-y: scroll;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
-.feeHistory::-webkit-scrollbar {
-  display: none;
+.feeHistory {
+  width: 23vw;
+  height: 55vh;
+  overflow-y: scroll;
 }
 .feeHistory h2 {
   margin-bottom: 3vh;
@@ -119,12 +133,12 @@ body {
   padding-bottom: 5px;
   border-bottom: 1px dashed #ddd;
 }
-.fee-entry a{
+.fee-entry a {
   color: white;
   text-decoration: none;
 }
 .fee-entry p {
-  font-size: 3vh;
+  font-size: 1.5rem;
 }
 
 .title {
@@ -236,9 +250,14 @@ input::-webkit-inner-spin-button {
   .total span {
     font-size: 7vw;
   }
-  .feeHistory {
+  .history {
     width: 100%;
     padding: 3.5vw;
+    max-height: 50vh;
+  }
+  .feeHistory {
+    width: 100%;
+    /* padding: 3.5vw; */
     max-height: 40vh;
   }
   .feeHistory h2 {
@@ -248,7 +267,7 @@ input::-webkit-inner-spin-button {
     margin: 1.5vh 0;
   }
   .fee-entry p {
-    font-size: 5vw;
+    font-size: 1.4rem;
   }
   .form {
     padding: 3.5vw;
@@ -274,7 +293,7 @@ input::-webkit-inner-spin-button {
   .flex {
     margin: 3vw;
   }
-  .monthly-reports-container{
+  .monthly-reports-container {
     margin: 2vh 5vw;
   }
 }

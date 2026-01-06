@@ -26,13 +26,13 @@
               </div>
             </div>
           </div>
-          <div class="expense-section">
+          <div class="expense-section new-stu">
             <div class="stat new">
               <h3>New Students : <%=stuThisMonth.length%></h3>
               <h3>Students Left : <%=thisMonthData.studentsLeft%></h3>
             </div>
             <ul>
-              <%for(let stu of stuThisMonth){%>
+              <%for(let stu of stuThisMonth.reverse()){%>
               <li>
                 <span><%= stu.name%></span><br />
                 <span><%= stu.grade%></span><br />
@@ -103,29 +103,29 @@
             <button class="submit">Add Expenses</button>
           </form>
         </div>
-        <div class="feeHistory">
+        <div class="history">
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees This Month
           </h2>
-
-          <% if (feesThisMonth && feesThisMonth.length) { %> <%
-          feesThisMonth.forEach(fee => { %>
-          <div class="fee-entry">
-            <a href="/students/<%=fee._id%>">
-              <p>
-                <strong><%= fee.feesHistory.amount %>₹</strong>
-                — <%= fee.name %> / <%= fee.grade %> <br />
-                Paid on : <%= new Date(fee.feesHistory.paidDate)
-                .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric',
-                month: 'short' }) .replace(/,/g, '') %>
-                <%if(fee.feesHistory.note){%>| Note : <%= fee.feesHistory.note
-                %> <%}%>
-              </p>
-            </a>
+          <div class="feeHistory">
+            <% if (feesThisMonth && feesThisMonth.length) { %> <%
+            feesThisMonth.forEach(fee => { %>
+            <div class="fee-entry">
+              <a href="/students/<%=fee._id%>">
+                <p>
+                  <strong><%= fee.feesHistory.amount %>₹</strong>
+                  — <%= fee.name %> / <%= fee.grade %>, On : <%= new
+                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
+                  weekday: 'short', day: 'numeric', month: 'short' })
+                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
+                  : <%= fee.feesHistory.note %> <%}%>
+                </p>
+              </a>
+            </div>
+            <% }) %> <% } else { %>
+            <p>No fees recorded this month.</p>
+            <% } %>
           </div>
-          <% }) %> <% } else { %>
-          <p>No fees recorded this month.</p>
-          <% } %>
         </div>
       </div>
       <div class="nav-tabs">
