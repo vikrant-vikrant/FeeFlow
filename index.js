@@ -15,6 +15,7 @@ const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard } = require("./controllers/students.js");
 const { fund } = require("./controllers/fund.js");
+const user = require("./routes/user.js");
 const mehtodOverride = require("method-override");
 const app = express();
 app.use(mehtodOverride("_method"));
@@ -85,6 +86,7 @@ app.get("/blog", (req, res) => {
 app.use("/dashboard", dashboard);
 app.use("/fund", fund);
 app.use("/students", students);
+app.use("/", user);
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
