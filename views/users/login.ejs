@@ -3,18 +3,37 @@
 <div>
   <div class="main">
     <%- include('../includes/navbar')%>
-    <h1>Log In into your account</h1>
-    <div>
-      <form action="/login" method="post">
-        <div>
-          <label for="email" class="form-lable">email</label>
-          <input type="email" name="email" id="email" required />
+    <div class="container">
+      <form action="/login" method="post" class="form">
+        <p class="login">Login</p>
+        <label>
+          <input
+            class="input"
+            type="email"
+            placeholder=""
+            required
+            id="email"
+            name="email"
+          />
+          <span>Email</span>
+        </label>
+        <label>
+          <input
+            type="password"
+            class="input"
+            placeholder=""
+            required=""
+            id="password"
+            name="password"
+          />
+          <span>Password</span>
+        </label>
+        <button class="submit">Login</button>
+        <div class="signup">
+          Don’t have an account?
+          <a href="/signup">Sign Up</a>
         </div>
-        <div>
-          <label for="password" class="form-lable">password</label>
-          <input type="text" name="password" id="password" required />
-        </div>
-        <button>login</button>
+        <div class="divider"></div>
       </form>
     </div>
   </div>

@@ -3,22 +3,48 @@
 <div>
   <div class="main">
     <%- include('../includes/navbar')%>
-    <h1>SignUP on Student Management System</h1>
-    <div>
-      <form action="/signup" method="post">
-        <div>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" required />
+    <div class="container">
+      <form action="/signup" method="post" class="form">
+        <p class="login">Signup</p>
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required
+            id="username"
+            name="username"
+          />
+          <span>Username</span>
+        </label>
+        <label>
+          <input
+            class="input"
+            type="email"
+            placeholder=""
+            required
+            id="email"
+            name="email"
+          />
+          <span>Email</span>
+        </label>
+        <label>
+          <input
+            type="password"
+            class="input"
+            placeholder=""
+            required=""
+            id="password"
+            name="password"
+          />
+          <span>Password</span>
+        </label>
+        <button class="submit">Create Account</button>
+        <div class="signup">
+          Already Have an account?
+          <a href="/login">Login</a>
         </div>
-        <div>
-          <label for="email" class="form-lable">Email</label>
-          <input type="email" name="email" id="email" required />
-        </div>
-        <div>
-          <label for="password">password</label>
-          <input type="password" name="password" id="password" required />
-        </div>
-        <button>SignUP</button>
+        <div class="divider"></div>
       </form>
     </div>
   </div>
