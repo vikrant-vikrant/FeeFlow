@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const fund = require("../controllers/fund");
-
-router.route("/fund").get(fund.fund);
-router.route("/fund/expenses").post(fund.addExpense);
+const { isLoggedIn } = require("../middleware/isLoggedin");
+router.route("/fund").get(isLoggedIn, fund.fund);
+router.route("/fund/expenses").post(isLoggedIn, fund.addExpense);

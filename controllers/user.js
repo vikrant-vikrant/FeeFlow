@@ -1,6 +1,4 @@
-const { model } = require("mongoose");
 const userModel = require("../models/user.js");
-const catchAsync = require("../utils/catchAsync.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -9,53 +7,86 @@ module.exports.renderSignupForm = (req, res) => {
 };
 
 module.exports.signup = async (req, res) => {
-  // try {
-  let { username, email, password } = req.body;
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(password, salt, async (err, hash) => {
-      let createdUser = await userModel.create({
-        username,
-        email,
-        password: hash,
-      });
-      let token = jwt.sign({ email }, "your-secret-key");
-      res.cookie("token", token);
-      res.send(createdUser);
-    });
-  });
-  // const createdUser = await User.register(username, email, password);
+  try {
+    const { username, email, password } = req.body;
+    //  Check if user already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      req.flash("error", "User already exists");
+      return res.redirect("/signup");
+    }
 
-  // res.send(createdUser);
-  // req.login(registeredUser, (err) => {
-  //   if (err) {
-  //     return next(err);
-  //   }
-  //   req.flash("success", "Welcome to student management system");
-  //   res.redirect("/students");
-  // });
-  // }
-  //  catch (e) {
-  //   req.flash("error", e.message);
-  //   res.redirect("/signup");
-  // }
+    //  Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
+    const createdUser = await userModel.create({
+      username,
+      email,
+      password: hashedPassword,
+      createdAt: new Date(),
+    });
+
+    //  Generate JWT
+    const token = jwt.sign({ id: createdUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    //  Save token in cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // true in production
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    req.flash("success", "Welcome to Student Management System");
+    res.redirect("/students");
+  } catch (e) {
+    console.error(e);
+    req.flash("error", "Signup failed");
+    res.redirect("/signup");
+  }
 };
 
 module.exports.renderloginForm = (req, res) => {
-  res.render("users/login.ejs");
+  res.render("./users/login.ejs");
 };
 
 module.exports.login = async (req, res) => {
-  req.flash("success", "welcome back to wanderlust!");
-  let redirectUrl = res.locals.redirectUrl || "/students";
-  res.redirect(redirectUrl);
-};
-
-module.exports.logout = (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
+  try {
+    const { email, password } = req.body;
+    let user = await userModel.findOne({ email });
+    if (!user) {
+      req.flash("error", "Invalid email or password");
+      return res.redirect("/login");
     }
-    req.flash("success", "you are logged out now");
-    res.redirect("/home");
-  });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      req.flash("error", "Invalid email or password");
+      return res.redirect("/login");
+    }
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET || "your-secret-key",
+      { expiresIn: "7d" }
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // true in production (https)
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    req.flash("success", "Welcome back to Student Management System");
+    res.redirect("/students");
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "Login failed");
+    res.redirect("/login");
+  }
+};
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+  req.flash("success", "You are logged out");
+  res.redirect("/home");
 };

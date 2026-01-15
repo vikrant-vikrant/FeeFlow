@@ -82,7 +82,7 @@ body {
   font-size: 16px;
   margin-right: 0.5vw;
 }
-.quick-actions button::before{
+.quick-actions button::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -93,11 +93,12 @@ body {
   border-radius: 50px;
   transition: all ease 0.4s;
 }
-.quick-actions button:hover::before{
+.quick-actions button:hover::before {
   bottom: 0;
   border-radius: 0;
 }
-.quick-actions button:hover p{
+.quick-actions button:hover p,
+.quick-actions button:hover i {
   color: #f3eaea;
 }
 .students {

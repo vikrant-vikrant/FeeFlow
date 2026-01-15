@@ -2,18 +2,19 @@ const express = require("express");
 const router = express.Router();
 const student = require("../controllers/students");
 const validateObjectId = require("../middleware/validateObjectId");
-router.route("/").get(student.students);
+const { isLoggedIn } = require("../middleware/isLoggedin");
+router.route("/").get(isLoggedIn, student.students);
 router
   .route("/newStudent")
-  .get(student.newStudentForm)
-  .post(student.addNewStudent);
+  .get(isLoggedIn, student.newStudentForm)
+  .post(isLoggedIn, student.addNewStudent);
 router
   .route("/:id")
-  .get(validateObjectId, student.showStudent)
-  .delete(validateObjectId, student.deleteStudent);
+  .get(isLoggedIn, validateObjectId, student.showStudent)
+  .delete(isLoggedIn, validateObjectId, student.deleteStudent);
 router
   .route("/:id/edit")
-  .get(validateObjectId, student.editStudent)
-  .put(validateObjectId, student.saveEditStudent);
-router.post("/:id/addFees", student.addFees);
+  .get(isLoggedIn, validateObjectId, student.editStudent)
+  .put(isLoggedIn, validateObjectId, student.saveEditStudent);
+router.post("/:id/addFees", isLoggedIn, student.addFees);
 module.exports = router;

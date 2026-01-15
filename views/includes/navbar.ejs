@@ -18,7 +18,7 @@
       ><i class="fa-solid fa-wallet"></i>
       <h4>Fund</h4></a
     >
-    <% let currUser = 0%> <% if(!currUser){ %>
+    <% if(!currUser){ %>
     <a class="nav-link active login-out" aria-current="page" href="/signup"
       ><h4>Signup</h4></a
     >
@@ -26,6 +26,7 @@
     <%}%> <% if(currUser){ %>
     <a href="/logout"><h4>Logout</h4></a>
     <%}%>
+    <a href="/logout"><h4>Logout</h4></a>
   </div>
 </nav>
 <div><%- include("../includes/flash.ejs") %></div>

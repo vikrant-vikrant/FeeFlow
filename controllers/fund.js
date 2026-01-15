@@ -12,6 +12,7 @@ module.exports.fund = catchAsync(async (req, res) => {
   const [dueResult, feesThisMonth] = await Promise.all([
     // 🔹 Total due (all students)
     Student.aggregate([
+      { $match: { owner: req.user._id } },
       {
         $group: {
           _id: null,
@@ -20,6 +21,7 @@ module.exports.fund = catchAsync(async (req, res) => {
       },
     ]),
     Student.aggregate([
+      { $match: { owner: req.user._id } },
       { $unwind: "$feesHistory" },
 
       {
@@ -49,9 +51,14 @@ module.exports.fund = catchAsync(async (req, res) => {
   const totalDue = dueResult[0]?.totalDue || 0;
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
-  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  let thisMonthData = await MonthlyReport.findOne({
+    owner: req.user._id,
+    month,
+    year,
+  });
   if (!thisMonthData) {
     thisMonthData = await MonthlyReport.create({
+      owner: req.user._id,
       month,
       year,
       totalEarning: 0,
@@ -63,6 +70,7 @@ module.exports.fund = catchAsync(async (req, res) => {
     });
   }
   const previousReport = await MonthlyReport.find({
+    owner: req.user._id,
     $or: [
       { year: { $lt: year } }, // any past year
       { year: year, month: { $lt: month } }, // same year but earlier months
@@ -85,19 +93,23 @@ module.exports.addExpense = catchAsync(async (req, res) => {
   }
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
-  let report = await MonthlyReport.findOne({ month, year });
-  if (!report) {
-    report = await MonthlyReport.create({
-      month,
-      year,
-      totalEarning: 0,
-      expenses: [],
-      totalExpenses: 0,
-      newStudents: 0,
-      studentsLeft: 0,
-      createdAt: new Date(),
-    });
-  }
+  const report = await MonthlyReport.findOneAndUpdate(
+    { owner: req.user._id, month, year },
+    {
+      $setOnInsert: {
+        owner: req.user._id,
+        month,
+        year,
+        totalEarning: 0,
+        expenses: [],
+        totalExpenses: 0,
+        newStudents: 0,
+        studentsLeft: 0,
+        createdAt: new Date(),
+      },
+    },
+    { new: true, upsert: true }
+  );
   console.log("report of the month");
   console.log(month, year, report);
   report.expenses.push({
