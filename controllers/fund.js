@@ -9,7 +9,7 @@ module.exports.fund = catchAsync(async (req, res) => {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  const [dueResult, feesThisMonth] = await Promise.all([
+  const [dueResult, feesThisMonth, stuThisMonth] = await Promise.all([
     // 🔹 Total due (all students)
     Student.aggregate([
       { $match: { owner: req.user._id } },
@@ -46,6 +46,12 @@ module.exports.fund = catchAsync(async (req, res) => {
         },
       },
     ]),
+    Student.find({
+      joiningDate: {
+        $gte: startOfMonth,
+        $lt: endOfMonth,
+      },
+    }).select("name grade"),
   ]);
   const todayDate = new Date().toISOString().split("T")[0];
   const totalDue = dueResult[0]?.totalDue || 0;
@@ -83,6 +89,7 @@ module.exports.fund = catchAsync(async (req, res) => {
     previousReport,
     thisMonthYear,
     thisMonthData,
+    stuThisMonth,
   });
 });
 module.exports.addExpense = catchAsync(async (req, res) => {
