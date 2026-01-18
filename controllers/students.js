@@ -14,19 +14,19 @@ function formatDate(date, type = "short") {
   });
 }
 module.exports.students = catchAsync(async (req, res) => {
-  const students = await Student.find({});
+  const students = await Student.find({ owner: req.user._id });
   res.render("listings/students", { studentsData: students });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const student = await Student.findById(id);
+  const student = await Student.findOne({ _id: id, owner: req.user._id });
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
   res.render("listings/show", { student, formattedDate });
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const student = await Student.findById(id);
+  const student = await Student.findOne({ _id: id, owner: req.user._id });
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate, "input");
   res.render("listings/edit", { student, formattedDate }); // create this view
@@ -44,10 +44,10 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     fees,
     dueFees,
   } = req.body;
-  const student = await Student.findById(id);
-  if (!student) throw new ExpressError(404, "Student not found");
-  let updatedStudent = await Student.findByIdAndUpdate(
-    id,
+  // const student = await Student.findOne({ _id: id, owner: req.user._id });
+  // if (!student) throw new ExpressError(404, "Student not found");
+  let student = await Student.findOneAndUpdate(
+    { _id: id, owner: req.user._id },
     {
       name,
       grade,
@@ -61,11 +61,13 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     },
     { new: true, runValidators: true }
   );
-  if (!updatedStudent) {
+  if (!student) {
     req.flash("error", "Student not found");
     return res.redirect("/students");
   }
   const formattedDate = formatDate(student.joiningDate);
+  // req.flash("success", "Details updated.");
+  // res.redirect(`/students/${updatedStudent._id}`);
   res.render("listings/show", {
     student,
     formattedDate,
@@ -90,6 +92,7 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
     dueFees,
   } = req.body;
   const newStudent = new Student({
+    owner: req.user._id,
     name,
     grade,
     status,
@@ -103,9 +106,14 @@ module.exports.addNewStudent = catchAsync(async (req, res) => {
   });
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
-  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  let thisMonthData = await MonthlyReport.findOne({
+    owner: req.user._id,
+    month,
+    year,
+  });
   if (!thisMonthData) {
     thisMonthData = await MonthlyReport.create({
+      owner: req.user._id,
       month,
       year,
       totalEarning: 0,
@@ -126,9 +134,14 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
   let { id } = req.params;
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
-  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  let thisMonthData = await MonthlyReport.findOne({
+    owner: req.user._id,
+    month,
+    year,
+  });
   if (!thisMonthData) {
     thisMonthData = await MonthlyReport.create({
+      owner: req.user._id,
       month,
       year,
       totalEarning: 0,
@@ -141,7 +154,10 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
   }
   thisMonthData.studentsLeft += 1;
   await thisMonthData.save();
-  let removedStudent = await Student.findByIdAndDelete(id);
+  let removedStudent = await Student.findOneAndDelete({
+    _id: id,
+    owner: req.user._id,
+  });
   if (!removedStudent) {
     req.flash("error", "Student not found or already deleted.");
     return res.redirect("/students");
@@ -152,24 +168,31 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
 module.exports.addFees = catchAsync(async (req, res) => {
   let { id } = req.params;
   const { note, amount, paidOn } = req.body;
-  if (!amount || amount <= 0) {
+  if (!amount || Number(amount) <= 0) {
     req.flash("error", "Amount must be greater than 0");
     return res.redirect(`/students/${id}`);
   }
-  const student = await Student.findById(id);
+  amount = Number(amount);
+  const paidDate = paidOn ? new Date(paidOn) : new Date();
+  const student = await Student.findOne({ _id: id, owner: req.user._id });
   if (!student) {
     return res.status(404).send("Student not found");
   }
   student.feesHistory.push({
     note,
     amount,
-    paidDate: paidOn ? new Date(paidOn) : new Date(),
+    paidDate,
   });
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
-  const thisMonthData = await MonthlyReport.findOne({ month, year });
+  let thisMonthData = await MonthlyReport.findOne({
+    owner: req.user._id,
+    month,
+    year,
+  });
   if (!thisMonthData) {
     thisMonthData = await MonthlyReport.create({
+      owner: req.user._id,
       month,
       year,
       totalEarning: 0,
@@ -180,14 +203,17 @@ module.exports.addFees = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
-  thisMonthData.totalEarning += Number(amount);
-  student.dueFees -= Number(amount);
+  thisMonthData.totalEarning += amount;
+  student.dueFees -= amount;
   await student.save();
   await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
   res.redirect(`/students/${id}`);
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
-  const students = await Student.find({ dueFees: { $gt: 0 } });
+  const students = await Student.find({
+    owner: req.user._id,
+    dueFees: { $gt: 0 },
+  });
   res.render("listings/students", { studentsData: students });
 });

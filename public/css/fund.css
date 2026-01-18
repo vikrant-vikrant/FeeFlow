@@ -250,7 +250,7 @@ input::-webkit-inner-spin-button {
   .total span {
     font-size: 7vw;
   }
-  .history {
+  .feeHistory {
     width: 100%;
     padding: 3.5vw;
     max-height: 50vh;

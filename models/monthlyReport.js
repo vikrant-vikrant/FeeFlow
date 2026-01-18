@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const monthlyReportSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   month: { type: Number, required: true }, // 1–12
   year: { type: Number, required: true },
 
@@ -22,5 +27,5 @@ const monthlyReportSchema = new mongoose.Schema({
 });
 
 // prevent duplicate month
-monthlyReportSchema.index({ month: 1, year: 1 }, { unique: true });
+monthlyReportSchema.index({ owner: 1, month: 1, year: 1 }, { unique: true });
 module.exports = mongoose.model("MonthlyReport", monthlyReportSchema);

@@ -8,6 +8,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
+// npm uninstall express-session connect-mongo
+const cookieParser = require("cookie-parser");
+
 const flash = require("connect-flash");
 const ejsMate = require("ejs-mate");
 
@@ -15,6 +18,8 @@ const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard } = require("./controllers/students.js");
 const { fund } = require("./controllers/fund.js");
+const user = require("./routes/user.js");
+const { isLoggedIn } = require("./middleware/isLoggedin");
 const mehtodOverride = require("method-override");
 const app = express();
 app.use(mehtodOverride("_method"));
@@ -40,6 +45,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+const attachUser = require("./middleware/attachUser");
+app.use(attachUser);
 
 const store = MongoStore.create({
   mongoUrl: MONGO_URL,
@@ -72,7 +80,7 @@ app.use(setTodayDate);
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  // res.locals.currUser = req.user; //auth/passport
+  res.locals.currUser = req.user; //auth/passport
   next();
 });
 
@@ -82,9 +90,10 @@ app.get("/home", (req, res) => {
 app.get("/blog", (req, res) => {
   res.render("listings/blog.ejs");
 });
-app.use("/dashboard", dashboard);
-app.use("/fund", fund);
-app.use("/students", students);
+app.use("/dashboard", isLoggedIn, dashboard);
+app.use("/fund", isLoggedIn, fund);
+app.use("/students", isLoggedIn, students);
+app.use("/", user);
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
