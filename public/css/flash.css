@@ -85,8 +85,8 @@
 }
 @media (max-width: 600px) {
   .toast {
-    top: -1.5vh;
-    right: -8vw;
+    top: 5.7svh;
+    right: -6vw;
     padding: 10px;
   }
   .toast .title{

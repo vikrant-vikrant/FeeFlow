@@ -69,7 +69,7 @@ module.exports.login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET || "your-secret-key",
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
     res.cookie("token", token, {
       httpOnly: true,
@@ -87,6 +87,6 @@ module.exports.login = async (req, res) => {
 };
 module.exports.logout = (req, res) => {
   res.clearCookie("token");
-  req.flash("success", "You are logged out");
+  req.flash("success", "Logged out successfully");
   res.redirect("/home");
 };

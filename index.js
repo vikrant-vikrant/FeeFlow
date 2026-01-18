@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+
+// npm uninstall express-session connect-mongo
 const cookieParser = require("cookie-parser");
 
 const flash = require("connect-flash");
@@ -44,6 +46,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+const attachUser = require("./middleware/attachUser");
+app.use(attachUser);
 
 const store = MongoStore.create({
   mongoUrl: MONGO_URL,
