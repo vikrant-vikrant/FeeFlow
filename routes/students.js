@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const student = require("../controllers/students");
 const validateObjectId = require("../middleware/validateObjectId");
-const { isLoggedIn } = require("../middleware/isLoggedin");
+const { isLoggedIn } = require("../middleware/isLoggedIn");
 router.route("/").get(isLoggedIn, student.students);
 router
   .route("/newStudent")

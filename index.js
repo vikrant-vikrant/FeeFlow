@@ -19,7 +19,7 @@ const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard } = require("./controllers/students.js");
 const { fund } = require("./controllers/fund.js");
 const user = require("./routes/user.js");
-const { isLoggedIn } = require("./middleware/isLoggedin");
+const { isLoggedIn } = require("./middleware/isLoggedIn");
 const mehtodOverride = require("method-override");
 const app = express();
 app.use(mehtodOverride("_method"));
