@@ -145,8 +145,7 @@
             <div class="stat">
               <div class="total">
                 <span
-                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span
-                ><br />Total Revenue
+                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span><br />Total Revenue
               </div>
             </div>
             <div class="stat new">
@@ -165,8 +164,7 @@
                 <span
                   ><%= new Date(exp.paidDate) .toLocaleDateString('en-GB', {
                   weekday: 'short', day: 'numeric', month: 'short' })
-                  .replace(/,/g, '') %></span
-                >
+                  .replace(/,/g, '') %></span>
               </li>
               <%}%>
             </ul>

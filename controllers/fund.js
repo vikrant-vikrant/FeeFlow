@@ -47,6 +47,7 @@ module.exports.fund = catchAsync(async (req, res) => {
       },
     ]),
     Student.find({
+      owner: req.user._id,
       joiningDate: {
         $gte: startOfMonth,
         $lt: endOfMonth,
@@ -115,7 +116,7 @@ module.exports.addExpense = catchAsync(async (req, res) => {
         createdAt: new Date(),
       },
     },
-    { new: true, upsert: true }
+    { new: true, upsert: true },
   );
   console.log("report of the month");
   console.log(month, year, report);

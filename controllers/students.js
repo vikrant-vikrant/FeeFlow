@@ -59,7 +59,7 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
       dueFees,
       fees,
     },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   );
   if (!student) {
     req.flash("error", "Student not found");
@@ -167,13 +167,13 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
 });
 module.exports.addFees = catchAsync(async (req, res) => {
   let { id } = req.params;
-  const { note, amount, paidOn } = req.body;
+  let { note, amount, paidOn } = req.body;
   if (!amount || Number(amount) <= 0) {
     req.flash("error", "Amount must be greater than 0");
     return res.redirect(`/students/${id}`);
   }
   amount = Number(amount);
-  const paidDate = paidOn ? new Date(paidOn) : new Date();
+  let paidDate = paidOn ? new Date(paidOn) : new Date();
   const student = await Student.findOne({ _id: id, owner: req.user._id });
   if (!student) {
     return res.status(404).send("Student not found");

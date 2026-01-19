@@ -6,6 +6,7 @@
     </a>
   </p>
   <div class="info">
+    <% if(currUser){ %>
     <a href="/dashboard"
       ><i class="fa-solid fa-chart-line"></i>
       <h4>Dashboard</h4></a
@@ -18,13 +19,13 @@
       ><i class="fa-solid fa-wallet"></i>
       <h4>Fund</h4></a
     >
+    <a href="/logout"> <i class="fa-solid fa-right-from-bracket"></i><h4>Logout</h4></a>
+    <%}%>
     <% if(!currUser){ %>
     <a class="nav-link active login-out" aria-current="page" href="/signup"
       ><i class="fa-solid fa-user-plus"></i><h4>Signup</h4></a
     >
     <a href="/login"><i class="fa-solid fa-right-to-bracket"></i><h4>Login</h4></a>
-    <%}%> <% if(currUser){ %>
-    <a href="/logout"> <i class="fa-solid fa-right-from-bracket"></i><h4>Logout</h4></a>
     <%}%>
   </div>
 </nav>
