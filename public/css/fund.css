@@ -138,7 +138,7 @@ body {
   text-decoration: none;
 }
 .fee-entry p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .title {
@@ -238,7 +238,7 @@ input::-webkit-inner-spin-button {
     margin: 3vw;
   }
   .title {
-    font-size: 5.5vw;
+    font-size: 6.5vw;
   }
   .report-card {
     width: 100%;
@@ -252,13 +252,11 @@ input::-webkit-inner-spin-button {
   }
   .feeHistory {
     width: 100%;
-    padding: 3.5vw;
-    max-height: 50vh;
-  }
-  .feeHistory {
-    width: 100%;
-    /* padding: 3.5vw; */
     max-height: 40vh;
+    padding: 0;
+  }
+  .history {
+    padding: 3.5vw;
   }
   .feeHistory h2 {
     margin-bottom: 0vw;
@@ -267,7 +265,7 @@ input::-webkit-inner-spin-button {
     margin: 1.5vh 0;
   }
   .fee-entry p {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
   .form {
     padding: 3.5vw;
@@ -294,6 +292,12 @@ input::-webkit-inner-spin-button {
     margin: 3vw;
   }
   .monthly-reports-container {
-    margin: 2vh 5vw;
+    margin: 2vh 3vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    margin-bottom: 4vh;
+  }
+  .monthly-reports-container .report-card {
+    margin-bottom: 2rem;
   }
 }
