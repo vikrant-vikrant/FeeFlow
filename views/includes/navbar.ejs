@@ -47,9 +47,16 @@
 </div>
 <div><%- include("../includes/flash.ejs") %></div>
 <script>
-  const click = document.querySelector(".profile img");
+  const profileImg = document.querySelector(".profile img");
   const menu = document.querySelector(".menu");
-  click.addEventListener("click", function () {
+  profileImg.addEventListener("click", (e) => {
+    e.stopPropagation();
     menu.classList.toggle("hide");
+  });
+  document.addEventListener("click", () => {
+    menu.classList.add("hide");
+  });
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation();
   });
 </script>

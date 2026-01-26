@@ -112,6 +112,15 @@ nav a:hover::before {
   right: 5vh;
   top: 15vh;
   z-index: 15;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 2s ease;
+  pointer-events: none;
+}
+.menu:not(.hide) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .menu ul li {
   padding: 0.8rem;
