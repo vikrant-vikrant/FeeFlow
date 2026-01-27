@@ -112,6 +112,15 @@ nav a:hover::before {
   right: 5vh;
   top: 15vh;
   z-index: 15;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 2s ease;
+  pointer-events: none;
+}
+.menu:not(.hide) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .menu ul li {
   padding: 0.8rem;
@@ -140,6 +149,29 @@ nav a:hover::before {
 .menu ul a {
   text-decoration: none;
   color: #31312f;
+}
+footer {
+  bottom: 0;
+  width: 100%;
+}
+
+footer div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  padding: 1.6rem;
+  transition: all ease 0.3s;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.footer a i {
+  font-size: 1.6rem;
 }
 @media (max-width: 600px) {
   nav {
@@ -175,5 +207,12 @@ nav a:hover::before {
   .profile img {
     height: 38px;
     width: 38px;
+  }
+  .footer a {
+    font-size: .8rem;
+    padding: 1.2rem;
+  }
+  .footer a i {
+    font-size: 1.2rem;
   }
 }

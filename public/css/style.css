@@ -18,31 +18,15 @@ body {
 }
 .hero {
   display: flex;
-  /* height: calc(100vh - 13vh); */
 }
 .left {
   width: 60%;
-  padding: 10vh 3vw;
+  padding: 6vh 3vw;
   color: #31312f;
   z-index: 10;
 }
-.left-text h1 {
-  position: relative;
-}
 .left-text {
-  font-size: 2.5vw;
-}
-.left-text h1 span::after {
-  content: "";
-  position: absolute;
-  right: 29vw;
-  border-radius: 50%;
-  rotate: -8deg;
-  z-index: -1;
-  border: 6px solid #eba139;
-  height: 5vw;
-  width: 20vw;
-  bottom: 0;
+  font-size: 2.5rem;
 }
 .left-text p {
   font-size: 1.5vw;
@@ -56,14 +40,12 @@ body {
   border: none;
   color: #f3efea;
   background-color: #31312f;
-  margin-top: 5vh;
+  margin-top: 3vh;
   cursor: pointer;
 }
 .fetures {
-  /* background-color: grey; */
-  margin-top: 4vh;
-  /* width: 15vw; */
-  display: inline-block;
+  margin-top: 3vh;
+  display: flex;
   font-family: sans-serif;
 }
 .fetures h3 {
@@ -76,27 +58,28 @@ body {
   flex-direction: row;
   align-items: center;
   font-weight: normal;
+  margin-right: 1rem;
 }
 .fetures h3 i {
   font-size: 1.5vw;
   color: #497792;
   margin-right: 5px;
 }
-.deep {
-  width: 10vw;
+.log {
+  margin-top: 2.5vh;
 }
-.line {
-  display: flex;
-  width: 90%;
+.log button {
+  margin-right: 1rem;
+  transition: all ease 0.3s;
 }
-.line :nth-child(2) {
-  margin-left: 2vh;
+.log button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 10px #31312f8f;
 }
 .right {
   background-image: url(../man-readingself.png);
   background-position: center;
   background-size: cover;
-  /* position: absolute; */
   height: 88vh;
   width: 47vw;
   right: 2vw;
@@ -104,60 +87,51 @@ body {
 }
 .page2 {
   width: calc(100% - 6vw);
-  min-height: 100vh;
-  /* background-color: rgb(184, 184, 184); */
-  margin: 0 3vw;
+  margin: 6vh 3vw;
+}
+
+.after h1 {
+  font-size: 4rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  color: #31312f;
 }
 .points {
-  width: calc(100% - 8vw);
-  height: 30vh;
-  background-color: #9c969a;
-  border-radius: 30px;
-  margin: 10vh 4vw;
   display: flex;
   align-items: center;
   justify-content: space-around;
   font-family: sans-serif;
+  flex-wrap: wrap;
+  row-gap: 2rem;
 }
 .points div {
   text-align: center;
   font-size: 3vw;
   color: #31312f;
+  background-color: #9c969a;
+  border-radius: 30px;
+  padding: 2rem;
 }
 .points h2 {
   font-size: 2vw;
   margin-top: 2vh;
+  margin: 2vh 0;
+  line-height: 1.8rem;
 }
-.points :nth-child(1) i,
-.points :nth-child(3) i {
-  color: #eba139;
-}
-.points :nth-child(2) i,
-.points :nth-child(4) i {
-  color: #204caf;
+.points div ul li {
+  font-size: 1.2rem;
+  list-style: none;
 }
 .sub-heading {
   text-align: center;
   color: #31312f;
-  margin-bottom: 10vh;
+  margin: 1.2rem;
 }
 .sub-heading h1 {
   font-size: 4vw;
 }
-.sub-heading h1 span::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  rotate: -8deg;
-  z-index: -1;
-  border: 6px solid #eba139;
-  height: 10vh;
-  width: 15vw;
-  right: 32vw;
-}
-.sub-heading p {
-  font-size: 1.5vw;
-  margin-top: 1vh;
+.sub-heading h1 span {
+  text-decoration: underline;
 }
 .special {
   display: flex;
@@ -190,9 +164,6 @@ body {
   font-size: 2vw;
   margin: 1vw 0;
 }
-/* .special div p {
-  font-size: 1.5vw;
-} */
 .special div i {
   position: absolute;
   right: 1vw;
@@ -203,37 +174,7 @@ body {
 .page3 {
   width: calc(100% - 8vw);
   margin: 0vh 4vw;
-  min-height: 100vh;
   position: relative;
-}
-.lines {
-  display: flex;
-  padding-top: 8vh;
-  color: #31312f;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 4vw;
-}
-.lines h1 {
-  font-size: 4vw;
-  z-index: 5;
-}
-.lines h1 span::after {
-  content: "";
-  position: absolute;
-  left: 3vw;
-  border-radius: 50%;
-  rotate: -8deg;
-  z-index: -1;
-  border: 6px solid #eba139;
-  height: 9vh;
-  width: 17vw;
-}
-.lines p {
-  font-size: 2vw;
-}
-.lines p span {
-  margin-left: 21vw;
 }
 .banner {
   height: 60%;
@@ -241,19 +182,14 @@ body {
   margin: 8vh 5%;
   display: flex;
   align-items: center;
-  border: 5px solid #31312f;
+  border: 4px solid #31312f;
   border-radius: 30px;
 }
 .banner img {
-  height: 60vh;
-}
-.banner div .getin {
-  font-size: 2vw;
-  border-bottom: 2px solid black;
-  display: inline-block;
+  height: 50vh;
 }
 .banner h1 {
-  font-size: 4vw;
+  font-size: 3.5vw;
   margin: 1.5vw 0;
   line-height: 4vw;
 }
@@ -265,13 +201,19 @@ body {
 }
 .banner div button {
   background-color: #204caf;
-  color: white;
+  color: #f3efea;
   border: none;
   padding: 1vw 2vw;
-  border-radius: 10px;
+  border-radius: 50px;
   margin-top: 1.5vw;
   cursor: pointer;
-  font-size: 1.2vw;
+  font-size: 1.5vw;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+.banner div button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 10px #31312f8f;
 }
 @media (max-width: 600px) {
   .hero {
@@ -285,18 +227,15 @@ body {
     margin: 0 3vw;
   }
   .left-text {
-    font-size: 4.5vw;
-  }
-  .left-text h1 span::after {
-    left: -3vw;
-    border: 5px solid #eba139;
-    height: 8vw;
-    width: 45vw;
+    font-size: 5vw;
   }
   .left-text p {
-    font-size: 4vw;
-    margin-top: 2.5vh;
+    font-size: 4.1vw;
+    margin-top: 1.5vh;
     font-family: sans-serif;
+  }
+  .log {
+    margin-top: 1.5vh;
   }
   .right {
     height: 45vh;
@@ -309,55 +248,27 @@ body {
     margin-top: 2.5vh;
   }
   .fetures {
-    margin-top: 2.5vh;
-    width: 90vw;
-  }
-  .fetures h3 {
-    border: 1.5px solid #31312f;
-    border-radius: 20px;
-    padding: 2vw;
-    font-size: 4vw;
-    margin-top: 0vh;
-  }
-  .fetures h3 i {
-    font-size: 5vw;
-    margin-right: 2vw;
-  }
-  .fetures .deep {
     display: none;
   }
   .page2 {
     width: calc(100% - 6vw);
     min-height: 100vh;
-    margin: 0 3vw;
+    margin: 2vh 3vw 4vh 3vw;
   }
-  .points {
-    width: 100%;
-    height: 15vh;
-    margin: 2.5vh 0vw 0vh 0;
+  .sub-heading h1 {
+    font-size: 2.2rem;
+    padding-bottom: 2rem;
   }
   .points div {
-    font-size: 8vw;
+    padding: 1rem;
+    width: 85%;
   }
-  .points h2 {
-    font-size: 2.5vw;
-    margin-top: 0.5vh;
+  .points div h2 {
+    font-size: 1.8rem;
   }
   .sub-heading {
     margin-bottom: 0vh;
-  }
-  .sub-heading h1 {
     font-size: 6.5vw;
-    margin-top: 2.5vh;
-  }
-  .sub-heading h1 span::before {
-    border: 5px solid #eba139;
-    height: 3vh;
-    width: 25vw;
-    right: 18vw;
-  }
-  .sub-heading p {
-    font-size: 3vw;
     margin-top: 2.5vh;
   }
   .special {
@@ -397,27 +308,6 @@ body {
     width: calc(100% - 6vw);
     margin: 0vh 3vw;
   }
-  .lines {
-    flex-direction: column;
-    padding-top: 0vh;
-    width: 100%;
-    margin: 0vw;
-  }
-  .lines h1 {
-    font-size: 6.5vw;
-  }
-  .lines h1 span::after {
-    left: 13vw;
-    border: 5px solid #eba139;
-    height: 3vh;
-    width: 30vw;
-  }
-  .lines p {
-    font-size: 4vw;
-  }
-  .lines p span {
-    align-items: center;
-  }
   .banner {
     width: 100%;
     margin: 2.5vh 0 2.5vh 0;
@@ -427,10 +317,6 @@ body {
   .banner div {
     width: 90%;
     margin: 0 5%;
-  }
-  .banner div .getin {
-    font-size: 3vw;
-    border-bottom: 1px solid black;
   }
   .banner h1 {
     font-size: 6vw;

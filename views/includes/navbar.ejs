@@ -15,10 +15,6 @@
       ><i class="fa-solid fa-user-group"></i>
       <h4>All Students</h4></a
     >
-    <a href="/fund"
-      ><i class="fa-solid fa-wallet"></i>
-      <h4>Fund</h4></a
-    >
     <div class="profile" title="Account settings" role="button">
       <img
           src="https://ui-avatars.com/api/?name=<%=currUser.username%>&bold=true&background=31312f&color=f3efea"
@@ -42,14 +38,22 @@
       <%}else{%>
         <span><%=currUser.username%></span>
       <%}%></li>
+      <a href="/fund"><li><i class="fa-solid fa-wallet"></i></i><span>Fund</span></li></a>
     <a href="/logout"><li><i class="fa-solid fa-right-to-bracket"></i><span>Logout</span></li></a>
   </ul>
 </div>
 <div><%- include("../includes/flash.ejs") %></div>
 <script>
-  const click = document.querySelector(".profile img");
+  const profileImg = document.querySelector(".profile img");
   const menu = document.querySelector(".menu");
-  click.addEventListener("click", function () {
+  profileImg.addEventListener("click", (e) => {
+    e.stopPropagation();
     menu.classList.toggle("hide");
+  });
+  document.addEventListener("click", () => {
+    menu.classList.add("hide");
+  });
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation();
   });
 </script>
