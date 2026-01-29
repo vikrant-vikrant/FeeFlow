@@ -24,7 +24,7 @@ body {
 }
 .nav-tabs {
   color: #31312f;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;

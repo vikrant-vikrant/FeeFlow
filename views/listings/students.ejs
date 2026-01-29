@@ -5,7 +5,7 @@
     <%- include('../includes/navbar')%>
     <div class="container">
       <div class="nav-tabs">
-        <h1><i class="fa-solid fa-chart-line"></i>&nbsp;All Students</h1>
+        <h1><i class="fa-solid fa-chart-line" ></i>&nbsp;All Students <span id="student-count"><%=studentsData.length%></span></h1>
         <div class="quick-actions">
           <label for="">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -22,16 +22,8 @@
             <i class="fa-solid fa-user-plus"></i>
             <p>Add Student</p>
           </button>
-          <!-- <button>
-            <p><i class="fa-solid fa-bell"></i> Send Bulk Reminders</p>
-          </button> -->
         </div>
       </div>
-      <p>
-        <strong id="student-count">
-          Total students <%=studentsData.length%>
-        </strong>
-      </p>
       <div class="radio-inputs">
         <label class="radio">
           <input type="radio" name="radio" value="all" checked />
