@@ -87,16 +87,17 @@ app.use((req, res, next) => {
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
-app.get("/blog", (req, res) => {
-  res.render("listings/blog.ejs");
-});
 app.use("/dashboard", isLoggedIn, dashboard);
 app.use("/fund", isLoggedIn, fund);
 app.use("/students", isLoggedIn, students);
 app.use("/", user);
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+  const status = err.status || 500;
+  res.status(status).render("layouts/error.ejs", {
+    code: status,
+    title: status === 404 ? "Page Not Found" : "Something went wrong",
+    message: err.message || "We’re having trouble processing your request.",
+  });
 });
 app.listen(PORT, () => {
   console.log(`App is listing to port : ${PORT}`);

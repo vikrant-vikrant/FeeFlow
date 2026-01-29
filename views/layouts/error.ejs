@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        color: #323232;
+      }
+      .error {
+        height: 92vh;
+        width: 94vw;
+        margin: 4vh 3vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .error p {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+      .error h1 {
+        font-weight: 900;
+        margin: 0;
+        font-size: 14vw;
+        line-height: 14vw;
+        letter-spacing: -2.2vw;
+      }
+      .error a {
+        text-decoration: none;
+        background: #323232;
+        color: white;
+        padding: 1vw 2vw;
+        border-radius: 50px;
+        border: none;
+        font-size: 1.5vw;
+        font-weight: 600;
+        transition: all ease 0.3s;
+      }
+      .error a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 0px 10px #31312f8f;
+      }
+      @media (max-width: 600px) {
+        .error {
+          margin: 3vw;
+          width: 94vw;
+        }
+        .error p {
+          font-size: 1.8rem;
+          margin: 0px;
+          display: inline;
+          width: 100%;
+        }
+        .error h1 {
+          font-size: 30vw;
+          line-height: 30vw;
+          letter-spacing: -4vw;
+        }
+        .error a {
+          padding: 3vw 5vw;
+          font-size: 5vw;
+          margin-top: 15vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error">
+      <p><%= title %></p>
+      <h1><%= code %></h1>
+      <p><%= message %></p>
+      <a href="/dashboard">Go Back Home</a>
+    </div>
+  </body>
+</html>
