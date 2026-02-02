@@ -214,7 +214,7 @@ module.exports.addFees = catchAsync(async (req, res) => {
   await student.save();
   await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
-  res.redirect(`/students/${id}`);
+  res.redirect(`/students?filter=due`);
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({

@@ -216,6 +216,13 @@ body {
     width: 100%;
     justify-content: space-between;
   }
+  .quick-actions {
+    width: 100vw;
+  }
+  .quick-actions label {
+    width: 97%;
+    padding: 2vw 2.5vw;
+  }
   .nav-tabs .filter a {
     padding: 2vw 2.5vw;
   }
