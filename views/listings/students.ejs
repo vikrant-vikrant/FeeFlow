@@ -5,7 +5,23 @@
     <%- include('../includes/navbar')%>
     <div class="container">
       <div class="nav-tabs">
-        <h1><i class="fa-solid fa-chart-line"></i>&nbsp;All Students</h1>
+        <div class="filter">
+          <a href="/students?filter=due"
+            ><i class="fa-solid fa-chart-line"></i>
+            <p>&nbsp;&nbsp;Due Students</p>
+          </a>
+          <a href="/students"
+            ><i class="fa-solid fa-user-group"></i>
+            <p>&nbsp;&nbsp;All Students</p></a
+          >
+          <a
+            title="Add New Student"
+            onclick="location.href='students/newStudent'"
+          >
+            <i class="fa-solid fa-user-plus"></i>
+            <p>&nbsp;&nbsp;Add Student</p>
+          </a>
+        </div>
         <div class="quick-actions">
           <label for="">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -15,16 +31,6 @@
               placeholder="Search student by name..."
             />
           </label>
-          <button
-            title="Add New Student"
-            onclick="location.href='students/newStudent'"
-          >
-            <i class="fa-solid fa-user-plus"></i>
-            <p>Add Student</p>
-          </button>
-          <!-- <button>
-            <p><i class="fa-solid fa-bell"></i> Send Bulk Reminders</p>
-          </button> -->
         </div>
       </div>
       <p>

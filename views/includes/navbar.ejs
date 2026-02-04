@@ -1,20 +1,16 @@
 <nav>
   <p>
-    <a href="/home">
+    <% if(currUser){%>
+    <a href="/dashboard">
+    <%}else{%>
+      <a href="/home">
+    <%}%>
       <i class="fa-solid fa-graduation-cap"></i>THE DYNAMIC
       <span>VISION</span>
     </a>
   </p>
   <div class="info">
     <% if(currUser){ %>
-    <a href="/dashboard"
-      ><i class="fa-solid fa-chart-line"></i>
-      <h4>Dashboard</h4></a
-    >
-    <a href="/students"
-      ><i class="fa-solid fa-user-group"></i>
-      <h4>All Students</h4></a
-    >
     <div class="profile" title="Account settings" role="button">
       <img
           src="https://ui-avatars.com/api/?name=<%=currUser.username%>&bold=true&background=31312f&color=f3efea"
@@ -32,14 +28,12 @@
 </nav>
 <div class="menu hide">
   <ul>
-    <li><i class="fa-solid fa-user"></i>
-      <% if(!currUser){ %>
-        <span>User</span>
-      <%}else{%>
-        <span><%=currUser.username%></span>
-      <%}%></li>
-      <a href="/fund"><li><i class="fa-solid fa-wallet"></i></i><span>Fund</span></li></a>
-    <a href="/logout"><li><i class="fa-solid fa-right-to-bracket"></i><span>Logout</span></li></a>
+    <li><i class="fa-solid fa-user"></i><span><%= currUser ? currUser.username : 'User' %></span>
+      <a href="/students?filter=due"><li><i class="fa-solid fa-chart-line"></i><span>Due Students</span></li></a>
+      <a href="/students"><li><i class="fa-solid fa-user-group"></i><span>All Students</span></li></a>
+      <a href="/students/newStudent"><li><i class="fa-solid fa-user-plus"></i><span>Add Student</span></li></a>
+      <a href="/fund"><li><i class="fa-solid fa-wallet"></i><span>Fund</span></li></a>
+      <a href="/logout"><li><i class="fa-solid fa-right-to-bracket"></i><span>Logout</span></li></a>
   </ul>
 </div>
 <div><%- include("../includes/flash.ejs") %></div>

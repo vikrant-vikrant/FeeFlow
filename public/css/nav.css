@@ -101,7 +101,6 @@ nav a:hover::before {
   transform: translateY(-3px);
 }
 .menu {
-  width: 9rem;
   background-color: #f3efea;
   background-color: rgb(218, 218, 218);
   color: #31312f;
@@ -124,18 +123,17 @@ nav a:hover::before {
 }
 .menu ul li {
   padding: 0.8rem;
-  text-align: center;
+  text-align: start;
   background-color: rgb(218, 218, 218);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   font-size: 1.3rem;
   font-weight: 600;
   border-radius: 0.8rem;
   text-transform: capitalize;
+  list-style-type: none;
 }
 .menu ul li i {
   font-size: 1.4rem;
+  margin-right: 10px;
 }
 .menu ul li span {
   font-size: 1.2rem;

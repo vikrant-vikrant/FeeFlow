@@ -14,7 +14,13 @@ function formatDate(date, type = "short") {
   });
 }
 module.exports.students = catchAsync(async (req, res) => {
-  const students = await Student.find({ owner: req.user._id });
+  const { filter } = req.query;
+  let students;
+  if (filter === "due") {
+    students = await Student.find({ dueFees: { $gt: 0 }, owner: req.user._id });
+  } else {
+    students = await Student.find({ owner: req.user._id });
+  }
   res.render("listings/students", { studentsData: students });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
@@ -208,7 +214,7 @@ module.exports.addFees = catchAsync(async (req, res) => {
   await student.save();
   await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
-  res.redirect(`/students/${id}`);
+  res.redirect(`/students?filter=due`);
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({

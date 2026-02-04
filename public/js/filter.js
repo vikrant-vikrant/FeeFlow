@@ -20,7 +20,7 @@ function updateCount() {
   ).length;
   document.querySelector(
     "#student-count"
-  ).textContent = `Total students: ${visible}`;
+  ).textContent = `${visible}`;
 }
 
 document.querySelector("#searchBox").addEventListener("input", function () {

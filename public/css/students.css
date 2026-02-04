@@ -9,11 +9,9 @@ body {
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
-  /* overflow-x: hidden; */
 }
 .main {
   position: relative;
-  /* min-height: 100vh; */
   width: 100%;
   background-color: #f3efea;
 }
@@ -23,8 +21,6 @@ body {
   font-family: sans-serif;
 }
 .nav-tabs {
-  color: #31312f;
-  font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -32,6 +28,20 @@ body {
   align-items: center;
 }
 
+.nav-tabs .filter {
+  display: flex;
+  width: 50vw;
+}
+.nav-tabs .filter a {
+  text-decoration: none;
+  margin-right: 1rem;
+  color: #31312f;
+}
+
+.filter a i,
+.filter a p {
+  z-index: 9;
+}
 .quick-actions {
   display: flex;
 }
@@ -48,7 +58,8 @@ body {
 .quick-actions label input:focus {
   outline: none;
 }
-.quick-actions button {
+.quick-actions button,
+.nav-tabs .filter a {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
   background-color: #f3efea;
@@ -61,28 +72,29 @@ body {
   display: flex;
   align-items: center;
 }
-.quick-actions button {
-  margin: 0 0 0 1vw;
-}
-.quick-actions button:hover {
+.quick-actions button:hover,
+.nav-tabs .filter a:hover {
   transform: translateY(-3px);
   box-shadow: 0px 0px 10px #31312f8f;
 }
-.quick-actions button p {
+
+.filter a p {
   font-size: 14px;
   color: #31312f;
   z-index: 9;
   position: relative;
 }
-.quick-actions button i {
+
+.filter a p {
   z-index: 9;
 }
-.quick-actions button i,
+
 .quick-actions label i {
   font-size: 16px;
   margin-right: 0.5vw;
 }
-.quick-actions button::before {
+
+.nav-tabs .filter a::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -93,12 +105,15 @@ body {
   border-radius: 50px;
   transition: all ease 0.4s;
 }
-.quick-actions button:hover::before {
+
+.nav-tabs .filter a:hover::before {
   bottom: 0;
   border-radius: 0;
 }
-.quick-actions button:hover p,
-.quick-actions button:hover i {
+
+.quick-actions button:hover i,
+.nav-tabs .filter a:hover p,
+.nav-tabs .filter a:hover {
   color: #f3eaea;
 }
 .students {
@@ -111,7 +126,6 @@ body {
 }
 .list {
   width: 20vw;
-  /* height: 15vh; */
   background-color: grey;
   margin: 1vw;
   padding: 1vw;
@@ -199,26 +213,29 @@ body {
   }
   .nav-tabs .filter {
     margin-bottom: 2vw;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .quick-actions {
+    width: 100vw;
+  }
+  .quick-actions label {
+    width: 97%;
+    padding: 2vw 2.5vw;
   }
   .nav-tabs .filter a {
     padding: 2vw 2.5vw;
   }
-  .nav-tabs h1 {
-    font-size: 6vw;
-    margin-bottom: 2vw;
+  .nav-tabs .filter a i,
+  .nav-tabs .filter a p {
+    font-size: 2.8vw;
   }
-  .quick-actions button i,
+
   .quick-actions label i,
   .quick-actions label input {
     font-size: 4vw;
   }
-  .quick-actions button p {
-    display: none;
-  }
-  .quick-actions button {
-    padding: 2vw 2.5vw;
-    margin: 0 2vw;
-  }
+
   .list {
     width: 45vw;
     padding: 1.5vw;
