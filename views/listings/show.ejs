@@ -126,6 +126,11 @@
           <i class="fa-regular fa-pen-to-square"></i> Edit Details
         </button>
       </a>
+      <a href="/students/<%= student.id%>/deactivate" method="post">
+        <button class="edit-info">
+          <i class="fa-solid fa-user-slash"></i> Deactivate
+        </button>
+      </a>
       <form
         action="/students/<%=student.id%>?_method=delete"
         method="post"

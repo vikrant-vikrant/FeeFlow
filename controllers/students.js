@@ -1,6 +1,7 @@
 const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
 const MonthlyReport = require("../models/monthlyReport");
+const ArchivedStudent = require("../models/archivedStudent");
 
 function formatDate(date, type = "short") {
   if (!date) return "";
@@ -29,6 +30,25 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
   res.render("listings/show", { student, formattedDate });
+});
+module.exports.deactivateStudent = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const student = await Student.findOne({
+    _id: id,
+    owner: req.user._id,
+  });
+  if (!student) {
+    req.flash("error", "Student not found");
+    return res.redirect("/students");
+  }
+  await ArchivedStudent.create({
+    ...student.toObject(),
+    _id: undefined,
+    deactivatedAt: new Date(),
+  });
+  await Student.findByIdAndDelete(id);
+  req.flash("success", "Student deactivated successfully");
+  res.redirect("/students");
 });
 module.exports.editStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -215,6 +235,10 @@ module.exports.addFees = catchAsync(async (req, res) => {
   await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
   res.redirect(`/students?filter=due`);
+});
+module.exports.archived = catchAsync(async (req, res) => {
+  const archived = await ArchivedStudent.find({ owner: req.user._id });
+  res.render("listings/students", { studentsData: archived });
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({
