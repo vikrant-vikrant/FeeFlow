@@ -108,14 +108,17 @@
                 >Due <%= students.dueFees %>&#8377;
               </span>
               <br>
-              <form action="/students/<%= students._id %>/restore" method="POST">
-                <button><i class="fa-solid fa-user-plus"></i>Restore</button>
-              </form>
-              <form action="/students/<%=students.id%>/delete?_method=delete" method="post">
-                <button class="edit-info">
-                  <i class="fa-solid fa-user-minus"></i> Delete
-                </button>
-              </form>
+              <div class="flex">
+
+                <form action="/students/<%= students._id %>/restore" method="POST">
+                  <button class="edit-info"><i class="fa-solid fa-user-plus"></i>&nbsp;Restore</button>
+                </form>
+                <form action="/students/<%=students.id%>/delete?_method=delete" method="post">
+                  <button class="edit-info">
+                    <i class="fa-solid fa-user-minus"></i>&nbsp;Delete
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         <%}%>
