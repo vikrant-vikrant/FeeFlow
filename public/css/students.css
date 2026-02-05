@@ -201,7 +201,22 @@ body {
 .radio-inputs .radio input:checked + .name {
   background-color: #a0d8ff;
 }
-
+.flex {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+.edit-info {
+  padding: 0.4rem;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  color: #31312f;
+  background-color: #ddd;
+  margin: 0.2rem 0.4rem 0 0;
+  display: flex;
+}
 @media (max-width: 600px) {
   .container {
     width: calc(100vw - 6vw);
@@ -246,11 +261,15 @@ body {
   }
   .list .details {
     margin-left: 1.5vw;
+    width: 100%;
   }
   .list .details p {
     font-size: 1.2rem;
   }
   .radio-inputs {
     width: 100%;
+  }
+  .edit-info {
+    margin: 0 0.3rem 0 0;
   }
 }

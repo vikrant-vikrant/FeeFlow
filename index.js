@@ -16,7 +16,7 @@ const ejsMate = require("ejs-mate");
 
 const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
-const { dashboard } = require("./controllers/students.js");
+const { dashboard, archived } = require("./controllers/students.js");
 const { fund } = require("./controllers/fund.js");
 const user = require("./routes/user.js");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
@@ -88,6 +88,7 @@ app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
 app.use("/dashboard", isLoggedIn, dashboard);
+app.use("/archived", isLoggedIn, archived);
 app.use("/fund", isLoggedIn, fund);
 app.use("/students", isLoggedIn, students);
 app.use("/", user);
