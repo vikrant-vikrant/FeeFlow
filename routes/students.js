@@ -17,5 +17,7 @@ router
   .get(isLoggedIn, validateObjectId, student.editStudent)
   .put(isLoggedIn, validateObjectId, student.saveEditStudent);
 router.get("/:id/deactivate", student.deactivateStudent);
+router.post("/:id/restore", student.restoreStudent);
+router.delete("/:id/delete", student.deletearchiveStudent);
 router.post("/:id/addFees", isLoggedIn, student.addFees);
 module.exports = router;

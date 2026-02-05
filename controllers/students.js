@@ -238,7 +238,39 @@ module.exports.addFees = catchAsync(async (req, res) => {
 });
 module.exports.archived = catchAsync(async (req, res) => {
   const archived = await ArchivedStudent.find({ owner: req.user._id });
-  res.render("listings/students", { studentsData: archived });
+  res.render("listings/archive", { studentsData: archived });
+});
+module.exports.restoreStudent = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const archivedStudent = await ArchivedStudent.findOne({
+    _id: id,
+    owner: req.user._id,
+  });
+  if (!archivedStudent) {
+    req.flash("error", "Archived student not found");
+    return res.redirect("/students/archived");
+  }
+  await Student.create({
+    ...archivedStudent.toObject(),
+    _id: undefined,
+  });
+  await ArchivedStudent.findByIdAndDelete(id);
+  req.flash("success", "Student restored successfully");
+  res.redirect("/students");
+});
+module.exports.deletearchiveStudent = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const archivedStudent = await ArchivedStudent.findOne({
+    _id: id,
+    owner: req.user._id,
+  });
+  if (!archivedStudent) {
+    req.flash("error", "Archived student not found");
+    return res.redirect("/students/archived");
+  }
+  await ArchivedStudent.findByIdAndDelete(id);
+  req.flash("success", "Student deleted successfully");
+  res.redirect("/students");
 });
 module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({
