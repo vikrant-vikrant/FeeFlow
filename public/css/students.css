@@ -32,11 +32,6 @@ body {
   display: flex;
   width: 50vw;
 }
-.nav-tabs .filter a {
-  text-decoration: none;
-  margin-right: 1rem;
-  color: #31312f;
-}
 
 .filter a i,
 .filter a p {
@@ -58,7 +53,6 @@ body {
 .quick-actions label input:focus {
   outline: none;
 }
-.quick-actions button,
 .nav-tabs .filter a {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
@@ -71,6 +65,9 @@ body {
   overflow: hidden;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  margin-right: 1rem;
+  color: #31312f;
 }
 .quick-actions button:hover,
 .nav-tabs .filter a:hover {
@@ -208,7 +205,7 @@ body {
   align-items: center;
 }
 .edit-info {
-  padding: 0.4rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 0.6rem;
   border: none;
   cursor: pointer;
@@ -216,6 +213,10 @@ body {
   background-color: #ddd;
   margin: 0.2rem 0.4rem 0 0;
   display: flex;
+  font-size: 1rem;
+}
+#student-count {
+  background-color: #a0d8ff;
 }
 @media (max-width: 600px) {
   .container {
@@ -235,15 +236,16 @@ body {
     width: 100vw;
   }
   .quick-actions label {
-    width: 97%;
+    width: 100%;
     padding: 2vw 2.5vw;
   }
   .nav-tabs .filter a {
-    padding: 2vw 2.5vw;
+    margin-right: 0;
+    padding: 2.5vw;
   }
   .nav-tabs .filter a i,
   .nav-tabs .filter a p {
-    font-size: 2.8vw;
+    font-size: 0.9rem;
   }
 
   .quick-actions label i,
@@ -270,6 +272,7 @@ body {
     width: 100%;
   }
   .edit-info {
-    margin: 0 0.3rem 0 0;
+    margin: 0;
+    padding: 0.1rem 0.3rem;
   }
 }

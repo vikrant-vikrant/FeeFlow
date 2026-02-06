@@ -33,15 +33,10 @@
           </label>
         </div>
       </div>
-      <p>
-        <strong id="student-count">
-          Total students <%=studentsData.length%>
-        </strong>
-      </p>
       <div class="radio-inputs">
         <label class="radio">
           <input type="radio" name="radio" value="all" checked />
-          <span class="name">All</span>
+          <span class="name" id="student-count">All <%=studentsData.length%></span>
         </label>
         <label class="radio">
           <input type="radio" name="radio" value="10th" />

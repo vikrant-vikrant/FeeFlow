@@ -34,15 +34,10 @@
           </label>
         </div>
       </div>
-      <p>
-        <strong id="student-count">
-          Total students <%=studentsData.length%>
-        </strong>
-      </p>
       <div class="radio-inputs">
         <label class="radio">
           <input type="radio" name="radio" value="all" checked />
-          <span class="name">All</span>
+          <span class="name" id="student-count">All <%=studentsData.length%></span>
         </label>
         <label class="radio">
           <input type="radio" name="radio" value="10th" />
@@ -111,11 +106,11 @@
               <div class="flex">
 
                 <form action="/students/<%= students._id %>/restore" method="POST">
-                  <button class="edit-info"><i class="fa-solid fa-user-plus"></i>&nbsp;Restore</button>
+                  <button class="edit-info">Restore</button>
                 </form>
                 <form action="/students/<%=students.id%>/delete?_method=delete" method="post">
                   <button class="edit-info">
-                    <i class="fa-solid fa-user-minus"></i>&nbsp;Delete
+                    Delete
                   </button>
                 </form>
               </div>
