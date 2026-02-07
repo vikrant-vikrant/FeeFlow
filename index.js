@@ -17,8 +17,8 @@ const ejsMate = require("ejs-mate");
 const students = require("./routes/students");
 const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard, archived } = require("./controllers/students.js");
-const { fund } = require("./controllers/fund.js");
 const user = require("./routes/user.js");
+const fundRoute = require("./routes/fund.js");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
 const mehtodOverride = require("method-override");
 const app = express();
@@ -89,7 +89,7 @@ app.get("/home", (req, res) => {
 });
 app.use("/dashboard", isLoggedIn, dashboard);
 app.use("/archived", isLoggedIn, archived);
-app.use("/fund", isLoggedIn, fund);
+app.use("/fund", isLoggedIn, fundRoute);
 app.use("/students", isLoggedIn, students);
 app.use("/", user);
 app.use((err, req, res, next) => {
