@@ -20,9 +20,9 @@ const user = require("./routes/user.js");
 const fundRoute = require("./routes/fund.js");
 const setTodayDate = require("./middleware/setTodayDate");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
+const app = express();
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
-const app = express();
 
 /* ---------- Config ---------- */
 const PORT = process.env.PORT || 8000;
