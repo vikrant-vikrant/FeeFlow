@@ -107,6 +107,19 @@ module.exports.addExpense = catchAsync(async (req, res) => {
   const paid = paidDate ? new Date(paidDate) : new Date();
   const month = paid.getMonth() + 1;
   const year = paid.getFullYear();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  paid.setHours(0, 0, 0, 0);
+  if (paid > today) {
+    req.flash("error", "You cannot add expenses for a future date");
+    return res.redirect("/fund");
+  }
+  const minDate = new Date("2024-01-01");
+  minDate.setHours(0, 0, 0, 0);
+  if (paid < minDate) {
+    req.flash("error", "Expense date is too old");
+    return res.redirect("/fund");
+  }
   try {
     let report = await MonthlyReport.findOne({
       owner: req.user._id,
