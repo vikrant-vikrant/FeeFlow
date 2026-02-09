@@ -18,11 +18,31 @@ module.exports.students = catchAsync(async (req, res) => {
   const { filter } = req.query;
   let students;
   if (filter === "due") {
-    students = await Student.find({ dueFees: { $gt: 0 }, owner: req.user._id });
+    students = await Student.find({ dueFees: { $gt: 0 }, owner: req.user._id })
+      .select("name grade fees dueFees _id")
+      .lean();
   } else {
-    students = await Student.find({ owner: req.user._id });
+    students = await Student.find({ owner: req.user._id })
+      .select("name grade fees dueFees _id")
+      .lean();
   }
-  res.render("listings/students", { studentsData: students });
+  const studentsData = students.map((s) => {
+    const statusClass =
+      s.dueFees >= s.fees * 3
+        ? "red"
+        : s.dueFees >= s.fees * 2
+          ? "yellow"
+          : "normal";
+    return {
+      _id: s._id,
+      name: s.name,
+      grade: s.grade,
+      dueFees: s.dueFees,
+      statusClass,
+      searchName: s.name.toLowerCase(),
+    };
+  });
+  res.render("listings/students", { studentsData });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;

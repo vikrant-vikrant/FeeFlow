@@ -117,7 +117,10 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
-.students a {
+ul {
+  list-style-type: none;
+}
+.students .student a {
   text-decoration: none;
   color: black;
 }
@@ -214,6 +217,9 @@ body {
   margin: 0.2rem 0.4rem 0 0;
   display: flex;
   font-size: 1rem;
+}
+#student-count {
+  background-color: #a0d8ff;
 }
 #student-count {
   background-color: #a0d8ff;
