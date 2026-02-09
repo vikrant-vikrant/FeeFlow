@@ -33,15 +33,10 @@
           </label>
         </div>
       </div>
-      <p>
-        <strong id="student-count">
-          Total students <%=studentsData.length%>
-        </strong>
-      </p>
       <div class="radio-inputs">
         <label class="radio">
           <input type="radio" name="radio" value="all" checked />
-          <span class="name">All</span>
+          <span class="name" id="student-count">All <%=studentsData.length%></span>
         </label>
         <label class="radio">
           <input type="radio" name="radio" value="10th" />
@@ -92,7 +87,7 @@
       <ul class="students" aria-live="polite">
         <% studentsData.forEach(s => { %>
           <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>">
-            <a href="/students/<%= s._id %>" class="student-link list">
+            <a href="/students/<%= s._id %>" class="list">
               <img
                 loading="lazy"
                 src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(s.name) %>&bold=true&size=128"
