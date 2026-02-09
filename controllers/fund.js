@@ -62,7 +62,7 @@ module.exports.fund = catchAsync(async (req, res) => {
     owner: req.user._id,
     month,
     year,
-  });
+  }).lean();
   if (!thisMonthData) {
     thisMonthData = await MonthlyReport.create({
       owner: req.user._id,
@@ -76,18 +76,10 @@ module.exports.fund = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
-  const previousReport = await MonthlyReport.find({
-    owner: req.user._id,
-    $or: [
-      { year: { $lt: year } }, // any past year
-      { year: year, month: { $lt: month } }, // same year but earlier months
-    ],
-  }).sort({ year: -1, month: -1 });
   res.render("listings/fund", {
     totalDue,
     todayDate,
     feesThisMonth,
-    previousReport,
     thisMonthYear,
     thisMonthData,
     stuThisMonth,
@@ -126,7 +118,6 @@ module.exports.addExpense = catchAsync(async (req, res) => {
       month,
       year,
     });
-
     if (!report) {
       report = new MonthlyReport({
         owner: req.user._id,
@@ -145,7 +136,6 @@ module.exports.addExpense = catchAsync(async (req, res) => {
       amount: amt,
       paidDate: paid,
     });
-
     report.totalExpenses += amt;
     await report.save();
     req.flash("success", "Expense added successfully");
@@ -162,3 +152,19 @@ module.exports.addExpense = catchAsync(async (req, res) => {
     return res.redirect("/fund");
   }
 });
+module.exports.getPreviousReports = async (req, res) => {
+  const page = Math.max(parseInt(req.query.page) || 1, 1);
+  const limit = 2;
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const reports = await MonthlyReport.find({
+    owner: req.user._id,
+    $or: [{ year: { $lt: year } }, { year, month: { $lt: month } }],
+  })
+    .sort({ year: -1, month: -1 })
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .lean();
+  res.json(reports);
+};

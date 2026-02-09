@@ -133,57 +133,13 @@
           </div>
         </div>
       </div>
+      <div id="previousReports" class="monthly-reports-container"></div>
       <div class="nav-tabs">
-        <h1>Previous Reports</h1>
-      </div>
-      <div class="monthly-reports-container">
-        <%for(let data of previousReport){%>
-        <div class="report-card">
-          <div class="report-header">
-            <h2 class="title">
-              <%= new Date(data.year, data.month - 1).toLocaleString('en-US', {
-              month: 'short', year: 'numeric' }) %>
-            </h2>
-          </div>
-
-          <div class="report-stats">
-            <div class="stat">
-              <div class="total">
-                <span
-                  ><%=data.totalEarning.toLocaleString('en-IN')%> &#8377;</span><br />Total Revenue
-              </div>
-            </div>
-            <div class="stat new">
-              <span>New Students : <%= data.newStudents %></span>
-              <span>Students Left : <%= data.studentsLeft %></span>
-            </div>
-          </div>
-
-          <div class="expense-section">
-            <h3>Expense Details</h3>
-            <ul>
-              <%for(let exp of data.expenses){%>
-              <li>
-                <span><%= exp.note%></span><br />
-                <span><%= exp.amount%></span><br />
-                <span
-                  ><%= new Date(exp.paidDate) .toLocaleDateString('en-GB', {
-                  weekday: 'short', day: 'numeric', month: 'short' })
-                  .replace(/,/g, '') %></span>
-              </li>
-              <%}%>
-            </ul>
-            <div class="report-stats">
-              <div class="stat expense">
-                <% let total = 0; data.expenses.forEach(e => total += e.amount);
-                %>
-                <h3>Total Expenses: <%= total %> ₹</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <%}%>
+        <button id="loadReportsBtn" data-page="1">
+          Show Previous Reports
+        </button>
       </div>
     </div>
   </div>
 </body>
+<script src="./js/previousReports.js"></script>

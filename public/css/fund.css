@@ -20,10 +20,6 @@ body {
   margin: 2vw 3vw;
   font-family: sans-serif;
 }
-.nav-tabs {
-  color: #31312f;
-  font-size: 1.2rem;
-}
 .thisMonth {
   margin: 4vh auto;
   display: flex;
@@ -210,7 +206,9 @@ input::-webkit-inner-spin-button {
   font-size: 3vh;
 }
 
-.submit {
+.submit,
+#loadReportsBtn {
+  cursor: pointer;
   border: none;
   outline: none;
   padding: 10px;
@@ -230,8 +228,12 @@ input::-webkit-inner-spin-button {
   margin-right: 3vw;
 }
 @media (max-width: 600px) {
-  .nav-tabs h1 {
-    font-size: 2rem;
+  .nav-tabs {
+    font-size: 5vw;
+    padding: 0 8vw;
+  }
+  .nav-tabs #loadReportsBtn {
+    width: 100%;
   }
   .thisMonth {
     flex-direction: column;
@@ -292,7 +294,7 @@ input::-webkit-inner-spin-button {
     margin: 3vw;
   }
   .monthly-reports-container {
-    margin: 2vh 3vw;
+    margin: 3vh 3vw;
     max-height: 80vh;
     overflow-y: scroll;
     margin-bottom: 4vh;

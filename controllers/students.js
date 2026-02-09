@@ -257,7 +257,9 @@ module.exports.addFees = catchAsync(async (req, res) => {
   res.redirect(`/students?filter=due`);
 });
 module.exports.archived = catchAsync(async (req, res) => {
-  const archived = await ArchivedStudent.find({ owner: req.user._id });
+  const archived = await ArchivedStudent.find({ owner: req.user._id })
+    .select("name grade fees dueFees _id")
+    .lean();
   res.render("listings/archive", { studentsData: archived });
 });
 module.exports.restoreStudent = catchAsync(async (req, res) => {
@@ -296,6 +298,8 @@ module.exports.dashboard = catchAsync(async (req, res) => {
   const students = await Student.find({
     owner: req.user._id,
     dueFees: { $gt: 0 },
-  });
+  })
+    .select("name grade fees dueFees _id")
+    .lean();
   res.render("listings/students", { studentsData: students });
 });
