@@ -95,37 +95,70 @@ module.exports.fund = catchAsync(async (req, res) => {
 });
 module.exports.addExpense = catchAsync(async (req, res) => {
   const { note, amount, paidDate } = req.body;
-  if (!amount || amount <= 0) {
-    req.flash("error", "Amount must be greater than 0");
-    return res.redirect(`/fund`);
+  if (!note || note.trim() === "") {
+    req.flash("error", "Expense note is required");
+    return res.redirect("/fund");
   }
-  const month = new Date().getMonth() + 1;
-  const year = new Date().getFullYear();
-  const report = await MonthlyReport.findOneAndUpdate(
-    { owner: req.user._id, month, year },
-    {
-      $setOnInsert: {
+  const amt = Number(amount);
+  if (!amt || amt <= 0) {
+    req.flash("error", "Amount must be greater than 0");
+    return res.redirect("/fund");
+  }
+  const paid = paidDate ? new Date(paidDate) : new Date();
+  const month = paid.getMonth() + 1;
+  const year = paid.getFullYear();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  paid.setHours(0, 0, 0, 0);
+  if (paid > today) {
+    req.flash("error", "You cannot add expenses for a future date");
+    return res.redirect("/fund");
+  }
+  const minDate = new Date("2024-01-01");
+  minDate.setHours(0, 0, 0, 0);
+  if (paid < minDate) {
+    req.flash("error", "Expense date is too old");
+    return res.redirect("/fund");
+  }
+  try {
+    let report = await MonthlyReport.findOne({
+      owner: req.user._id,
+      month,
+      year,
+    });
+
+    if (!report) {
+      report = new MonthlyReport({
         owner: req.user._id,
         month,
         year,
-        totalEarning: 0,
         expenses: [],
         totalExpenses: 0,
+        totalEarning: 0,
         newStudents: 0,
         studentsLeft: 0,
         createdAt: new Date(),
-      },
-    },
-    { new: true, upsert: true },
-  );
-  console.log("report of the month");
-  console.log(month, year, report);
-  report.expenses.push({
-    note,
-    amount: Number(amount),
-    paidDate: paidDate ? new Date(paidDate) : new Date(),
-  });
-  await report.save();
-  req.flash("success", "Expense added successfully");
-  res.redirect("/fund");
+      });
+    }
+    report.expenses.push({
+      note,
+      amount: amt,
+      paidDate: paid,
+    });
+
+    report.totalExpenses += amt;
+    await report.save();
+    req.flash("success", "Expense added successfully");
+    res.redirect("/fund");
+  } catch (err) {
+    console.error("SAVE ERROR:", err);
+    // duplicate month protection
+    if (err.code === 11000) {
+      req.flash("error", "Monthly report already exists. Try again.");
+    } else {
+      req.flash("error", "Failed to save expense");
+    }
+    req.flash("error", err.message);
+    return res.redirect("/fund");
+  }
 });

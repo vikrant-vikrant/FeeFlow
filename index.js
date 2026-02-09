@@ -14,15 +14,15 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const ejsMate = require("ejs-mate");
 
-const students = require("./routes/students");
-const setTodayDate = require("./middleware/setTodayDate");
 const { dashboard, archived } = require("./controllers/students.js");
-const { fund } = require("./controllers/fund.js");
+const students = require("./routes/students");
 const user = require("./routes/user.js");
+const fundRoute = require("./routes/fund.js");
+const setTodayDate = require("./middleware/setTodayDate");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
-const mehtodOverride = require("method-override");
 const app = express();
-app.use(mehtodOverride("_method"));
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 /* ---------- Config ---------- */
 const PORT = process.env.PORT || 8000;
@@ -68,6 +68,8 @@ const sessionOptions = {
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
   },
@@ -84,14 +86,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/", user);
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
 app.use("/dashboard", isLoggedIn, dashboard);
 app.use("/archived", isLoggedIn, archived);
-app.use("/fund", isLoggedIn, fund);
+app.use("/fund", isLoggedIn, fundRoute);
 app.use("/students", isLoggedIn, students);
-app.use("/", user);
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   res.status(status).render("layouts/error.ejs", {

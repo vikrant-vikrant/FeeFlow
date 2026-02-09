@@ -57,6 +57,7 @@
             </ul>
             <div class="report-stats">
               <div class="stat expense">
+                <!-- do this total in controller -->
                 <% let total = 0; thisMonthData.expenses.forEach(e => total +=
                 e.amount); %>
                 <h3>Total Expenses: <%= total %> ₹</h3>
@@ -74,6 +75,7 @@
                 placeholder=""
                 id="note"
                 name="note"
+                required
               />
               <span>For</span>
             </label>
@@ -84,6 +86,7 @@
                 placeholder=""
                 id="amount"
                 name="amount"
+                required min="1"
               />
               <span>Amount</span>
             </label>
@@ -96,6 +99,8 @@
                 id="paidDate"
                 name="paidDate"
                 value="<%=todayDate%>"
+                max="<%= todayDate%>"
+                  required
               />
               <span>Paid On</span>
             </label>
