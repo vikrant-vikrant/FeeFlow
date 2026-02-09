@@ -89,29 +89,26 @@
           <span class="name">0</span>
         </label>
       </div>
-      <div class="students">
-        <%for(let students of studentsData){%>
-        <a href="/students/<%=students._id%>">
-          <div class="list" data-grade="<%= students.grade %>">
-            <img
-              src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
-              alt=""
-            />
-            <div class="details">
-              <p
-                class="<%= students.dueFees >= students.fees * 3 ? 'red' : (students.dueFees >= students.fees * 2 ? 'yellow' : 'normal') %>"
-              >
-                <%= students.name %>
-              </p>
-              <span><%= students.grade %></span>
-              <span class="<%= students.dueFees <= 0? 'none':'' %>"
-                >Due <%= students.dueFees %>&#8377;
-              </span>
-            </div>
-          </div>
-        </a>
-        <%}%>
-      </div>
+      <ul class="students" aria-live="polite">
+        <% studentsData.forEach(s => { %>
+          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>">
+            <a href="/students/<%= s._id %>" class="student-link list">
+              <img
+                loading="lazy"
+                src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(s.name) %>&bold=true&size=128"
+                alt="<%= s.name %>"
+              />
+              <div class="details">
+                <p class="<%= s.statusClass %>"><%= s.name %></p>
+                <span class="grade"><%= s.grade %></span>
+                <% if (s.dueFees > 0) { %>
+                  <span class="due">Due <%= s.dueFees.toLocaleString('en-IN') %>₹</span>
+                <% } %>
+              </div>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
     </div>
   </div>
 </body>
