@@ -186,7 +186,7 @@ input::-webkit-inner-spin-button {
   background-color: #00bfff96;
 }
 
-.student {
+.student-info {
   margin-right: 3vw;
 }
 .addFess {
@@ -260,7 +260,7 @@ input::-webkit-inner-spin-button {
   .submit {
     font-size: 5vw;
   }
-  .student {
+  .student-info {
     margin-right: 0vw;
   }
   .addFess {
