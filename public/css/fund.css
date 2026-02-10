@@ -12,13 +12,14 @@ body {
 }
 .main {
   position: relative;
-  width: 100%;
   background-color: #f3efea;
-}
-.container {
   width: calc(100% - 6vw);
   margin: 2vw 3vw;
   font-family: sans-serif;
+}
+.nav-tabs {
+  color: #31312f;
+  font-size: 2.5rem;
 }
 .thisMonth {
   margin: 4vh auto;
@@ -106,9 +107,6 @@ body {
   border-bottom: 1px dashed #ddd;
   color: white;
 }
-.addFess {
-  width: 27vw;
-}
 .history {
   background-color: #31312f;
   color: rgba(255, 255, 255, 0.7);
@@ -116,32 +114,28 @@ body {
   border-radius: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
+.history .title {
+  margin-bottom: 10px;
+}
 .feeHistory {
   width: 23vw;
   height: 55vh;
   overflow-y: scroll;
 }
-.feeHistory h2 {
-  margin-bottom: 3vh;
-}
 .fee-entry {
-  margin: 2vh 0;
-  padding-bottom: 5px;
-  border-bottom: 1px dashed #ddd;
-}
-.fee-entry a {
   color: white;
   text-decoration: none;
-}
-.fee-entry p {
   font-size: 1.4rem;
+  margin: 2vh 0;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 600;
   letter-spacing: -1px;
-  color: #31312f;
   color: #00bfff;
 }
 .form {
@@ -229,11 +223,11 @@ input::-webkit-inner-spin-button {
 }
 @media (max-width: 600px) {
   .nav-tabs {
-    font-size: 5vw;
-    padding: 0 8vw;
+    font-size: 8vw;
   }
   .nav-tabs #loadReportsBtn {
-    width: 100%;
+    width: 90%;
+    margin: 0 5%;
   }
   .thisMonth {
     flex-direction: column;
@@ -246,9 +240,6 @@ input::-webkit-inner-spin-button {
     width: 100%;
     padding: 3.5vw;
   }
-  .addFess {
-    width: 100%;
-  }
   .total span {
     font-size: 7vw;
   }
@@ -260,18 +251,14 @@ input::-webkit-inner-spin-button {
   .history {
     padding: 3.5vw;
   }
-  .feeHistory h2 {
-    margin-bottom: 0vw;
-  }
   .fee-entry {
-    margin: 1.5vh 0;
-  }
-  .fee-entry p {
+    margin: 2vh 0;
     font-size: 1rem;
   }
   .form {
     padding: 3.5vw;
     width: 100%;
+    margin: 3vw 0;
   }
   .message {
     margin-left: 1.5vw;
@@ -286,9 +273,6 @@ input::-webkit-inner-spin-button {
   }
   .student {
     margin-right: 0vw;
-  }
-  .addFess {
-    margin: 3vw 0;
   }
   .flex {
     margin: 3vw;

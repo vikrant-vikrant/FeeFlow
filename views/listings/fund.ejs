@@ -2,15 +2,10 @@
 <link rel="stylesheet" href="/css/fund.css" />
 <body>
   <div class="main">
-    <div class="container">
-      <div class="nav-tabs">
-        <h1>Monthly Reports</h1>
-      </div>
+        <h1 class="nav-tabs">Monthly Reports</h1>
       <div class="thisMonth">
         <div class="report-card">
-          <div class="report-header">
-            <h2 class="title"><%= thisMonthYear %></h2>
-          </div>
+          <h2 class="title"><%= thisMonthYear %></h2>
           <div class="report-stats">
             <div class="stat">
               <div class="total">
@@ -64,7 +59,6 @@
             </div>
           </div>
         </div>
-        <div class="addFess">
           <form class="form" action="/fund/expenses" method="post">
             <h2 class="title">Add Expenses</h2>
             <label>
@@ -103,10 +97,8 @@
               />
               <span>Paid On</span>
             </label>
-
             <button class="submit">Add Expenses</button>
           </form>
-        </div>
         <div class="history">
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees This Month
@@ -114,18 +106,14 @@
           <div class="feeHistory">
             <% if (feesThisMonth && feesThisMonth.length) { %> <%
             feesThisMonth.forEach(fee => { %>
-            <div class="fee-entry">
-              <a href="/students/<%=fee._id%>">
-                <p>
+              <li class="fee-entry">
                   <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
                   <span>On : <%= new
                   Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
                   weekday: 'short', day: 'numeric', month: 'short' })
                   .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
-                  : <%= fee.feesHistory.note %> <%}%></span>
-                </p>
-              </a>
-            </div>
+                  : <%= fee.feesHistory.note %> <%}%></span><br>
+              </li>
             <% }) %> <% } else { %>
             <p>No fees recorded this month.</p>
             <% } %>
@@ -138,7 +126,6 @@
           Show Previous Reports
         </button>
       </div>
-    </div>
   </div>
 </body>
 <script src="./js/previousReports.js"></script>

@@ -3,7 +3,6 @@
 
 <body>
   <div class="main">
-    <div class="container">
       <div class="nav-tabs">
         <div class="filter">
           <a href="/students?filter=due"
@@ -104,7 +103,6 @@
               </span>
               <br>
               <div class="flex">
-
                 <form action="/students/<%= students._id %>/restore" method="POST">
                   <button class="edit-info">Restore</button>
                 </form>
@@ -118,7 +116,6 @@
           </div>
         <%}%>
       </div>
-    </div>
   </div>
 </body>
 <script type="module" src="/js/filter.js"></script>

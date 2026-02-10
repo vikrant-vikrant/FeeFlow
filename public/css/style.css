@@ -89,12 +89,6 @@ body {
   width: calc(100% - 6vw);
   margin: 6vh 3vw;
 }
-.points h1 {
-  font-size: 4rem;
-  padding-bottom: 2rem;
-  text-align: center;
-  color: #31312f;
-}
 .points {
   display: flex;
   align-items: center;
@@ -103,7 +97,7 @@ body {
   flex-wrap: wrap;
   row-gap: 2rem;
 }
-.points div {
+.points ul {
   text-align: center;
   font-size: 3vw;
   color: #31312f;
@@ -111,13 +105,14 @@ body {
   border-radius: 30px;
   padding: 2rem;
 }
-.points h2 {
-  font-size: 2vw;
-  margin-top: 2vh;
-  margin: 2vh 0;
+.points ul :nth-child(1) {
   line-height: 1.8rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2vh;
+  line-height: 1rem;
 }
-.points div ul li {
+.points ul li {
   font-size: 1.2rem;
   list-style: none;
 }
@@ -244,11 +239,14 @@ body {
     min-height: 100vh;
     margin: 2vh 3vw 4vh 3vw;
   }
-  .points div {
+  .points {
     padding: 1rem;
-    width: 85%;
+    width: 100%;
   }
-  .points div h2 {
+  .points ul{
+    width: 90%;
+  }
+  .points ul li:nth-child(1) {
     font-size: 1.8rem;
   }
   .page2 h1 {
