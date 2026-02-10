@@ -6,18 +6,16 @@
       <div class="thisMonth">
         <div class="report-card">
           <h2 class="title"><%= thisMonthYear %></h2>
-          <div class="report-stats">
-            <div class="stat">
-              <div class="total">
-                <span
-                  ><%=thisMonthData.totalEarning.toLocaleString('en-IN')%>
-                  &#8377;</span
-                ><br />Total Revenue
-              </div>
-              <div class="total">
-                <span><%=totalDue.toLocaleString('en-IN')%> &#8377;</span
-                ><br />Total Due
-              </div>
+          <div class="stat">
+            <div class="total">
+              <span
+                ><%=thisMonthData.totalEarning.toLocaleString('en-IN')%>
+                &#8377;</span
+              ><br />Total Revenue
+            </div>
+            <div class="total">
+              <span><%=totalDue.toLocaleString('en-IN')%> &#8377;</span
+              ><br />Total Due
             </div>
           </div>
           <div class="expense-section new-stu">
@@ -49,56 +47,49 @@
               </li>
               <%}%>
             </ul>
-            <div class="report-stats">
-              <div class="stat expense">
-                <!-- do this total in controller -->
-                <% let total = 0; thisMonthData.expenses.forEach(e => total +=
-                e.amount); %>
-                <h3>Total Expenses: <%= total %> ₹</h3>
-              </div>
-            </div>
+            <h3>Total Expenses : <%= total %> ₹</h3>
           </div>
         </div>
-          <form class="form" action="/fund/expenses" method="post">
-            <h2 class="title">Add Expenses</h2>
-            <label>
-              <input
-                class="input"
-                type="text"
-                placeholder=""
-                id="note"
-                name="note"
+        <form class="form" action="/fund/expenses" method="post">
+          <h2 class="title">Add Expenses</h2>
+          <label>
+            <input
+              class="input"
+              type="text"
+              placeholder=""
+              id="note"
+              name="note"
+              required
+            />
+            <span>For</span>
+          </label>
+          <label>
+            <input
+              class="input"
+              type="number"
+              placeholder=""
+              id="amount"
+              name="amount"
+              required min="1"
+            />
+            <span>Amount</span>
+          </label>
+          <label>
+            <input
+              type="date"
+              class="input"
+              placeholder=""
+              required=""
+              id="paidDate"
+              name="paidDate"
+              value="<%=todayDate%>"
+              max="<%= todayDate%>"
                 required
-              />
-              <span>For</span>
-            </label>
-            <label>
-              <input
-                class="input"
-                type="number"
-                placeholder=""
-                id="amount"
-                name="amount"
-                required min="1"
-              />
-              <span>Amount</span>
-            </label>
-            <label>
-              <input
-                type="date"
-                class="input"
-                placeholder=""
-                required=""
-                id="paidDate"
-                name="paidDate"
-                value="<%=todayDate%>"
-                max="<%= todayDate%>"
-                  required
-              />
-              <span>Paid On</span>
-            </label>
-            <button class="submit">Add Expenses</button>
-          </form>
+            />
+            <span>Paid On</span>
+          </label>
+          <button class="submit">Add Expenses</button>
+        </form>
         <div class="history">
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees This Month

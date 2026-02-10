@@ -76,10 +76,12 @@ module.exports.fund = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
+  let total = 0;
+  thisMonthData.expenses.forEach((e) => (total += e.amount));
   res.render("listings/fund", {
     totalDue,
     todayDate,
-    feesThisMonth,
+    feesThisMonth,total,
     thisMonthYear,
     thisMonthData,
     stuThisMonth,
