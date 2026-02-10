@@ -13,10 +13,6 @@ body {
 .main {
   position: relative;
   width: 100%;
-  background-color: #f3efea;
-  position: relative;
-}
-.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,18 +128,21 @@ input::-webkit-inner-spin-button {
   font-size: 0.9rem;
   color: #94a3b8;
 }
+.signup::before{
+  content: "";
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right, #31312f, #00bfff, #31312f);
+  margin-top: 2rem;
+}
 .signup a {
   color: #00bfff;
   text-decoration: none;
 }
 .signup a:hover {
   text-decoration: underline;
-}
-/* Divider */
-.divider {
-  height: 2px;
-  background: linear-gradient(to right, #31312f, #00bfff, #31312f);
-  margin-bottom: 1.5rem;
 }
 @keyframes pulse {
   from {

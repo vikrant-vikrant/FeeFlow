@@ -13,9 +13,14 @@ body {
 }
 .main {
   position: relative;
-  width: 100%;
-  background-color: #f3efea;
-  position: relative;
+  display: flex;
+  width: calc(55vh + 75vh);
+  margin: 5vh auto;
+}
+.main img {
+  width: 75vh;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 .title {
   font-size: 28px;
@@ -159,16 +164,6 @@ input::-webkit-inner-spin-button {
 .input_field {
   appearance: textfield;
 }
-.container {
-  display: flex;
-  width: calc(55vh + 65vh);
-  margin: 5vh auto;
-}
-.container img {
-  width: 65vh;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
 @media (max-width: 600px) {
   .title {
     font-size: 7vw;
@@ -177,11 +172,11 @@ input::-webkit-inner-spin-button {
   .form {
     border-radius: 20px;
   }
-  .container {
+  .main {
     margin: 5vh 2vh;
     width: auto;
   }
-  .container img {
+  .main img {
     display: none;
   }
 }

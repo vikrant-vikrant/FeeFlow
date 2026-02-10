@@ -2,8 +2,6 @@
 <link rel="stylesheet" href="css/students.css" />
 <body>
   <div class="main">
-    <%- include('../includes/navbar')%>
-    <div class="container">
       <div class="nav-tabs">
         <div class="filter">
           <a href="/students?filter=due"
@@ -46,7 +44,6 @@
           <input type="radio" name="radio" value="9th" />
           <span class="name">9th</span>
         </label>
-
         <label class="radio">
           <input type="radio" name="radio" value="8th" />
           <span class="name">8th</span>
@@ -104,7 +101,6 @@
           </li>
         <% }) %>
       </ul>
-    </div>
   </div>
 </body>
 <script type="module" src="/js/filter.js"></script>

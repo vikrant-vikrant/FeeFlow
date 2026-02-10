@@ -13,9 +13,6 @@ body {
 .main {
   position: relative;
   width: 100%;
-  background-color: #f3efea;
-}
-.container {
   width: calc(100% - 6vw);
   margin: 4vh 3vw;
   font-family: sans-serif;
@@ -140,6 +137,7 @@ ul {
 }
 .list .details {
   margin-left: 1vw;
+  color: #31312f;
 }
 .details span {
   font-size: 1.1rem;
@@ -225,7 +223,7 @@ ul {
   background-color: #a0d8ff;
 }
 @media (max-width: 600px) {
-  .container {
+  .main {
     width: calc(100vw - 6vw);
     margin: 2vw 3vw;
   }

@@ -14,8 +14,11 @@
     />
     <link rel="preconnect" href="https://ui-avatars.com" />
     <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/flash.css" />
   </head>
-  <%-body %>
-  <hr>
-  <%- include('../includes/footer')%>
+  <body>
+    <%- include('../includes/navbar') %> <%- include('../includes/flash') %>
+    <main><%- body %></main>
+    <%- include('../includes/footer') %>
+  </body>
 </html>

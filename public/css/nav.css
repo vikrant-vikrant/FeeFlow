@@ -139,12 +139,10 @@ nav a:hover::before {
   text-decoration: none;
   color: #31312f;
 }
-footer {
+.footer {
   bottom: 0;
   width: 100%;
-}
-
-footer div {
+  border-top: 1px solid #31312f;
   display: flex;
   justify-content: space-around;
   align-items: center;

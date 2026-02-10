@@ -2,9 +2,6 @@
 <link rel="stylesheet" href="/css/newStudent.css" />
 <body>
   <div class="main">
-    <div class="page1">
-      <%- include('../includes/navbar')%>
-      <div class="container">
         <img src="/img/addStudent.jpg" alt="Student reading a book" />
         <form action="/students/<%= student.id %>/edit?_method=PUT " method="post" class="form">
           <p class="title">Edit Details</p>
@@ -114,11 +111,8 @@
             />
             <span>Note</span>
           </label>
-
           <button class="submit">Make Changes</button>
         </form>
-      </div>
-    </div>
   </div>
 </body>
 <script src="/js/newStudent.js"></script>
