@@ -44,11 +44,8 @@ body {
   margin-bottom: 2vw;
 }
 
-.report-stats {
-  width: 100%;
-}
-
 .stat {
+  width: 100%;
   padding: 0.6rem;
   color: white;
   border-bottom: 1px dashed #ddd;
@@ -58,7 +55,6 @@ body {
 .stat .total {
   border-radius: 30px;
   justify-content: space-between;
-  padding: 0.6rem;
   padding: 0.6rem 1.2rem;
 }
 .total span {
@@ -93,6 +89,7 @@ body {
 .expense-section h3 {
   margin: 10px 0;
   color: white;
+  text-align: center;
 }
 
 .expense-section ul {
