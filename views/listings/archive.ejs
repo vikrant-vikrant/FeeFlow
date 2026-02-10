@@ -3,7 +3,6 @@
 
 <body>
   <div class="main">
-    <%- include('../includes/navbar')%>
     <div class="container">
       <div class="nav-tabs">
         <div class="filter">
@@ -89,6 +88,7 @@
         <%for(let students of studentsData){%>
           <div class="list" data-grade="<%= students.grade %>">
             <img
+              loading="lazy"
               src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
               alt=""
             />
