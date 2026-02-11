@@ -14,7 +14,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const ejsMate = require("ejs-mate");
 
-const { dashboard, archived } = require("./controllers/students.js");
+const { archived } = require("./controllers/students.js");
 const students = require("./routes/students");
 const user = require("./routes/user.js");
 const fundRoute = require("./routes/fund.js");
@@ -90,7 +90,6 @@ app.use("/", user);
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
-app.use("/dashboard", isLoggedIn, dashboard);
 app.use("/archived", isLoggedIn, archived);
 app.use("/fund", isLoggedIn, fundRoute);
 app.use("/students", isLoggedIn, students);

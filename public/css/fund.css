@@ -218,6 +218,14 @@ input::-webkit-inner-spin-button {
 .student {
   margin-right: 3vw;
 }
+.history a{
+  text-decoration: none;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 10px;
+}
 @media (max-width: 600px) {
   .nav-tabs {
     font-size: 8vw;

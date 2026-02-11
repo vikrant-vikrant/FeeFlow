@@ -3,7 +3,7 @@ const router = express.Router();
 const wrapAsync = require("../utils/catchAsync");
 const userController = require("../controllers/user.js");
 router.get("/", (req, res) => {
-  if (req.user) return res.redirect("/dashboard");
+  if (req.user) return res.redirect("/students?filter=due");
   res.render("listings/index");
 });
 router

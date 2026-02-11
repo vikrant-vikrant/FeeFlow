@@ -124,15 +124,15 @@ ul {
 .list {
   width: 20vw;
   background-color: grey;
-  margin: 1vw;
-  padding: 1vw;
+  margin: .5vw;
+  padding: .5vw;
   border-radius: 10px;
   display: flex;
   align-items: center;
 }
 .list img {
-  height: 5vw;
-  width: 5vw;
+  height: 50px;
+  width: 50px;
   border-radius: 10px;
 }
 .list .details {
@@ -262,8 +262,8 @@ ul {
     padding: 1.5vw;
   }
   .list img {
-    height: 10vw;
-    width: 10vw;
+    height: 40px;
+    width: 40px;
   }
   .list .details {
     margin-left: 1.5vw;

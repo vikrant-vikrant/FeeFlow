@@ -294,12 +294,3 @@ module.exports.deletearchiveStudent = catchAsync(async (req, res) => {
   req.flash("success", "Student deleted successfully");
   res.redirect("/students");
 });
-module.exports.dashboard = catchAsync(async (req, res) => {
-  const students = await Student.find({
-    owner: req.user._id,
-    dueFees: { $gt: 0 },
-  })
-    .select("name grade fees dueFees _id")
-    .lean();
-  res.render("listings/students", { studentsData: students });
-});

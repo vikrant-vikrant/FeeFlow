@@ -9,6 +9,18 @@ module.exports.fund = catchAsync(async (req, res) => {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const view = req.query.view;
+  let dateFilter;
+  if (view === "month") {
+    dateFilter = {
+      $gte: startOfMonth,
+      $lt: endOfMonth,
+    };
+  } else {
+    const threeDaysAgo = now;
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+    dateFilter = { $gte: threeDaysAgo };
+  }
   const [dueResult, feesThisMonth, stuThisMonth] = await Promise.all([
     // 🔹 Total due (all students)
     Student.aggregate([
@@ -26,7 +38,7 @@ module.exports.fund = catchAsync(async (req, res) => {
 
       {
         $match: {
-          "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth },
+          "feesHistory.paidDate": dateFilter,
         },
       },
 
@@ -81,7 +93,7 @@ module.exports.fund = catchAsync(async (req, res) => {
   res.render("listings/fund", {
     totalDue,
     todayDate,
-    feesThisMonth,total,
+    feesThisMonth,total,view,
     thisMonthYear,
     thisMonthData,
     stuThisMonth,
