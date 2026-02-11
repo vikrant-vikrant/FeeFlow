@@ -94,6 +94,11 @@
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees This Month
           </h2>
+          <% if (view === "month") { %>
+            <a href="/fund" class="btn">Show Last 3 Days</a>
+          <% } else { %>
+            <a href="/fund?view=month" class="btn">Show Full Month</a>
+          <% } %>
           <div class="feeHistory">
             <% if (feesThisMonth && feesThisMonth.length) { %> <%
             feesThisMonth.forEach(fee => { %>
