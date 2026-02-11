@@ -140,7 +140,6 @@ nav a:hover::before {
   color: #31312f;
 }
 .footer {
-  bottom: 0;
   width: 100%;
   border-top: 1px solid #31312f;
   display: flex;
