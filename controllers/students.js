@@ -35,7 +35,7 @@ module.exports.students = catchAsync(async (req, res) => {
           : "normal";
     return {
       _id: s._id,
-      name: s.name,
+      name: s.name ? s.name.split(" ")[0] : "",
       grade: s.grade,
       dueFees: s.dueFees,
       statusClass,

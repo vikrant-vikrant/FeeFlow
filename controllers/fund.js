@@ -90,10 +90,12 @@ module.exports.fund = catchAsync(async (req, res) => {
   }
   let total = 0;
   thisMonthData.expenses.forEach((e) => (total += e.amount));
+  let balance = Number(thisMonthData.totalEarning) - total ;
+  balance.toLocaleString('en-IN')
   res.render("listings/fund", {
     totalDue,
     todayDate,
-    feesThisMonth,total,view,
+    feesThisMonth,total,view,balance,
     thisMonthYear,
     thisMonthData,
     stuThisMonth,

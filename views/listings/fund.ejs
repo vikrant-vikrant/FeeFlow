@@ -8,14 +8,14 @@
           <h2 class="title"><%= thisMonthYear %></h2>
           <div class="stat">
             <div class="total">
+              <span><%=balance%> &#8377;</span
+              ><br />Fund Balance
+            </div>
+            <div class="total">
               <span
                 ><%=thisMonthData.totalEarning.toLocaleString('en-IN')%>
                 &#8377;</span
               ><br />Total Revenue
-            </div>
-            <div class="total">
-              <span><%=totalDue.toLocaleString('en-IN')%> &#8377;</span
-              ><br />Total Due
             </div>
           </div>
           <div class="expense-section new-stu">
@@ -48,6 +48,7 @@
               <%}%>
             </ul>
             <h3>Total Expenses : <%= total %> ₹</h3>
+            <h3>Total Due : <%= totalDue.toLocaleString('en-IN') %> ₹</h3>
           </div>
         </div>
         <form class="form" action="/fund/expenses" method="post">
@@ -70,7 +71,7 @@
               placeholder=""
               id="amount"
               name="amount"
-              required min="1"
+              required min="1" max="<%=balance%>"
             />
             <span>Amount</span>
           </label>

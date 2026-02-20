@@ -122,10 +122,10 @@ ul {
   color: black;
 }
 .list {
-  width: 20vw;
+  width: 16vw;
   background-color: grey;
-  margin: .5vw;
-  padding: .5vw;
+  margin: 0.5vw;
+  padding: 0.5vw;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -144,9 +144,12 @@ ul {
 }
 .list .details p {
   overflow: hidden;
-  font-size: clamp(12px, 2vw, 24px);
+  font-size: clamp(12px, 1.6vw, 24px);
   font-weight: 700;
   text-transform: capitalize;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .normal {
   color: #31312f; /* all dues are clear */
@@ -228,11 +231,11 @@ ul {
     margin: 2vw 3vw;
   }
   .nav-tabs {
-    margin-bottom: 2vw;
+    margin-bottom: 0vw;
     align-items: center;
   }
   .nav-tabs .filter {
-    margin-bottom: 2vw;
+    margin-bottom: 1vw;
     width: 100%;
     justify-content: space-between;
   }
@@ -274,6 +277,7 @@ ul {
   }
   .radio-inputs {
     width: 100%;
+    margin: 1vw 0;
   }
   .edit-info {
     margin: 0;
