@@ -64,6 +64,7 @@ body {
 .new {
   display: flex;
   justify-content: space-between;
+  padding: 0 .6rem;
 }
 
 .stat div {
