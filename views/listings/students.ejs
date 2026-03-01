@@ -4,17 +4,17 @@
   <div class="main">
       <div class="nav-tabs">
         <div class="filter">
-          <a href="/students?filter=due"
+          <a onclick="loadStudents('due')" id="btn-due"
             ><i class="fa-solid fa-chart-line"></i>
             <p>&nbsp;&nbsp;Due Students</p>
           </a>
-          <a href="/students"
+          <a onclick="loadStudents('all')" id="btn-all"
             ><i class="fa-solid fa-user-group"></i>
             <p>&nbsp;&nbsp;All Students</p></a
           >
           <a
             title="Add New Student"
-            onclick="location.href='students/newStudent'"
+            href='students/newStudent'
           >
             <i class="fa-solid fa-user-plus"></i>
             <p>&nbsp;&nbsp;Add Student</p>
@@ -81,9 +81,9 @@
           <span class="name">0</span>
         </label>
       </div>
-      <ul class="students" aria-live="polite">
+      <ul class="students" aria-live="polite" id="studentsContainer">
         <% studentsData.forEach(s => { %>
-          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>">
+          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>" data-due="<%=s.dueFees%>">
             <a href="/students/<%= s._id %>" class="list">
               <img
                 loading="lazy"
@@ -103,4 +103,5 @@
       </ul>
   </div>
 </body>
-<script type="module" src="/js/filter.js"></script>
+<!-- <script type="module" src="/js/filter.js"></script> -->
+<!-- <script type="module" src="/js/studentsData.js"></script> -->

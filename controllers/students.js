@@ -27,21 +27,25 @@ module.exports.students = catchAsync(async (req, res) => {
       .lean();
   }
   const studentsData = students.map((s) => {
+    const name = s.name || "";
+    const shortName = name.split(" ")[0] || "";
+    const dueFees = Number(s.dueFees || 0);
+    const fees = Number(s.fees || 0);
+
     const statusClass =
-      s.dueFees >= s.fees * 3
-        ? "red"
-        : s.dueFees >= s.fees * 2
-          ? "yellow"
-          : "normal";
+      dueFees >= fees * 3 ? "red" : dueFees >= fees * 2 ? "yellow" : "normal";
     return {
       _id: s._id,
-      name: s.name ? s.name.split(" ")[0] : "",
+      name: shortName,
       grade: s.grade,
-      dueFees: s.dueFees,
+      dueFees: dueFees,
       statusClass,
       searchName: s.name.toLowerCase(),
     };
   });
+  if (req.xhr || req.headers.accept.includes("json")) {
+    return res.json(studentsData);
+  }
   res.render("listings/students", { studentsData });
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {

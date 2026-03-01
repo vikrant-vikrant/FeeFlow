@@ -1,0 +1,76 @@
+<div class="links-group">
+  <a id="1" class="active">Due Students</a>
+  <a id="2">All Students</a>
+</div>
+<style>
+  body {
+    font-family:
+      "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+      "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: #f3efea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #e0f7fa;
+    text-align: center;
+    margin: 0;
+  }
+  div.links-group {
+    border: 1px solid #31312f;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    padding: 4px;
+    align-items: center;
+    position: relative;
+    margin-bottom: 0.6rem;
+  }
+  div.links-group::after {
+    background: #a0d8ff;
+    content: "";
+    position: absolute;
+    top: calc(anchor(top));
+    left: calc(anchor(left));
+    right: calc(anchor(right));
+    bottom: calc(anchor(bottom));
+    border-radius: 50px;
+    z-index: 1;
+    position-anchor: --active-link;
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  div.links-group a {
+    position: relative;
+    color: #e0f7fa;
+    color: #31312f;
+    padding: 8px;
+    z-index: 2;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  div.links-group a.active {
+    anchor-name: --active-link;
+    color: #1a1a2e;
+  }
+  div.links-group:has(a.active)::after {
+    top: anchor(top);
+    left: anchor(left);
+    right: anchor(right);
+    bottom: anchor(bottom);
+  }
+</style>
+<script>
+  const firstLink = document.getElementById("1");
+  const secondLink = document.getElementById("2");
+  secondLink.addEventListener("click", () => {
+    firstLink.classList.toggle("active", false);
+    secondLink.classList.toggle("active", true);
+  });
+  firstLink.addEventListener("click", () => {
+    firstLink.classList.toggle("active", true);
+    secondLink.classList.toggle("active", false);
+  });
+</script>
