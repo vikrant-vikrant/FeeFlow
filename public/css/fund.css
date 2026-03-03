@@ -124,9 +124,8 @@ body {
   color: white;
   text-decoration: none;
   font-size: 1.4rem;
-  margin: 2vh 0;
   border-bottom: 1px dashed #ddd;
-  padding-bottom: 5px;
+  padding: 5px 0;
   cursor: pointer;
 }
 
@@ -258,7 +257,6 @@ input::-webkit-inner-spin-button {
     padding: 3.5vw;
   }
   .fee-entry {
-    margin: 2vh 0;
     font-size: 1rem;
   }
   .form {

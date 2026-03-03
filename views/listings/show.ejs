@@ -13,43 +13,63 @@
             <h1><%= student.name %></h1>
           </div>
           <p><strong>Grade :</strong> <%= student.grade %></p>
-          <p class="parent"><strong>Parent :</strong> <%= student.parent %></p>
-          <p class="call">
-            <strong>Contact :</strong> <%= student.contact %>
-            <a href="https://wa.me/91<%=student.contact%>" target="_blank">
-              <i class="fa-brands fa-whatsapp"></i
-            ></a>
-            <a href="tel:+91<%= student.contact %>">
-              <i class="fa-solid fa-phone"></i
-            ></a>
-          </p>
-          <p class="call">
-            <strong>Phone :</strong> <%= student.phone %>
-            <a href="https://wa.me/91<%=student.phone%>" target="_blank"
-              ><i class="fa-brands fa-whatsapp"></i></a
-            >&nbsp;
-            <a href="tel:+91<%= student.phone %>">
-              <i class="fa-solid fa-phone"></i>
-            </a>
-          </p>
-          <p><strong>Note :</strong> <%= student.note %></p>
-          <p><strong>Joining Date :</strong> <%= formattedDate %></p>
           <p><strong>Fees :</strong> <%= student.fees %></p>
           <p><strong>Due Fees :</strong> <%= student.dueFees %></p>
-          <p class="remind">
-            <strong>Remind on :</strong>
-            <a
-              href="<%=`https://wa.me/91${student.contact}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.Kindly clear it at the earliest.`%>"
-              ><i class="fa-brands fa-whatsapp"></i></a
-            >&nbsp;
-            <a
-              href="<%=`sms:+91${student.phone}?body=${student.name} +, Your monthly fees ₹${student.dueFees} is DUE. Kindly clear it at the earliest.`%>"
-              ><i class="fa-solid fa-message"></i></a
-            >&nbsp;
-            <a href="tel:+91<%= student.phone %>">
-              <i class="fa-solid fa-phone"></i>
-            </a>
-          </p>
+          <p><strong>Joining Date :</strong> <%= formattedDate %></p>
+          <%if(student.parent){%>
+            <p class="parent"><strong>Parent :</strong> <%= student.parent %></p>
+          <%}%>
+          <%if(student.contact){%>
+            <p class="call">
+              <strong>Contact :</strong> <%= student.contact %>
+              <a href="https://wa.me/91<%=student.contact%>" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i></a>
+              <a href="tel:+91<%= student.contact %>">
+                <i class="fa-solid fa-phone"></i></a>
+            </p>
+          <%}%>
+          <%if(student.phone){%>
+            <p class="call">
+              <strong>Phone :</strong> <%= student.phone %>
+              <a href="https://wa.me/91<%=student.phone%>" target="_blank"
+                ><i class="fa-brands fa-whatsapp"></i></a
+              >&nbsp;
+              <a href="tel:+91<%= student.phone %>">
+                <i class="fa-solid fa-phone"></i>
+              </a>
+            </p>
+          <%}%>
+          <%if(student.dueFees > student.fees && (student.phone || student.contact)){%>
+            <%if(student.contact){%>
+            <p class="remind">
+              <strong>Remind on :</strong> Contact
+              <a
+                href="<%=`https://wa.me/91${student.contact}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.Kindly clear it at the earliest.`%>"
+                ><i class="fa-brands fa-whatsapp"></i></a
+              >&nbsp;
+              <a
+                href="<%=`sms:+91${student.contact}?body=${student.name} +, Your monthly fees ₹${student.dueFees} is DUE. Kindly clear it at the earliest.`%>"
+                ><i class="fa-solid fa-message"></i></a
+              >
+            </p>
+            <%}%>
+            <%if(student.phone){%>
+              <p class="remind">
+                <strong>Remind on :</strong> Phone
+                <a
+                  href="<%=`https://wa.me/91${student.phone}?text=${student.name},Your monthly fees ${student.dueFees} is DUE.Kindly clear it at the earliest.`%>"
+                  ><i class="fa-brands fa-whatsapp"></i></a
+                >&nbsp;
+                <a
+                  href="<%=`sms:+91${student.phone}?body=${student.name} +, Your monthly fees ₹${student.dueFees} is DUE. Kindly clear it at the earliest.`%>"
+                  ><i class="fa-solid fa-message"></i></a
+                >
+              </p>
+            <%}%>
+          <%}%>
+          <%if(student.note){%>
+            <p><strong>Note :</strong> <%= student.note %></p>
+          <%}%>
         </div>
       <div class="addFess">
         <form
@@ -111,7 +131,9 @@
             Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", { weekday:
             "short", day: "2-digit", month: "short", year: "numeric" }) %>
           </p>
-          <p>Note : <%=fees.note%></p>
+          <%if(fees.note){%>
+            <p>Note : <%=fees.note%></p>
+          <%}%>
         </div>
         <hr />
         <% }); %> <% } else { %>
@@ -122,7 +144,7 @@
     <div class="flex">
       <a href="/students/<%= student.id%>/edit">
         <button class="edit-info">
-          <i class="fa-regular fa-pen-to-square"></i> Edit Details
+          <i class="fa-regular fa-pen-to-square"></i> Add / Edit
         </button>
       </a>
       <a href="/students/<%= student.id%>/deactivate" method="post">
