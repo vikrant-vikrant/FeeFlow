@@ -106,7 +106,7 @@
                 <form action="/students/<%= students._id %>/restore" method="POST">
                   <button class="edit-info">Restore</button>
                 </form>
-                <form action="/students/<%=students.id%>/delete?_method=delete" method="post">
+                <form action="/students/<%= students._id %>/delete?_method=delete" method="post">
                   <button class="edit-info">
                     Delete
                   </button>
