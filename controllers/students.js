@@ -15,17 +15,10 @@ function formatDate(date, type = "short") {
   });
 }
 module.exports.students = catchAsync(async (req, res) => {
-  const { filter } = req.query;
   let students;
-  if (filter === "due") {
-    students = await Student.find({ dueFees: { $gt: 0 }, owner: req.user._id })
-      .select("name grade fees dueFees _id")
-      .lean();
-  } else {
-    students = await Student.find({ owner: req.user._id })
-      .select("name grade fees dueFees _id")
-      .lean();
-  }
+  students = await Student.find({ owner: req.user._id })
+    .select("name grade fees dueFees _id")
+    .lean();
   const studentsData = students.map((s) => {
     const name = s.name || "";
     const shortName = name.split(" ")[0] || "";

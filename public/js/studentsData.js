@@ -113,3 +113,21 @@ async function loadStudents(filter = "all", forceRefresh = false) {
     searchName: li.dataset.name || "",
   }));
 })();
+showDueOnlyLocal()//to show only due at frist glance
+// example hookups for buttons
+document
+  .getElementById("btn-all")
+  ?.addEventListener("click", () => loadStudents("all"));
+document
+  .getElementById("btn-due")
+  ?.addEventListener("click", () => loadStudents("due"));
+const firstLink = document.getElementById("btn-due");
+const secondLink = document.getElementById("btn-all");
+secondLink.addEventListener("click", () => {
+  firstLink.classList.toggle("active", false);
+  secondLink.classList.toggle("active", true);
+});
+firstLink.addEventListener("click", () => {
+  firstLink.classList.toggle("active", true);
+  secondLink.classList.toggle("active", false);
+});

@@ -3,21 +3,17 @@
 <body>
   <div class="main">
       <div class="nav-tabs">
-        <div class="filter">
-          <a onclick="loadStudents('due')" id="btn-due"
-            ><i class="fa-solid fa-chart-line"></i>
-            <p>&nbsp;&nbsp;Due Students</p>
-          </a>
-          <a onclick="loadStudents('all')" id="btn-all"
-            ><i class="fa-solid fa-user-group"></i>
-            <p>&nbsp;&nbsp;All Students</p></a
-          >
-          <a
+        <div class="option">
+          <div class="links-group">
+            <a id="btn-due" class="active"><i class="fa-solid fa-chart-line"></i>&nbsp;Due Students</a>
+            <a id="btn-all" ><i class="fa-solid fa-user-group"></i>&nbsp;All Students</a>
+          </div>
+          <a class="links-group"
             title="Add New Student"
             href='students/newStudent'
           >
             <i class="fa-solid fa-user-plus"></i>
-            <p>&nbsp;&nbsp;Add Student</p>
+            <p>&nbsp;Add Student</p>
           </a>
         </div>
         <div class="quick-actions">
@@ -104,4 +100,4 @@
   </div>
 </body>
 <!-- <script type="module" src="/js/filter.js"></script> -->
-<!-- <script type="module" src="/js/studentsData.js"></script> -->
+<script type="module" src="./js/studentsData.js"></script>
