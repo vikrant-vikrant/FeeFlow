@@ -4,11 +4,11 @@
   <div class="main">
       <div class="nav-tabs">
         <div class="filter">
-          <a href="/students?filter=due"
+          <a id="btn-due"
             ><i class="fa-solid fa-chart-line"></i>
             <p>&nbsp;&nbsp;Due Students</p>
           </a>
-          <a href="/students"
+          <a id="btn-all"
             ><i class="fa-solid fa-user-group"></i>
             <p>&nbsp;&nbsp;All Students</p></a
           >
@@ -81,9 +81,10 @@
           <span class="name">0</span>
         </label>
       </div>
-      <ul class="students" aria-live="polite">
+      <ul class="students" aria-live="polite" id="studentsContainer">
         <% studentsData.forEach(s => { %>
-          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>">
+          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>"
+            data-due="<%=s.dueFees%>">
             <a href="/students/<%= s._id %>" class="list">
               <img
                 loading="lazy"
