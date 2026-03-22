@@ -5,7 +5,7 @@ function createStudentLI(s) {
   const li = document.createElement("li");
   li.className = "student";
   li.dataset.grade = s.grade ?? "";
-  li.dataset.name = s.searchName ?? "";
+  li.dataset.name = (s.searchName ?? "").toLowerCase();
   li.dataset.due = String(s.dueFees ?? 0);
 
   const a = document.createElement("a");
@@ -70,6 +70,22 @@ function showAllLocal() {
   if (!cachedAll) return;
   renderStudentsList(cachedAll);
 }
+/* ---------- A. normalize helper ---------- */
+function normalizeStudent(s) {
+  // ensure fields your createStudentLI expects exist
+  return {
+    _id: s._id || s.id || "",
+    name: s.name || s.fullName || "",
+    fullName: s.fullName || s.name || "",
+    grade: s.grade ?? "",
+    dueFees: Number(s.dueFees ?? s.due ?? 0),
+    statusClass: s.statusClass || "normal",
+    searchName: (s.searchName || s.name || s.fullName || "").toLowerCase(),
+    formattedDue:
+      s.formattedDue ||
+      (s.dueFees ? ` Due ${Number(s.dueFees).toLocaleString("en-IN")}₹` : ""),
+  };
+}
 // filter can be 'all' or 'due' (server does the filtering)
 //what this function does is it checks if we already have a cached list of all students and if the requested filter is either "all" or "due" without forcing a refresh. If so, it uses the local cache to show the appropriate list of students. If not, it makes an asynchronous fetch request to the server to get the filtered list of students, updates the cache if necessary, and renders the new list in the DOM. It also includes error handling to display a user-friendly message if the fetch fails.
 async function loadStudents(filter = "all", forceRefresh = false) {
@@ -86,11 +102,16 @@ async function loadStudents(filter = "all", forceRefresh = false) {
     });
     const payload = await res.json();
     const students = payload.students ?? payload; // support both shapes
+    // normalize student objects so client code can rely on fields
+    const normalized = students.map(normalizeStudent);
     // if this was a full list (filter !== 'due') cache it
     if (filter !== "due") {
-      cachedAll = students;
+      cachedAll = normalized;
     }
-    renderStudentsList(students);
+    // render and then refresh cache & reapply filters
+    renderStudentsList(normalized);
+    refreshCache();
+    applyFilters();
   } catch (err) {
     console.error("Error loading students:", err);
     // show friendly UI message
@@ -104,15 +125,17 @@ async function loadStudents(filter = "all", forceRefresh = false) {
     document.querySelectorAll("#studentsContainer .student"),
   );
   if (!nodes.length) return;
-  cachedAll = nodes.map((li) => ({
-    _id: li.querySelector("a")?.getAttribute("href")?.split("/").pop(),
-    name: li.querySelector(".details p")?.textContent?.trim() || "",
-    fullName: li.querySelector("img")?.alt || "",
-    grade: li.dataset.grade,
-    dueFees: Number(li.dataset.due || 0),
-    statusClass: li.querySelector(".details p")?.className || "normal",
-    searchName: li.dataset.name || "",
-  }));
+  cachedAll = nodes.map((li) =>
+    normalizeStudent({
+      _id: li.querySelector("a")?.getAttribute("href")?.split("/").pop(),
+      name: li.querySelector(".details p")?.textContent?.trim() || "",
+      fullName: li.querySelector("img")?.alt || "",
+      grade: li.dataset.grade,
+      dueFees: Number(li.dataset.due || 0),
+      statusClass: li.querySelector(".details p")?.className || "normal",
+      searchName: (li.dataset.name || "").toLowerCase(),
+    }),
+  );
 })();
 
 // filter section
@@ -189,12 +212,12 @@ function removeFilters() {
   currentGradeFilter = "all";
   currentSearchFilter = "";
   if (searchBox) searchBox.value = "";
-  document.querySelector(".radio input[type=radio]").checked = true; // set "All" as default
-  const students = document.querySelectorAll(".student");
-  students.forEach((s) => s.classList.remove("hidden"));
+  const allRadio = document.querySelector('input[name="radio"][value="all"]');
+  if (allRadio) allRadio.checked = true;
+  // const students = document.querySelectorAll(".student");
+  // students.forEach((s) => s.classList.remove("hidden"));
   initFilters(); // re-apply filters to update count and ensure consistency
 }
-showDueOnlyLocal(); //to show only due at frist glance
 document.getElementById("btn-all")?.addEventListener("click", () => {
   loadStudents("all");
   removeFilters();
@@ -205,4 +228,5 @@ document.getElementById("btn-due")?.addEventListener("click", () => {
 });
 
 /* Call this on page load */
+showDueOnlyLocal(); //to show only due at frist glance
 initFilters();
