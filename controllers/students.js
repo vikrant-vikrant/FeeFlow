@@ -249,7 +249,7 @@ module.exports.addFees = catchAsync(async (req, res) => {
   await student.save();
   await thisMonthData.save();
   req.flash("success", `Fees added for ${student.name}. `);
-  res.redirect(`/students?filter=due`);
+  res.redirect(`/students`);
 });
 module.exports.archived = catchAsync(async (req, res) => {
   const archived = await ArchivedStudent.find({ owner: req.user._id })
