@@ -15,8 +15,7 @@ function formatDate(date, type = "short") {
   });
 }
 module.exports.students = catchAsync(async (req, res) => {
-  let students;
-  students = await Student.find({ owner: req.user._id })
+  let students = await Student.find({ owner: req.user._id })
     .select("name grade fees dueFees _id")
     .lean();
   const studentsData = students.map((s) => {

@@ -94,11 +94,8 @@ div.links-group:has(a.active)::after {
 ul {
   list-style-type: none;
 }
-.students .student {
-  display: block;
-} /* default */
-.students .student.hidden {
-  display: none !important;
+.hidden{
+  display: none;
 }
 .students .student a {
   text-decoration: none;
