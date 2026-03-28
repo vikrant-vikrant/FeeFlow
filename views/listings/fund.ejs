@@ -8,7 +8,7 @@
           <h2 class="title"><%= thisMonthYear %></h2>
           <div class="stat">
             <div class="total">
-              <span><%=balance%> &#8377;</span
+              <span><%=balance.toLocaleString('en-IN')%> &#8377;</span
               ><br />Fund Balance
             </div>
             <div class="total">
@@ -38,7 +38,7 @@
               <%for(let exp of thisMonthData.expenses){%>
               <li>
                 <span><%= exp.note%></span><br />
-                <span><%= exp.amount%></span><br />
+                <span><%= exp.amount.toLocaleString('en-IN')%></span><br />
                 <span
                   ><%= new Date(exp.paidDate) .toLocaleDateString('en-GB', {
                   weekday: 'short', day: 'numeric', month: 'short' })
@@ -47,7 +47,7 @@
               </li>
               <%}%>
             </ul>
-            <h3>Total Expenses : <%= total %> ₹</h3>
+            <h3>Total Expenses : <%= total.toLocaleString('en-IN') %> ₹</h3>
             <h3>Total Due : <%= totalDue.toLocaleString('en-IN') %> ₹</h3>
           </div>
         </div>
