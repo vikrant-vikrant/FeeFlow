@@ -3,21 +3,23 @@
 <body>
   <div class="main">
       <div class="nav-tabs">
-        <div class="filter">
-          <a id="btn-due"
-            ><i class="fa-solid fa-chart-line"></i>
-            <p>&nbsp;&nbsp;Due Students</p>
-          </a>
-          <a id="btn-all"
-            ><i class="fa-solid fa-user-group"></i>
-            <p>&nbsp;&nbsp;All Students</p></a
-          >
-          <a
+        <div class="option">
+          <div class="links-group">
+            <a id="btn-due" class="active"><i class="fa-solid fa-chart-line"></i>&nbsp;Due</a>
+            <a id="btn-all" ><i class="fa-solid fa-user-group"></i>&nbsp;All</a>
+          </div>
+          <a class="links-group"
             title="Add New Student"
-            onclick="location.href='students/newStudent'"
+            href='students/newStudent'
           >
             <i class="fa-solid fa-user-plus"></i>
-            <p>&nbsp;&nbsp;Add Student</p>
+            <p>&nbsp;Add Student</p>
+          </a>
+          <a class="links-group"
+            href='/fund'
+          >
+            <i class="fa-solid fa-wallet"></i>
+            <p>&nbsp;Fund</p>
           </a>
         </div>
         <div class="quick-actions">
@@ -83,8 +85,7 @@
       </div>
       <ul class="students" aria-live="polite" id="studentsContainer">
         <% studentsData.forEach(s => { %>
-          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>"
-            data-due="<%=s.dueFees%>">
+          <li class="student" data-grade="<%= s.grade %>" data-name="<%= s.searchName %>" data-due="<%=s.dueFees%>">
             <a href="/students/<%= s._id %>" class="list">
               <img
                 loading="lazy"

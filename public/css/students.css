@@ -1,18 +1,5 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-html,
-body {
-  background-color: #f3efea;
-  scroll-behavior: smooth;
-  height: 100%;
-  width: 100%;
-}
 .main {
   position: relative;
-  width: 100%;
   width: calc(100% - 6vw);
   margin: 4vh 3vw;
   font-family: sans-serif;
@@ -24,21 +11,65 @@ body {
   flex-wrap: wrap;
   align-items: center;
 }
-
-.nav-tabs .filter {
+div.links-group,
+a.links-group {
+  width: fit-content;
   display: flex;
-  width: 50vw;
+  padding: 0.25rem;
+  border: 1px solid #31312f;
+  position: relative;
+  border-radius: 50px;
 }
-
-.filter a i,
-.filter a p {
-  z-index: 9;
+div.links-group::after {
+  background: #a0d8ff;
+  content: "";
+  position: absolute;
+  top: calc(anchor(top));
+  left: calc(anchor(left));
+  right: calc(anchor(right));
+  bottom: calc(anchor(bottom));
+  border-radius: 50px;
+  z-index: 1;
+  position-anchor: --active-link;
+  transition: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+div.links-group a,
+a.links-group {
+  position: relative;
+  color: #31312f;
+  padding: 0.8rem;
+  z-index: 2;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
+}
+a.links-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1vw;
+}
+div.links-group a.active {
+  anchor-name: --active-link;
+  color: #1a1a2e;
+}
+div.links-group:has(a.active)::after {
+  top: anchor(top);
+  left: anchor(left);
+  right: anchor(right);
+  bottom: anchor(bottom);
+}
+.option {
+  display: flex;
 }
 .quick-actions {
   display: flex;
 }
 .quick-actions label {
-  padding: 1vw 2vw;
+  padding: 12px;
   border: 1px solid #31312f;
   border-radius: 2rem;
 }
@@ -50,66 +81,12 @@ body {
 .quick-actions label input:focus {
   outline: none;
 }
-.nav-tabs .filter a {
-  padding: 1vw 2vw;
-  border: 1px solid #31312f;
-  background-color: #f3efea;
-  position: relative;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all ease 0.3s;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  margin-right: 1rem;
-  color: #31312f;
-}
-.quick-actions button:hover,
-.nav-tabs .filter a:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 0px 10px #31312f8f;
-}
-
-.filter a p {
-  font-size: 14px;
-  color: #31312f;
-  z-index: 9;
-  position: relative;
-}
-
-.filter a p {
-  z-index: 9;
-}
 
 .quick-actions label i {
   font-size: 16px;
   margin-right: 0.5vw;
 }
 
-.nav-tabs .filter a::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: #31312f;
-  left: 0;
-  bottom: -100%;
-  border-radius: 50px;
-  transition: all ease 0.4s;
-}
-
-.nav-tabs .filter a:hover::before {
-  bottom: 0;
-  border-radius: 0;
-}
-
-.quick-actions button:hover i,
-.nav-tabs .filter a:hover p,
-.nav-tabs .filter a:hover {
-  color: #f3eaea;
-}
 .students {
   display: flex;
   flex-wrap: wrap;
@@ -231,31 +208,23 @@ ul {
 @media (max-width: 600px) {
   .main {
     width: calc(100vw - 6vw);
-    margin: 2vw 3vw;
+    margin: 1.5vw 3vw;
   }
   .nav-tabs {
     margin-bottom: 0vw;
     align-items: center;
   }
-  .nav-tabs .filter {
-    margin-bottom: 1vw;
-    width: 100%;
-    justify-content: space-between;
-  }
   .quick-actions {
     width: 100vw;
+  }
+  .option {
+    width: 100vw;
+    padding-bottom: 1.5vw;
+    justify-content: space-between;
   }
   .quick-actions label {
     width: 100%;
     padding: 2vw 2.5vw;
-  }
-  .nav-tabs .filter a {
-    margin-right: 0;
-    padding: 2.5vw;
-  }
-  .nav-tabs .filter a i,
-  .nav-tabs .filter a p {
-    font-size: 0.9rem;
   }
 
   .quick-actions label i,
@@ -280,10 +249,15 @@ ul {
   }
   .radio-inputs {
     width: 100%;
-    margin: 1vw 0;
+    margin: 1.5vw 0;
   }
   .edit-info {
     margin: 0;
     padding: 0.1rem 0.3rem;
+  }
+  div.links-group a,
+  a.links-group {
+    font-size: 1rem;
+    padding: 2vw 2.5vw;
   }
 }
