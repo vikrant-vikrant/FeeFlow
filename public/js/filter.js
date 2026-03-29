@@ -221,10 +221,14 @@ function removeFilters() {
 document.getElementById("btn-all")?.addEventListener("click", () => {
   loadStudents("all");
   removeFilters();
+  document.querySelector(".active")?.classList.remove("active");
+  document.getElementById("btn-all")?.classList.add("active");
 });
 document.getElementById("btn-due")?.addEventListener("click", () => {
   loadStudents("due"); // use cache but apply due filter
   removeFilters();
+  document.querySelector(".active")?.classList.remove("active");
+  document.getElementById("btn-due")?.classList.add("active");
 });
 
 /* Call this on page load */
