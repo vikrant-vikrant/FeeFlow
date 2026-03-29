@@ -1,16 +1,10 @@
-# 📘The Dynamic Vision - Student Management System
+# 📘FeeFlow - Student Management System
 
-Live link : https://the-dynamic-vision.onrender.com/home \
+Live link : https://feeflow-beta.vercel.app/home \
 A complete web-based student management system for coaching centers.
 Built with **Node.js, Express, MongoDB, and EJS**.
 
 > Designed to automate student records, payment tracking, and monthly fees — with GitHub Actions automation.
-
-## Project Overview
-
-## ![image](./public/home.png)
-
-## ![image](./public/view.png)
 
 ## 🚀 Features
 
@@ -61,11 +55,33 @@ Mobile-friendly PWA version
 | **EJS Template Engine** | UI rendering |
 | **GitHub Actions** | Free automated monthly fees |
 
-## 🖼️ Screenshot
+# Project Overview
 
-## ![image](./public/pic2.png)
+## HOME PAGE
 
-## ![image](./public/addStudent.png)
+## ![image](./public/home.jpeg)
+
+## ![image](./public/home2.jpeg)
+
+## Fund section
+
+## ![image](./public/fund.jpeg)
+
+## Dashboard
+
+## ![image](./public/stu.jpeg)
+
+## Archive section
+
+## ![image](./public/archive.jpeg)
+
+## ADD NEW STUDENT
+
+## ![image](./public/addStu.jpeg)
+
+## Student Details
+
+## ![image](./public/stuDetails.jpeg)
 
 ## ⚙️ Installation & Setup
 

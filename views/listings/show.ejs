@@ -39,7 +39,7 @@
               </a>
             </p>
           <%}%>
-          <%if(student.dueFees > student.fees && (student.phone || student.contact)){%>
+          <%if(student.dueFees >= student.fees && (student.phone || student.contact)){%>
             <%if(student.contact){%>
             <p class="remind">
               <strong>Remind on :</strong> Contact

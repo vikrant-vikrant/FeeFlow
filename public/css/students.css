@@ -15,7 +15,7 @@ div.links-group,
 a.links-group {
   width: fit-content;
   display: flex;
-  padding: 0.4rem;
+  padding: 0.25rem;
   border: 1px solid #31312f;
   position: relative;
   border-radius: 50px;
@@ -36,7 +36,6 @@ div.links-group::after {
 div.links-group a,
 a.links-group {
   position: relative;
-  color: #e0f7fa;
   color: #31312f;
   padding: 0.8rem;
   z-index: 2;
@@ -45,6 +44,7 @@ a.links-group {
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
 }
 a.links-group {
   display: flex;
@@ -208,7 +208,7 @@ ul {
 @media (max-width: 600px) {
   .main {
     width: calc(100vw - 6vw);
-    margin: 2vw 3vw;
+    margin: 1.5vw 3vw;
   }
   .nav-tabs {
     margin-bottom: 0vw;
@@ -219,7 +219,8 @@ ul {
   }
   .option {
     width: 100vw;
-    padding-bottom: 8px;
+    padding-bottom: 1.5vw;
+    justify-content: space-between;
   }
   .quick-actions label {
     width: 100%;
@@ -248,7 +249,7 @@ ul {
   }
   .radio-inputs {
     width: 100%;
-    margin: 1vw 0;
+    margin: 1.5vw 0;
   }
   .edit-info {
     margin: 0;
@@ -256,7 +257,7 @@ ul {
   }
   div.links-group a,
   a.links-group {
-    font-size: 0.8rem;
-    padding: 0.4rem;
+    font-size: 1rem;
+    padding: 2vw 2.5vw;
   }
 }
