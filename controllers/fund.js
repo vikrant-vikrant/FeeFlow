@@ -170,7 +170,7 @@ module.exports.addExpense = catchAsync(async (req, res) => {
 });
 module.exports.getPreviousReports = async (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
-  const limit = 2;
+  const limit = 3;
   const today = new Date();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();

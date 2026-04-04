@@ -52,6 +52,7 @@ nav .info {
 .info a {
   padding: 1vw 2vw;
   border: 1px solid #31312f;
+  color: #31312f;
   border-radius: 50px;
   font-weight: 400;
   position: relative;
@@ -68,33 +69,14 @@ nav .info {
 .info a h4 {
   font-size: 14px;
   text-decoration: none;
-  color: #31312f;
-  z-index: 9;
   position: relative;
 }
 .info a i {
-  color: #31312f;
   font-size: 16px;
-  z-index: 9;
-}
-nav .info a::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: #31312f;
-  left: 0;
-  bottom: -100%;
-  border-radius: 50px;
-  transition: all ease 0.4s;
 }
 nav a:hover::before {
   bottom: 0;
   border-radius: 0;
-}
-.info a:hover h4,
-.info a:hover i {
-  color: #f3efea;
 }
 .profile,
 .profile img {
