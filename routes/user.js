@@ -34,4 +34,5 @@ router.get(  // Step 2: Callback
     res.redirect("/students");
   },
 );
+router.get("/guest-login", userController.guestLogin);
 module.exports = router;

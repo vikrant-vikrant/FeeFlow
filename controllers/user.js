@@ -90,3 +90,29 @@ module.exports.logout = (req, res) => {
   req.flash("success", "Logged out successfully");
   res.redirect("/home");
 };
+module.exports.guestLogin = async (req, res) => {
+  try {
+    let guestUser = await userModel.findOne({ email: "demo@gmail.com" });
+    if (!guestUser) {
+      req.flash("error", "Guest user not found");
+      return res.redirect("/login");
+    }
+    const token = jwt.sign(
+      { id: guestUser._id },
+      process.env.JWT_SECRET || "your-secret-key",
+      { expiresIn: "1d" },
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // true in production (https)
+      sameSite: "lax",
+      maxAge: 4 * 60 * 60 * 1000,
+    });
+    req.flash("success", "Logged in as guest user");
+    res.redirect("/students");
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "Guest login failed");
+    res.redirect("/login");
+  }
+};
