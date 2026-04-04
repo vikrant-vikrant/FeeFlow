@@ -99,6 +99,7 @@ label {
   font-weight: 600;
   transform: 0.3s ease;
   background-color: #00bfff;
+  cursor: pointer;
 }
 .submit:hover {
   background-color: #00bfff96;
@@ -112,17 +113,8 @@ input::-webkit-inner-spin-button {
 .signup {
   text-align: center;
   margin: 1rem 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #94a3b8;
-}
-.signup::before{
-  content: "";
-  position: absolute;
-  left: 10%;
-  width: 80%;
-  height: 2px;
-  background: linear-gradient(to right, #31312f, #00bfff, #31312f);
-  margin-top: 2rem;
 }
 .signup a {
   color: #00bfff;
@@ -130,6 +122,20 @@ input::-webkit-inner-spin-button {
 }
 .signup a:hover {
   text-decoration: underline;
+}
+.google a{
+  text-align: center;
+  justify-content: center;
+  display: flex;  
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #00bfff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transform: 0.8s ease;
+  background-color: #fff;
+  margin-top: 1rem;
 }
 @keyframes pulse {
   from {

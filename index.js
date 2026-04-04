@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const passport = require("./config/passport");
 
 // npm uninstall express-session connect-mongo
 const cookieParser = require("cookie-parser");
@@ -21,6 +22,15 @@ const fundRoute = require("./routes/fund.js");
 const setTodayDate = require("./middleware/setTodayDate");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
 const app = express();
+app.use(
+  session({
+    secret: "secretkey",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
