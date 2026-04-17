@@ -115,7 +115,8 @@
             <p>No fees recorded this month.</p>
             <% } %>
             <% if (archiveFeesThisMonth && archiveFeesThisMonth.length) { %> 
-            <% archiveFeesThisMonth.forEach(fee => { %>
+              <p>Archive fees record</p>
+              <% archiveFeesThisMonth.forEach(fee => { %>
               <li class="fee-entry">
                   <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
                   <span>On : <%= new
