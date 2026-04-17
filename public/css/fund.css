@@ -120,6 +120,9 @@ body {
   height: 55vh;
   overflow-y: scroll;
 }
+.feeHistory p{
+  padding: .5rem 0;
+}
 .fee-entry {
   color: white;
   text-decoration: none;

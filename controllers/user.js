@@ -40,7 +40,7 @@ module.exports.signup = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    req.flash("success", "Welcome to Student Management System");
+    req.flash("success", "Welcome to FeeFlow");
     res.redirect("/students");
   } catch (e) {
     console.error(e);
@@ -77,7 +77,7 @@ module.exports.login = async (req, res) => {
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    req.flash("success", "Welcome back to Student Management System");
+    req.flash("success", "Welcome back to FeeFlow");
     res.redirect("/students");
   } catch (error) {
     console.error(error);
