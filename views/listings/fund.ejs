@@ -114,6 +114,17 @@
             <% }) %> <% } else { %>
             <p>No fees recorded this month.</p>
             <% } %>
+            <% if (archiveFeesThisMonth && archiveFeesThisMonth.length) { %> 
+            <% archiveFeesThisMonth.forEach(fee => { %>
+              <li class="fee-entry">
+                  <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
+                  <span>On : <%= new
+                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
+                  weekday: 'short', day: 'numeric', month: 'short' })
+                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
+                  : <%= fee.feesHistory.note %> <%}%></span><br>
+              </li>
+            <% })} %>
           </div>
         </div>
       </div>

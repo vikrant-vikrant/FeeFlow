@@ -1,6 +1,7 @@
 const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
 const MonthlyReport = require("../models/monthlyReport");
+const archivedStudent = require("../models/archivedStudent");
 let thisMonthYear = new Date().toLocaleString("en-US", {
   month: "short",
   year: "numeric",
@@ -12,42 +13,72 @@ module.exports.fund = catchAsync(async (req, res) => {
   const view = req.query.view;
   let dateFilter;
   if (view === "month") {
-    dateFilter = {
-      $gte: startOfMonth,
-      $lt: endOfMonth,
-    };
+    dateFilter = { $gte: startOfMonth, $lt: endOfMonth };
   } else {
-    const threeDaysAgo = now;
+    const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
     dateFilter = { $gte: threeDaysAgo };
   }
-  const [dueResult, feesThisMonth, stuThisMonth] = await Promise.all([
-    // 🔹 Total due (all students)
+  const [studentResult, archiveFeesThisMonth] = await Promise.all([
     Student.aggregate([
       { $match: { owner: req.user._id } },
       {
-        $group: {
-          _id: null,
-          totalDue: { $sum: "$dueFees" },
+        $facet: {
+          totalDue: [
+            {
+              $group: {
+                _id: null,
+                totalDue: { $sum: "$dueFees" },
+              },
+            },
+          ],
+          feesThisMonth: [
+            { $unwind: "$feesHistory" },
+            {
+              $match: {
+                "feesHistory.paidDate": dateFilter,
+              },
+            },
+            { $sort: { "feesHistory.paidDate": -1 } },
+            {
+              $project: {
+                name: 1,
+                grade: 1,
+                "feesHistory.amount": 1,
+                "feesHistory.paidDate": 1,
+                "feesHistory.note": 1,
+              },
+            },
+          ],
+          studentsThisMonth: [
+            {
+              $match: {
+                joiningDate: {
+                  $gte: startOfMonth,
+                  $lt: endOfMonth,
+                },
+              },
+            },
+            {
+              $project: {
+                name: 1,
+                grade: 1,
+              },
+            },
+          ],
         },
       },
     ]),
-    Student.aggregate([
+    // Archived data parallel
+    archivedStudent.aggregate([
       { $match: { owner: req.user._id } },
       { $unwind: "$feesHistory" },
-
       {
         $match: {
           "feesHistory.paidDate": dateFilter,
         },
       },
-
-      {
-        $sort: {
-          "feesHistory.paidDate": -1, // ascending
-        },
-      },
-
+      { $sort: { "feesHistory.paidDate": -1 } },
       {
         $project: {
           name: 1,
@@ -58,18 +89,15 @@ module.exports.fund = catchAsync(async (req, res) => {
         },
       },
     ]),
-    Student.find({
-      owner: req.user._id,
-      joiningDate: {
-        $gte: startOfMonth,
-        $lt: endOfMonth,
-      },
-    }).select("name grade"),
   ]);
+  // ✅ Extract data from facet
+  const data = studentResult[0];
+  const totalDue = data.totalDue[0]?.totalDue || 0;
+  const feesThisMonth = data.feesThisMonth;
+  const stuThisMonth = data.studentsThisMonth;
   const todayDate = new Date().toISOString().split("T")[0];
-  const totalDue = dueResult[0]?.totalDue || 0;
-  const month = new Date().getMonth() + 1;
-  const year = new Date().getFullYear();
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
   let thisMonthData = await MonthlyReport.findOne({
     owner: req.user._id,
     month,
@@ -88,17 +116,21 @@ module.exports.fund = catchAsync(async (req, res) => {
       createdAt: new Date(),
     });
   }
+  // ✅ Calculate expenses
   let total = 0;
   thisMonthData.expenses.forEach((e) => (total += e.amount));
-  let balance = Number(thisMonthData.totalEarning) - total ;
-  balance.toLocaleString('en-IN')
+  const balance = Number(thisMonthData.totalEarning) - total;
   res.render("listings/fund", {
     totalDue,
     todayDate,
-    feesThisMonth,total,view,balance,
-    thisMonthYear,
+    feesThisMonth,
+    total,
+    view,
+    balance,
+    thisMonthYear: `${month}-${year}`,
     thisMonthData,
     stuThisMonth,
+    archiveFeesThisMonth,
   });
 });
 module.exports.addExpense = catchAsync(async (req, res) => {
