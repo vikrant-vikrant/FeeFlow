@@ -127,7 +127,7 @@ module.exports.fund = catchAsync(async (req, res) => {
     total,
     view,
     balance,
-    thisMonthYear: `${month}-${year}`,
+    thisMonthYear,
     thisMonthData,
     stuThisMonth,
     archiveFeesThisMonth,
