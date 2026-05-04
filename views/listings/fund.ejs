@@ -5,17 +5,31 @@
         <h1 class="nav-tabs">Monthly Reports</h1>
       <div class="thisMonth">
         <div class="report-card">
-          <h2 class="title"><%= thisMonthYear %></h2>
+          <h2 class="title"><%= new Date(thisMonthData.year, thisMonthData.month -1).toLocaleString(
+          "en-US",{ month: "short", year: "numeric" })%>
+          </h2>
           <div class="stat">
             <div class="total">
               <span><%=balance.toLocaleString('en-IN')%> &#8377;</span
               ><br />Fund Balance
             </div>
             <div class="total">
+              <span><%= total.toLocaleString('en-IN') %> &#8377;</span
+              ><br />Total Expenses
+            </div>
+          </div>
+          <div class="stat">
+            <div class="total">
               <span
                 ><%=thisMonthData.totalEarning.toLocaleString('en-IN')%>
                 &#8377;</span
               ><br />Total Revenue
+            </div>
+            <div class="total">
+              <span
+                ><%= totalDue.toLocaleString('en-IN') %>
+                &#8377;</span
+              ><br />Total Due
             </div>
           </div>
           <div class="expense-section new-stu">
@@ -33,6 +47,7 @@
             </ul>
           </div>
           <div class="expense-section">
+            <% if (thisMonthData && thisMonthData.expenses.length) { %>
             <h3>Expense Details</h3>
             <ul>
               <%for(let exp of thisMonthData.expenses){%>
@@ -47,8 +62,7 @@
               </li>
               <%}%>
             </ul>
-            <h3>Total Expenses : <%= total.toLocaleString('en-IN') %> ₹</h3>
-            <h3>Total Due : <%= totalDue.toLocaleString('en-IN') %> ₹</h3>
+            <% } %>
           </div>
         </div>
         <form class="form" action="/fund/expenses" method="post">
@@ -93,13 +107,14 @@
         </form>
         <div class="history">
           <h2 class="title">
-            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees This Month
+            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees History
           </h2>
           <% if (view === "month") { %>
             <a href="/fund" class="btn">Show Last 3 Days</a>
           <% } else { %>
             <a href="/fund?view=month" class="btn">Show Full Month</a>
           <% } %>
+          <a class="btn" >Paid Students: <%=paidStudents%> / <%=totalStudents%> </a>
           <div class="feeHistory">
             <% if (feesThisMonth && feesThisMonth.length) { %> <%
             feesThisMonth.forEach(fee => { %>

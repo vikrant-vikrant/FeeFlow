@@ -2,10 +2,6 @@ const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
 const MonthlyReport = require("../models/monthlyReport");
 const archivedStudent = require("../models/archivedStudent");
-let thisMonthYear = new Date().toLocaleString("en-US", {
-  month: "short",
-  year: "numeric",
-});
 module.exports.fund = catchAsync(async (req, res) => {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -31,6 +27,19 @@ module.exports.fund = catchAsync(async (req, res) => {
                 totalDue: { $sum: "$dueFees" },
               },
             },
+          ],
+          totalStudents: [{ $count: "count" }],
+          paidStudents: [
+            {
+              $match: {
+                feesHistory: {
+                  $elemMatch: {
+                    paidDate: { $gte: startOfMonth, $lt: endOfMonth },
+                  },
+                },
+              },
+            },
+            { $count: "count" },
           ],
           feesThisMonth: [
             { $unwind: "$feesHistory" },
@@ -93,6 +102,8 @@ module.exports.fund = catchAsync(async (req, res) => {
   // ✅ Extract data from facet
   const data = studentResult[0];
   const totalDue = data.totalDue[0]?.totalDue || 0;
+  const totalStudents = data.totalStudents[0]?.count || 0;
+  const paidStudents = data.paidStudents[0]?.count || 0;
   const feesThisMonth = data.feesThisMonth;
   const stuThisMonth = data.studentsThisMonth;
   const todayDate = new Date().toISOString().split("T")[0];
@@ -127,10 +138,11 @@ module.exports.fund = catchAsync(async (req, res) => {
     total,
     view,
     balance,
-    thisMonthYear,
     thisMonthData,
     stuThisMonth,
     archiveFeesThisMonth,
+    totalStudents,
+    paidStudents,
   });
 });
 module.exports.addExpense = catchAsync(async (req, res) => {

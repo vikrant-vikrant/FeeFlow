@@ -46,11 +46,12 @@ body {
 
 .stat {
   width: 100%;
-  padding: 0.6rem;
   color: white;
-  border-bottom: 1px dashed #ddd;
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+}
+.stats{
+  justify-content: center;
 }
 .stat .total {
   border-radius: 30px;
@@ -69,7 +70,8 @@ body {
 
 .stat div {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
+  margin-left: 10px;
 }
 
 .new-stu {
@@ -102,7 +104,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px dashed #ddd;
+  border-bottom: 1px dashed #515151;
   color: white;
 }
 .history {
@@ -116,8 +118,9 @@ body {
   margin-bottom: 10px;
 }
 .feeHistory {
+  margin-top: .8rem;
   width: 23vw;
-  height: 55vh;
+  max-height: 55vh;
   overflow-y: scroll;
 }
 .feeHistory p{
@@ -127,7 +130,7 @@ body {
   color: white;
   text-decoration: none;
   font-size: 1.4rem;
-  border-bottom: 1px dashed #ddd;
+  /* border-bottom: 1px dashed #515151; */
   padding: 5px 0;
   cursor: pointer;
 }
