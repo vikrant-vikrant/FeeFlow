@@ -109,13 +109,10 @@ module.exports.fund = catchAsync(async (req, res) => {
   const todayDate = new Date().toISOString().split("T")[0];
   const month = now.getMonth() + 1;
   const year = now.getFullYear();
-  let thisMonthData = await MonthlyReport.findOne({
-    owner: req.user._id,
-    month,
-    year,
-  }).lean();
-  if (!thisMonthData) {
-    thisMonthData = await MonthlyReport.create({
+  let thisMonthData = await MonthlyReport.findOneAndUpdate(
+  { owner: req.user._id, month, year },
+  {
+    $setOnInsert: {
       owner: req.user._id,
       month,
       year,
@@ -125,11 +122,16 @@ module.exports.fund = catchAsync(async (req, res) => {
       newStudents: 0,
       studentsLeft: 0,
       createdAt: new Date(),
-    });
+    },
+  },
+  {
+    upsert: true,
+    new: true,
+    lean: true,
   }
+);
   // ✅ Calculate expenses
-  let total = 0;
-  thisMonthData.expenses.forEach((e) => (total += e.amount));
+  const total = thisMonthData.expenses.reduce((sum, e) => sum + e.amount, 0);
   const balance = Number(thisMonthData.totalEarning) - total;
   res.render("listings/fund", {
     totalDue,

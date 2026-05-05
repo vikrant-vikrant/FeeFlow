@@ -65,6 +65,44 @@
             <% } %>
           </div>
         </div>
+        <div class="history">
+          <h2 class="title">
+            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees History
+          </h2>
+          <% if (view === "month") { %>
+            <a href="/fund" class="btn">Show Last 3 Days</a>
+          <% } else { %>
+            <a href="/fund?view=month" class="btn">Show Full Month</a>
+          <% } %>
+          <a class="btn" >Paid Students: <%=paidStudents%> / <%=totalStudents%> </a>
+          <div class="feeHistory">
+            <% if (feesThisMonth && feesThisMonth.length) { %> <%
+            feesThisMonth.forEach(fee => { %>
+              <li class="fee-entry">
+                  <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
+                  <span>On : <%= new
+                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
+                  weekday: 'short', day: 'numeric', month: 'short' })
+                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
+                  : <%= fee.feesHistory.note %> <%}%></span><br>
+              </li>
+            <% }) %> <% } else { %>
+            <p>No fees recorded this month.</p>
+            <% } %>
+            <% if (archiveFeesThisMonth && archiveFeesThisMonth.length) { %> 
+              <p>Archive fees record</p>
+              <% archiveFeesThisMonth.forEach(fee => { %>
+              <li class="fee-entry">
+                  <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
+                  <span>On : <%= new
+                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
+                  weekday: 'short', day: 'numeric', month: 'short' })
+                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
+                  : <%= fee.feesHistory.note %> <%}%></span><br>
+              </li>
+            <% })} %>
+          </div>
+        </div>
         <form class="form" action="/fund/expenses" method="post">
           <h2 class="title">Add Expenses</h2>
           <label>
@@ -105,44 +143,6 @@
           </label>
           <button class="submit">Add Expenses</button>
         </form>
-        <div class="history">
-          <h2 class="title">
-            <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees History
-          </h2>
-          <% if (view === "month") { %>
-            <a href="/fund" class="btn">Show Last 3 Days</a>
-          <% } else { %>
-            <a href="/fund?view=month" class="btn">Show Full Month</a>
-          <% } %>
-          <a class="btn" >Paid Students: <%=paidStudents%> / <%=totalStudents%> </a>
-          <div class="feeHistory">
-            <% if (feesThisMonth && feesThisMonth.length) { %> <%
-            feesThisMonth.forEach(fee => { %>
-              <li class="fee-entry">
-                  <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
-                  <span>On : <%= new
-                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
-                  weekday: 'short', day: 'numeric', month: 'short' })
-                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
-                  : <%= fee.feesHistory.note %> <%}%></span><br>
-              </li>
-            <% }) %> <% } else { %>
-            <p>No fees recorded this month.</p>
-            <% } %>
-            <% if (archiveFeesThisMonth && archiveFeesThisMonth.length) { %> 
-              <p>Archive fees record</p>
-              <% archiveFeesThisMonth.forEach(fee => { %>
-              <li class="fee-entry">
-                  <strong><%= fee.feesHistory.amount %>₹  — <%= fee.name %> / <%= fee.grade %></strong>
-                  <span>On : <%= new
-                  Date(fee.feesHistory.paidDate) .toLocaleDateString('en-GB', {
-                  weekday: 'short', day: 'numeric', month: 'short' })
-                  .replace(/,/g, '') %> <%if(fee.feesHistory.note){%><br />Note
-                  : <%= fee.feesHistory.note %> <%}%></span><br>
-              </li>
-            <% })} %>
-          </div>
-        </div>
       </div>
       <div id="previousReports" class="monthly-reports-container"></div>
       <div class="nav-tabs">

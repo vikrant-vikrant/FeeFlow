@@ -261,6 +261,7 @@ input::-webkit-inner-spin-button {
   }
   .history {
     padding: 3.5vw;
+    margin: 3vw 0 0 0 ;
   }
   .fee-entry {
     font-size: 1rem;
