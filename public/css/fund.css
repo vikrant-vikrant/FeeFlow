@@ -129,6 +129,7 @@ body {
 .fee-entry {
   color: white;
   text-decoration: none;
+  text-transform: capitalize;
   font-size: 1.4rem;
   /* border-bottom: 1px dashed #515151; */
   padding: 5px 0;
