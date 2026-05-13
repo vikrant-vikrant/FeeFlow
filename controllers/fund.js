@@ -7,14 +7,25 @@ module.exports.fund = catchAsync(async (req, res) => {
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   const view = req.query.view;
-  let dateFilter;
-  if (view === "month") {
-    dateFilter = { $gte: startOfMonth, $lt: endOfMonth };
-  } else {
-    const threeDaysAgo = new Date();
-    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
-    dateFilter = { $gte: threeDaysAgo };
-  }
+  const dateFilter =
+    view === "month"
+      ? { "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth } }
+      : { "feesHistory.paidDate": { $exists: true, $ne: null } };
+  const feesPipeline = [
+    { $unwind: "$feesHistory" },
+    { $match: dateFilter },
+    { $sort: { "feesHistory.paidDate": -1 } },
+    ...(view !== "month" ? [{ $limit: 3 }] : []),
+    {
+      $project: {
+        name: 1,
+        grade: 1,
+        "feesHistory.amount": 1,
+        "feesHistory.paidDate": 1,
+        "feesHistory.note": 1,
+      },
+    },
+  ];
   const [studentResult, archiveFeesThisMonth] = await Promise.all([
     Student.aggregate([
       { $match: { owner: req.user._id } },
@@ -41,24 +52,7 @@ module.exports.fund = catchAsync(async (req, res) => {
             },
             { $count: "count" },
           ],
-          feesThisMonth: [
-            { $unwind: "$feesHistory" },
-            {
-              $match: {
-                "feesHistory.paidDate": dateFilter,
-              },
-            },
-            { $sort: { "feesHistory.paidDate": -1 } },
-            {
-              $project: {
-                name: 1,
-                grade: 1,
-                "feesHistory.amount": 1,
-                "feesHistory.paidDate": 1,
-                "feesHistory.note": 1,
-              },
-            },
-          ],
+          feesThisMonth: feesPipeline,
           studentsThisMonth: [
             {
               $match: {
@@ -84,7 +78,7 @@ module.exports.fund = catchAsync(async (req, res) => {
       { $unwind: "$feesHistory" },
       {
         $match: {
-          "feesHistory.paidDate": dateFilter,
+          "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth },
         },
       },
       { $sort: { "feesHistory.paidDate": -1 } },
