@@ -11,21 +11,69 @@ module.exports.fund = catchAsync(async (req, res) => {
     view === "month"
       ? { "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth } }
       : { "feesHistory.paidDate": { $exists: true, $ne: null } };
-  const feesPipeline = [
-    { $unwind: "$feesHistory" },
-    { $match: dateFilter },
-    { $sort: { "feesHistory.paidDate": -1 } },
-    ...(view !== "month" ? [{ $limit: 3 }] : []),
-    {
-      $project: {
-        name: 1,
-        grade: 1,
-        "feesHistory.amount": 1,
-        "feesHistory.paidDate": 1,
-        "feesHistory.note": 1,
-      },
-    },
-  ];
+  const feesPipeline =
+    view === "month"
+      ? [
+          { $unwind: "$feesHistory" },
+          {
+            $match: {
+              "feesHistory.paidDate": {
+                $gte: startOfMonth,
+                $lt: endOfMonth,
+              },
+            },
+          },
+          { $sort: { "feesHistory.paidDate": -1 } },
+          {
+            $project: {
+              name: 1,
+              grade: 1,
+              "feesHistory.amount": 1,
+              "feesHistory.paidDate": 1,
+              "feesHistory.note": 1,
+            },
+          },
+        ]
+      : [
+          { $unwind: "$feesHistory" },
+          {
+            $match: {
+              "feesHistory.paidDate": { $exists: true, $ne: null },
+            },
+          },
+          { $sort: { "feesHistory.paidDate": -1 } },
+          {
+            $group: {
+              _id: {
+                $dateToString: {
+                  format: "%Y-%m-%d",
+                  date: "$feesHistory.paidDate",
+                },
+              },
+              records: {
+                $push: {
+                  name: "$name",
+                  grade: "$grade",
+                  amount: "$feesHistory.amount",
+                  paidDate: "$feesHistory.paidDate",
+                  note: "$feesHistory.note",
+                },
+              },
+            },
+          },
+          { $sort: { _id: -1 } },
+          { $limit: 3 },
+          { $unwind: "$records" },
+          {
+            $project: {
+              name: "$records.name",
+              grade: "$records.grade",
+              "feesHistory.amount": "$records.amount",
+              "feesHistory.paidDate": "$records.paidDate",
+              "feesHistory.note": "$records.note",
+            },
+          },
+        ];
   const [studentResult, archiveFeesThisMonth] = await Promise.all([
     Student.aggregate([
       { $match: { owner: req.user._id } },
