@@ -43,10 +43,6 @@ module.exports.students = catchAsync(async (req, res) => {
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   let student = await Student.findOne({ _id: id, owner: req.user._id });
-  // This method is too much time taking
-  if (!student) {
-    student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
-  }
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
   res.render("listings/show", { student, formattedDate });
@@ -204,13 +200,6 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
     _id: id,
     owner: req.user._id,
   });
-  //this method is too much time taking
-  if(!removedStudent) {
-    let archivedStudent = await ArchivedStudent.findOne({
-      _id: id,
-      owner: req.user._id,
-    });
-  }
   if (!removedStudent) {
     req.flash("error", "Student not found or already deleted.");
     return res.redirect("/students");
@@ -268,6 +257,13 @@ module.exports.archived = catchAsync(async (req, res) => {
     .select("name grade fees dueFees _id")
     .lean();
   res.render("listings/archive", { studentsData: archived });
+});
+module.exports.showArchiveStu = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  let student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  if (!student) throw new ExpressError(404, "Student not found");
+  const formattedDate = formatDate(student.joiningDate);
+  res.render("listings/showArchiveStu", { student, formattedDate });
 });
 module.exports.restoreStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
