@@ -42,7 +42,10 @@ module.exports.students = catchAsync(async (req, res) => {
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const student = await Student.findOne({ _id: id, owner: req.user._id });
+  let student = await Student.findOne({ _id: id, owner: req.user._id });
+  if (!student) {
+    student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  }
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
   res.render("listings/show", { student, formattedDate });

@@ -6,6 +6,7 @@
       <h1>&nbsp;Archive Students</h1>
       <div class="students">
         <%for(let students of studentsData){%>
+          <a href="/students/<%= students._id %>" class="list">
           <div class="list" data-grade="<%= students.grade %>">
             <img
               loading="lazy"
@@ -35,6 +36,7 @@
               </div>
             </div>
           </div>
+          </a>
         <%}%>
       </div>
   </div>
