@@ -43,6 +43,7 @@ module.exports.students = catchAsync(async (req, res) => {
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   let student = await Student.findOne({ _id: id, owner: req.user._id });
+  // This method is too much time taking
   if (!student) {
     student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
   }
@@ -203,6 +204,13 @@ module.exports.deleteStudent = catchAsync(async (req, res) => {
     _id: id,
     owner: req.user._id,
   });
+  //this method is too much time taking
+  if(!removedStudent) {
+    let archivedStudent = await ArchivedStudent.findOne({
+      _id: id,
+      owner: req.user._id,
+    });
+  }
   if (!removedStudent) {
     req.flash("error", "Student not found or already deleted.");
     return res.redirect("/students");
