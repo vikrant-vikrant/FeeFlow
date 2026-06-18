@@ -19,8 +19,9 @@ router
 router.get("/:id/deactivate", student.deactivateStudent);
 router
   .route("/:id/archive")
-  .get(isLoggedIn, validateObjectId, student.showArchiveStu)
+  .get(isLoggedIn, validateObjectId, student.showArchiveStu);
 router.post("/:id/restore", student.restoreStudent);
 router.delete("/:id/delete", student.deletearchiveStudent);
 router.post("/:id/addFees", isLoggedIn, student.addFees);
+router.post("/:id/addArchiveStuFee", isLoggedIn, student.addArchiveStuFee);
 module.exports = router;

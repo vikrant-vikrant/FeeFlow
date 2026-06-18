@@ -265,6 +265,51 @@ module.exports.showArchiveStu = catchAsync(async (req, res, next) => {
   const formattedDate = formatDate(student.joiningDate);
   res.render("listings/showArchiveStu", { student, formattedDate });
 });
+module.exports.addArchiveStuFee = catchAsync(async (req, res) => {
+  let { id } = req.params;
+  let { note, amount, paidOn } = req.body;
+  if (!amount || Number(amount) <= 0) {
+    req.flash("error", "Amount must be greater than 0");
+    return res.redirect(`/students/${id}`);
+  }
+  amount = Number(amount);
+  let paidDate = paidOn ? new Date(paidOn) : new Date();
+  const student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  if (!student) {
+    return res.status(404).send("Student not found");
+  }
+  student.feesHistory.push({
+    note,
+    amount,
+    paidDate,
+  });
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  let thisMonthData = await MonthlyReport.findOne({
+    owner: req.user._id,
+    month,
+    year,
+  });
+  if (!thisMonthData) {
+    thisMonthData = await MonthlyReport.create({
+      owner: req.user._id,
+      month,
+      year,
+      totalEarning: 0,
+      expenses: [],
+      totalExpenses: 0,
+      newStudents: 0,
+      studentsLeft: 0,
+      createdAt: new Date(),
+    });
+  }
+  thisMonthData.totalEarning += amount;
+  student.dueFees -= amount;
+  await student.save();
+  await thisMonthData.save();
+  req.flash("success", `Fees added for ${student.name}. `);
+  res.redirect(`/students`);
+});
 module.exports.restoreStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
   const archivedStudent = await ArchivedStudent.findOne({
