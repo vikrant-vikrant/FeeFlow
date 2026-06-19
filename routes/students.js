@@ -24,4 +24,8 @@ router.post("/:id/restore", student.restoreStudent);
 router.delete("/:id/delete", student.deletearchiveStudent);
 router.post("/:id/addFees", isLoggedIn, student.addFees);
 router.post("/:id/addArchiveStuFee", isLoggedIn, student.addArchiveStuFee);
+router
+  .route("/:id/editArchiveStu")
+  .get(isLoggedIn, validateObjectId, student.editArchiveStu)
+  .put(isLoggedIn, validateObjectId, student.saveEditArchiveStu);
 module.exports = router;
