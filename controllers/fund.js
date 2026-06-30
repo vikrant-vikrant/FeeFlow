@@ -2,23 +2,78 @@ const Student = require("../models/students");
 const catchAsync = require("../utils/catchAsync");
 const MonthlyReport = require("../models/monthlyReport");
 const archivedStudent = require("../models/archivedStudent");
-let thisMonthYear = new Date().toLocaleString("en-US", {
-  month: "short",
-  year: "numeric",
-});
 module.exports.fund = catchAsync(async (req, res) => {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   const view = req.query.view;
-  let dateFilter;
-  if (view === "month") {
-    dateFilter = { $gte: startOfMonth, $lt: endOfMonth };
-  } else {
-    const threeDaysAgo = new Date();
-    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
-    dateFilter = { $gte: threeDaysAgo };
-  }
+  const dateFilter =
+    view === "month"
+      ? { "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth } }
+      : { "feesHistory.paidDate": { $exists: true, $ne: null } };
+  const feesPipeline =
+    view === "month"
+      ? [
+          { $unwind: "$feesHistory" },
+          {
+            $match: {
+              "feesHistory.paidDate": {
+                $gte: startOfMonth,
+                $lt: endOfMonth,
+              },
+            },
+          },
+          { $sort: { "feesHistory.paidDate": -1 } },
+          {
+            $project: {
+              name: 1,
+              grade: 1,
+              "feesHistory.amount": 1,
+              "feesHistory.paidDate": 1,
+              "feesHistory.note": 1,
+            },
+          },
+        ]
+      : [
+          { $unwind: "$feesHistory" },
+          {
+            $match: {
+              "feesHistory.paidDate": { $exists: true, $ne: null },
+            },
+          },
+          { $sort: { "feesHistory.paidDate": -1 } },
+          {
+            $group: {
+              _id: {
+                $dateToString: {
+                  format: "%Y-%m-%d",
+                  date: "$feesHistory.paidDate",
+                },
+              },
+              records: {
+                $push: {
+                  name: "$name",
+                  grade: "$grade",
+                  amount: "$feesHistory.amount",
+                  paidDate: "$feesHistory.paidDate",
+                  note: "$feesHistory.note",
+                },
+              },
+            },
+          },
+          { $sort: { _id: -1 } },
+          { $limit: 3 },
+          { $unwind: "$records" },
+          {
+            $project: {
+              name: "$records.name",
+              grade: "$records.grade",
+              "feesHistory.amount": "$records.amount",
+              "feesHistory.paidDate": "$records.paidDate",
+              "feesHistory.note": "$records.note",
+            },
+          },
+        ];
   const [studentResult, archiveFeesThisMonth] = await Promise.all([
     Student.aggregate([
       { $match: { owner: req.user._id } },
@@ -32,24 +87,20 @@ module.exports.fund = catchAsync(async (req, res) => {
               },
             },
           ],
-          feesThisMonth: [
-            { $unwind: "$feesHistory" },
+          totalStudents: [{ $count: "count" }],
+          paidStudents: [
             {
               $match: {
-                "feesHistory.paidDate": dateFilter,
+                feesHistory: {
+                  $elemMatch: {
+                    paidDate: { $gte: startOfMonth, $lt: endOfMonth },
+                  },
+                },
               },
             },
-            { $sort: { "feesHistory.paidDate": -1 } },
-            {
-              $project: {
-                name: 1,
-                grade: 1,
-                "feesHistory.amount": 1,
-                "feesHistory.paidDate": 1,
-                "feesHistory.note": 1,
-              },
-            },
+            { $count: "count" },
           ],
+          feesThisMonth: feesPipeline,
           studentsThisMonth: [
             {
               $match: {
@@ -75,7 +126,7 @@ module.exports.fund = catchAsync(async (req, res) => {
       { $unwind: "$feesHistory" },
       {
         $match: {
-          "feesHistory.paidDate": dateFilter,
+          "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth },
         },
       },
       { $sort: { "feesHistory.paidDate": -1 } },
@@ -93,18 +144,17 @@ module.exports.fund = catchAsync(async (req, res) => {
   // ✅ Extract data from facet
   const data = studentResult[0];
   const totalDue = data.totalDue[0]?.totalDue || 0;
+  const totalStudents = data.totalStudents[0]?.count || 0;
+  const paidStudents = data.paidStudents[0]?.count || 0;
   const feesThisMonth = data.feesThisMonth;
   const stuThisMonth = data.studentsThisMonth;
   const todayDate = new Date().toISOString().split("T")[0];
   const month = now.getMonth() + 1;
   const year = now.getFullYear();
-  let thisMonthData = await MonthlyReport.findOne({
-    owner: req.user._id,
-    month,
-    year,
-  }).lean();
-  if (!thisMonthData) {
-    thisMonthData = await MonthlyReport.create({
+  let thisMonthData = await MonthlyReport.findOneAndUpdate(
+  { owner: req.user._id, month, year },
+  {
+    $setOnInsert: {
       owner: req.user._id,
       month,
       year,
@@ -114,11 +164,16 @@ module.exports.fund = catchAsync(async (req, res) => {
       newStudents: 0,
       studentsLeft: 0,
       createdAt: new Date(),
-    });
+    },
+  },
+  {
+    upsert: true,
+    new: true,
+    lean: true,
   }
+);
   // ✅ Calculate expenses
-  let total = 0;
-  thisMonthData.expenses.forEach((e) => (total += e.amount));
+  const total = thisMonthData.expenses.reduce((sum, e) => sum + e.amount, 0);
   const balance = Number(thisMonthData.totalEarning) - total;
   res.render("listings/fund", {
     totalDue,
@@ -127,10 +182,11 @@ module.exports.fund = catchAsync(async (req, res) => {
     total,
     view,
     balance,
-    thisMonthYear,
     thisMonthData,
     stuThisMonth,
     archiveFeesThisMonth,
+    totalStudents,
+    paidStudents,
   });
 });
 module.exports.addExpense = catchAsync(async (req, res) => {

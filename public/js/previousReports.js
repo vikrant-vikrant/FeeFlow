@@ -36,7 +36,7 @@ function renderReportCard(data) {
       <h2 class="title">${monthTitle}</h2>
     </div>
     <div class="report-stats">
-      <div class="stat">
+      <div class="stat stats">
         <div class="total">
             <span
               >${data.totalEarning.toLocaleString("en-IN")}₹</span

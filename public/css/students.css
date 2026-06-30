@@ -91,6 +91,13 @@ div.links-group:has(a.active)::after {
   display: flex;
   flex-wrap: wrap;
 }
+.students a{
+  text-decoration: none;
+}
+.students a .list {
+  padding: 0;
+  margin: 0;
+}
 ul {
   list-style-type: none;
 }

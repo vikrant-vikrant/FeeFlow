@@ -6,37 +6,28 @@
       <h1>&nbsp;Archive Students</h1>
       <div class="students">
         <%for(let students of studentsData){%>
+          <a href="/students/<%= students._id %>/archive" class="list">
           <div class="list" data-grade="<%= students.grade %>">
             <img
               loading="lazy"
               src="https://ui-avatars.com/api/?name=<%= students.name %>&bold=true"
               alt=""
             />
-            <div class="details">
+              <div class="details">
               <p
                 class="<%= students.dueFees >= students.fees * 3 ? 'red' : (students.dueFees >= students.fees * 2 ? 'yellow' : 'normal') %>"
               >
                 <%= students.name %>
-              </p>
+            </p>
               <span><%= students.grade %></span>
               <span class="<%= students.dueFees <= 0? 'none':'' %>"
                 >Due <%= students.dueFees %>&#8377;
               </span>
               <br>
-              <div class="flex">
-                <form action="/students/<%= students._id %>/restore" method="POST">
-                  <button class="edit-info">Restore</button>
-                </form>
-                <form action="/students/<%= students._id %>/delete?_method=delete" method="post">
-                  <button class="edit-info">
-                    Delete
-                  </button>
-                </form>
-              </div>
             </div>
           </div>
+          </a>
         <%}%>
       </div>
   </div>
 </body>
-<script type="module" src="/js/filter.js"></script>
