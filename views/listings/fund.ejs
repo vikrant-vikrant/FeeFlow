@@ -69,12 +69,10 @@
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees History
           </h2>
-          <% if (view === "month") { %>
-            <a href="/fund" class="btn">Show Last 3 Days</a>
-          <% } else { %>
-            <a href="/fund?view=month" class="btn">Show Full Month</a>
-          <% } %>
-          <a class="btn" >Paid Students: <%=paidStudents%> / <%=totalStudents%> </a>
+          <div class="links-group"> 
+            <a href="/fund" id="lastTDays" class="active">Last 3 Days</a>
+            <a href="/fund?view=month" id="fullM" >Full Month <%=paidStudents%> / <%=totalStudents%></a>
+          </div>
           <div class="feeHistory">
             <% if (feesThisMonth && feesThisMonth.length) { %> <%
             feesThisMonth.forEach(fee => { %>

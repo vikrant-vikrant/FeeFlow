@@ -72,3 +72,11 @@ function renderReportCard(data) {
   `;
   container.appendChild(div);
 }
+document.querySelector("#lastTDays")?.addEventListener("click", () => {
+  document.querySelector("#lastTDays")?.classList.add("active");
+  document.querySelector("#fullM")?.classList.remove("active");
+});
+document.querySelector("#fullM")?.addEventListener("click", () => {
+  document.querySelector("#fullM")?.classList.add("active");
+  document.querySelector("#lastTDays")?.classList.remove("active");
+});
