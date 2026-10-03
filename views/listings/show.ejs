@@ -73,7 +73,7 @@
         </div>
       <div class="addFess">
         <form
-          action="/students/<%= student.id%>/addFees"
+          action="/students/<%= student._id%>/addFees"
           method="post"
           class="form"
         >
@@ -144,18 +144,18 @@
       </div>
     </div>
     <div class="flex">
-      <a href="/students/<%= student.id%>/edit">
+      <a href="/students/<%= student._id%>/edit">
         <button class="edit-info">
           <i class="fa-regular fa-pen-to-square"></i> Add / Edit
         </button>
       </a>
-      <a href="/students/<%= student.id%>/deactivate" method="post">
+      <a href="/students/<%= student._id%>/deactivate" method="post">
         <button class="edit-info">
           <i class="fa-solid fa-user-slash"></i> Archive
         </button>
       </a>
       <form
-        action="/students/<%=student.id%>?_method=delete"
+        action="/students/<%=student._id%>?_method=delete"
         method="post"
         onsubmit="return confirm('Are you sure you want to delete this student?');"
       >
