@@ -157,9 +157,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   border-radius: 0.5rem;
-  background-color: #eee;
+  background-color: #d9e7f1;
   box-sizing: border-box;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
   padding: 0.25rem;
   width: 400px;
   font-size: 14px;

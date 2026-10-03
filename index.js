@@ -3,7 +3,7 @@ if (process.env.NODE_ENV != "production") {
 }
 const express = require("express");
 const path = require("path");
-import connectDB from "./src/index.js";
+const connectDB = require("./src/index.js");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
