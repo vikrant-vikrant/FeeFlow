@@ -402,5 +402,5 @@ module.exports.deletearchiveStudent = catchAsync(async (req, res) => {
     return res.redirect("/students/archived");
   }
   req.flash("success", "Student deleted successfully");
-  res.redirect("/archive");
+  res.redirect("/archived");
 });
