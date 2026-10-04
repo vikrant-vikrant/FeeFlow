@@ -68,7 +68,10 @@ module.exports.deactivateStudent = catchAsync(async (req, res) => {
 });
 module.exports.editArchiveStu = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  const student = await ArchivedStudent.findOne({
+    _id: id,
+    owner: req.user._id,
+  });
   if (!student) throw new ExpressError(404, "Archived student not found");
   const formattedDate = formatDate(student.joiningDate, "input");
   res.render("listings/editArchiveStu", { student, formattedDate });
@@ -306,11 +309,18 @@ module.exports.archived = catchAsync(async (req, res) => {
 });
 module.exports.showArchiveStu = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  let student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  let student = await ArchivedStudent.findOne({
+    _id: id,
+    owner: req.user._id,
+  }).lean();
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
   const ArchiveDate = formatDate(student.deactivatedAt);
-  res.render("listings/showArchiveStu", { student, formattedDate, ArchiveDate });
+  res.render("listings/showArchiveStu", {
+    student,
+    formattedDate,
+    ArchiveDate,
+  });
 });
 module.exports.addArchiveStuFee = catchAsync(async (req, res) => {
   let { id } = req.params;
@@ -321,7 +331,10 @@ module.exports.addArchiveStuFee = catchAsync(async (req, res) => {
   }
   amount = Number(amount);
   let paidDate = paidOn ? new Date(paidOn) : new Date();
-  const student = await ArchivedStudent.findOne({ _id: id, owner: req.user._id });
+  const student = await ArchivedStudent.findOne({
+    _id: id,
+    owner: req.user._id,
+  });
   if (!student) {
     return res.status(404).send("Student not found");
   }
@@ -362,22 +375,25 @@ module.exports.restoreStudent = catchAsync(async (req, res) => {
   const archivedStudent = await ArchivedStudent.findOne({
     _id: id,
     owner: req.user._id,
-  });
+  }).lean();
   if (!archivedStudent) {
     req.flash("error", "Archived student not found");
     return res.redirect("/students/archived");
   }
   await Student.create({
-    ...archivedStudent.toObject(),
+    ...archivedStudent,
     _id: undefined,
   });
-  await ArchivedStudent.findByIdAndDelete(id);
+  await ArchivedStudent.findOneAndDelete({
+    _id: id,
+    owner: req.user._id,
+  });
   req.flash("success", "Student restored successfully");
   res.redirect("/students");
 });
 module.exports.deletearchiveStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const archivedStudent = await ArchivedStudent.findOne({
+  const archivedStudent = await ArchivedStudent.findByIdAndDelete({
     _id: id,
     owner: req.user._id,
   });
@@ -385,7 +401,6 @@ module.exports.deletearchiveStudent = catchAsync(async (req, res) => {
     req.flash("error", "Archived student not found");
     return res.redirect("/students/archived");
   }
-  await ArchivedStudent.findByIdAndDelete(id);
   req.flash("success", "Student deleted successfully");
-  res.redirect("/students");
+  res.redirect("/archive");
 });
