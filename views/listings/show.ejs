@@ -140,7 +140,9 @@
         <% }); %> <% } else { %>
         <p>No payment history found.</p>
         <% } %>
-        <button id="showAll" data-student-id="<%= student._id %>">Show all history</button>
+        <% if(feeData && feeData.length > 2) { %>
+          <button id="showAll" data-student-id="<%= student._id %>">Show all history</button>
+        <%}%>
       </div>
     </div>
     <div class="flex">

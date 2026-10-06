@@ -16,7 +16,7 @@ function formatDate(date, type = "short") {
 }
 module.exports.students = catchAsync(async (req, res) => {
   let students = await Student.find({ owner: req.user._id })
-    .select("name grade fees dueFees _id")
+    .select("name grade fees dueFees _id feesHistory")
     .lean();
   const studentsData = students.map((s) => {
     const name = s.name || "";
@@ -42,11 +42,16 @@ module.exports.students = catchAsync(async (req, res) => {
 });
 module.exports.showStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  let student = await Student.findOne({ _id: id, owner: req.user._id }).lean();
+  let student = await Student.findOne(
+    { _id: id, owner: req.user._id },
+    {
+      feesHistory: { $slice: -3 },
+    },
+  ).lean();
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
-  const feeData = student.feesHistory.slice(-3);
-  res.render("listings/show", { student, formattedDate,feeData });
+  const feeData = student.feesHistory;
+  res.render("listings/show", { student, formattedDate, feeData });
 });
 module.exports.showFeeHis = catchAsync(async (req, res) => {
   const { id } = req.params;

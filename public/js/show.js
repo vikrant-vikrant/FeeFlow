@@ -20,7 +20,7 @@ btn?.addEventListener("click", async () => {
       div.className = "fee-entry";
       div.innerHTML = `
       <p>
-        <strong>${p.amount}</strong>₹  Paid On : 
+        <strong>₹ ${p.amount}</strong> Paid On : 
         ${new Date(p.paidDate).toLocaleDateString("en-GB", {
           weekday: "short",
           day: "numeric",
