@@ -45,7 +45,25 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
   let student = await Student.findOne({ _id: id, owner: req.user._id }).lean();
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
-  res.render("listings/show", { student, formattedDate });
+  const feeData = student.feesHistory.slice(-3);
+  res.render("listings/show", { student, formattedDate,feeData });
+});
+module.exports.showFeeHis = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const feeHis = await Student.findOne({
+    _id: id,
+    owner: req.user._id,
+  })
+    .select("feesHistory")
+    .lean();
+  if (!feeHis) {
+    req.flash("error", "Payment history not found");
+    return res.redirect(`/students`);
+  }
+  feeHis.feesHistory.sort(
+    (a, b) => new Date(b.paidDate) - new Date(a.paidDate),
+  );
+  res.json(feeHis);
 });
 module.exports.deactivateStudent = catchAsync(async (req, res) => {
   const { id } = req.params;

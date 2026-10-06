@@ -85,7 +85,14 @@
 .fee-entry p {
   font-size: 3vh;
 }
-
+#showAll{
+  border: none;
+  padding: .3rem;
+  border-radius: .7rem;
+  background-color: #f0f0f0;
+  font-size: .8rem;
+  cursor: pointer;
+}
 .title {
   font-size: 5vh;
   font-weight: 600;

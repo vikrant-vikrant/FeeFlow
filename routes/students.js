@@ -13,6 +13,9 @@ router
   .get(isLoggedIn, validateObjectId, student.showStudent)
   .delete(isLoggedIn, validateObjectId, student.deleteStudent);
 router
+  .route("/showFeeHis/:id")
+  .get(isLoggedIn, validateObjectId, student.showFeeHis);
+router
   .route("/:id/edit")
   .get(isLoggedIn, validateObjectId, student.editStudent)
   .put(isLoggedIn, validateObjectId, student.saveEditStudent);

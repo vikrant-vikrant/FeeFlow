@@ -125,8 +125,8 @@
         <h2 class="title">
           <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Payment History
         </h2>
-        <% if(student.feesHistory && student.feesHistory.length > 0) { %>
-        <%student.feesHistory.reverse().forEach(function(fees) { %>
+        <% if(feeData && feeData.length > 0) { %>
+        <%feeData.reverse().forEach(function(fees) { %>
         <div class="fee-entry">
           <p>
             <strong>₹ <%= fees.amount %></strong>
@@ -137,10 +137,10 @@
             <p>Note : <%=fees.note%></p>
           <%}%>
         </div>
-        <hr />
         <% }); %> <% } else { %>
         <p>No payment history found.</p>
         <% } %>
+        <button id="showAll" data-student-id="<%= student._id %>">Show all history</button>
       </div>
     </div>
     <div class="flex">
@@ -166,3 +166,4 @@
     </div>
   </div>
 </body>
+<script src="../js/show.js"></script>
