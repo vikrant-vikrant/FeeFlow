@@ -126,7 +126,7 @@
           <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Payment History
         </h2>
         <% if(feeData && feeData.length > 0) { %>
-        <%feeData.reverse().forEach(function(fees) { %>
+        <%feeData.forEach(function(fees) { %>
         <div class="fee-entry">
           <p>
             <strong>₹ <%= fees.amount %></strong>

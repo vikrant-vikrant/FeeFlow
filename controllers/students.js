@@ -50,7 +50,9 @@ module.exports.showStudent = catchAsync(async (req, res, next) => {
   ).lean();
   if (!student) throw new ExpressError(404, "Student not found");
   const formattedDate = formatDate(student.joiningDate);
-  const feeData = student.feesHistory;
+  const feeData = student.feesHistory.sort(
+    (a, b) => new Date(b.paidDate) - new Date(a.paidDate),
+  );
   res.render("listings/show", { student, formattedDate, feeData });
 });
 module.exports.showFeeHis = catchAsync(async (req, res) => {
