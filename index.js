@@ -3,7 +3,7 @@ if (process.env.NODE_ENV != "production") {
 }
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
+const connectDB = require("./src/index.js");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -37,17 +37,6 @@ app.use(methodOverride("_method"));
 /* ---------- Config ---------- */
 const PORT = process.env.PORT || 8000;
 const MONGO_URL = process.env.MONGO_URL;
-/* ---------- Mongoose ---------- */
-async function connectDB() {
-  try {
-    await mongoose.connect(MONGO_URL);
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
-  }
-}
-connectDB();
 
 /* ---------- View engine & static ---------- */
 app.engine("ejs", ejsMate);
@@ -84,7 +73,7 @@ const sessionOptions = {
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
   },
 };
-
+app.set("trust proxy", 1);
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -111,6 +100,13 @@ app.use((err, req, res, next) => {
     message: err.message || "We’re having trouble processing your request.",
   });
 });
-app.listen(PORT, () => {
-  console.log(`App is listing to port : ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`App is listing to port : ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error", err);
+    process.exit(1);
+  });

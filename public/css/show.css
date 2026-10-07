@@ -33,7 +33,6 @@
 .call a,
 .remind a {
   color: #00bfff;
-
 }
 .parent {
   text-transform: capitalize;
@@ -51,6 +50,15 @@
 .flex {
   display: flex;
   margin-left: 4vw;
+}
+.amount-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.amount-date label {
+  margin-top: 0px;
+  width: 49%;
 }
 .addFess {
   width: 28vw;
@@ -77,7 +85,14 @@
 .fee-entry p {
   font-size: 3vh;
 }
-
+#showAll{
+  border: none;
+  padding: .3rem;
+  border-radius: .7rem;
+  background-color: #f0f0f0;
+  font-size: .8rem;
+  cursor: pointer;
+}
 .title {
   font-size: 5vh;
   font-weight: 600;
@@ -108,7 +123,6 @@
 }
 .form label {
   position: relative;
-  margin-top: 1.5vh;
 }
 
 .form label .input {
@@ -215,7 +229,8 @@ input::-webkit-inner-spin-button {
   .feeHistory {
     width: 100%;
     padding: 3vw;
-    height: 40vh;
+    height: auto;
+    max-height: 35vh;
   }
   .feeHistory h2 {
     margin-bottom: 0vw;
@@ -227,7 +242,7 @@ input::-webkit-inner-spin-button {
     font-size: 5vw;
   }
   .title {
-    font-size: 8vw;
+    font-size: 6vw;
   }
   .form {
     padding: 3vw;

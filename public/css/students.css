@@ -91,6 +91,13 @@ div.links-group:has(a.active)::after {
   display: flex;
   flex-wrap: wrap;
 }
+.students a{
+  text-decoration: none;
+}
+.students a .list {
+  padding: 0;
+  margin: 0;
+}
 ul {
   list-style-type: none;
 }
@@ -150,9 +157,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   border-radius: 0.5rem;
-  background-color: #eee;
+  background-color: #d9e7f1;
   box-sizing: border-box;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
   padding: 0.25rem;
   width: 400px;
   font-size: 14px;
@@ -199,12 +205,6 @@ ul {
   display: flex;
   font-size: 1rem;
 }
-#student-count {
-  background-color: #a0d8ff;
-}
-#student-count {
-  background-color: #a0d8ff;
-}
 @media (max-width: 600px) {
   .main {
     width: calc(100vw - 6vw);
@@ -229,7 +229,7 @@ ul {
 
   .quick-actions label i,
   .quick-actions label input {
-    font-size: 4vw;
+    font-size: 16px;
   }
 
   .list {

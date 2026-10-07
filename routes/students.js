@@ -13,11 +13,22 @@ router
   .get(isLoggedIn, validateObjectId, student.showStudent)
   .delete(isLoggedIn, validateObjectId, student.deleteStudent);
 router
+  .route("/showFeeHis/:id")
+  .get(isLoggedIn, validateObjectId, student.showFeeHis);
+router
   .route("/:id/edit")
   .get(isLoggedIn, validateObjectId, student.editStudent)
   .put(isLoggedIn, validateObjectId, student.saveEditStudent);
 router.get("/:id/deactivate", student.deactivateStudent);
+router
+  .route("/:id/archive")
+  .get(isLoggedIn, validateObjectId, student.showArchiveStu);
 router.post("/:id/restore", student.restoreStudent);
 router.delete("/:id/delete", student.deletearchiveStudent);
 router.post("/:id/addFees", isLoggedIn, student.addFees);
+router.post("/:id/addArchiveStuFee", isLoggedIn, student.addArchiveStuFee);
+router
+  .route("/:id/editArchiveStu")
+  .get(isLoggedIn, validateObjectId, student.editArchiveStu)
+  .put(isLoggedIn, validateObjectId, student.saveEditArchiveStu);
 module.exports = router;
