@@ -136,7 +136,6 @@
             <p>Note : <%=fees.note%></p>
           <%}%>
         </div>
-        <hr />
         <% }); %> <% } else { %>
         <p>No payment history found.</p>
         <% } %>
@@ -147,11 +146,11 @@
         <button class="edit-info"><i class="fa-regular fa-pen-to-square"></i>Add / Edit</button>
       </a>
        <form action="/students/<%= student._id %>/restore" method="POST">
-        <button class="edit-info">Unarchive</button>
+        <button class="edit-info"><i class="fa-solid fa-user-slash"></i> Unarchive</button>
       </form>
       <form action="/students/<%= student._id %>/delete?_method=delete" method="post">
         <button class="edit-info">
-          Delete
+          <i class="fa-solid fa-user-minus"></i> Delete
         </button>
       </form>
     </div>

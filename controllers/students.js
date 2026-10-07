@@ -140,10 +140,12 @@ module.exports.saveEditArchiveStu = catchAsync(async (req, res, next) => {
     req.flash("error", "Student not found");
     return res.redirect("/students");
   }
+  const ArchiveDate = formatDate(student.deactivatedAt);
   const formattedDate = formatDate(student.joiningDate);
-  res.render("listings/show", {
+  res.render("listings/showArchiveStu", {
     student,
     formattedDate,
+    ArchiveDate,
     success: "Details updated.",
   });
 });
@@ -160,8 +162,6 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     fees,
     dueFees,
   } = req.body;
-  // const student = await Student.findOne({ _id: id, owner: req.user._id });
-  // if (!student) throw new ExpressError(404, "Student not found");
   let student = await Student.findOneAndUpdate(
     { _id: id, owner: req.user._id },
     {
@@ -182,12 +182,13 @@ module.exports.saveEditStudent = catchAsync(async (req, res, next) => {
     return res.redirect("/students");
   }
   const formattedDate = formatDate(student.joiningDate);
-  // req.flash("success", "Details updated.");
-  // res.redirect(`/students/${updatedStudent._id}`);
+  const feeData = student.feesHistory
+    .slice(-3)
+    .sort((a, b) => new Date(b.paidDate) - new Date(a.paidDate));
   res.render("listings/show", {
     student,
     formattedDate,
-    // todayDate,
+    feeData,
     success: "Details updated.",
   });
 });
@@ -344,7 +345,7 @@ module.exports.showArchiveStu = catchAsync(async (req, res, next) => {
   res.render("listings/showArchiveStu", {
     student,
     formattedDate,
-    ArchiveDate,
+    ArchiveDate,   
   });
 });
 module.exports.addArchiveStuFee = catchAsync(async (req, res) => {
