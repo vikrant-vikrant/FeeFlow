@@ -1,4 +1,3 @@
-console.log("it is working");
 const btn = document.querySelector("#showAll");
 const container = document.querySelector(".feeHistory");
 btn?.addEventListener("click", async () => {
@@ -25,7 +24,6 @@ btn?.addEventListener("click", async () => {
           weekday: "short",
           day: "numeric",
           month: "short",
-          year: "numeric",
         })} 
       </p>
       ${p.note ? `<p>Note : ${p.note}</p>` : ""}

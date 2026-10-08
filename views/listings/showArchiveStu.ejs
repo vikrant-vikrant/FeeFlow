@@ -130,7 +130,7 @@
           <p>
             <strong>₹ <%= fees.amount %></strong>
             Paid On : <%= fees.paidDate.toLocaleDateString("en-GB", { weekday:
-            "short", day: "2-digit", month: "short", year: "numeric" }) %>
+            "short", day: "2-digit", month: "short" }) %>
           </p>
           <%if(fees.note){%>
             <p>Note : <%=fees.note%></p>

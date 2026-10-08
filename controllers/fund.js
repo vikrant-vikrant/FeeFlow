@@ -6,74 +6,6 @@ module.exports.fund = catchAsync(async (req, res) => {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  const view = req.query.view;
-  const dateFilter =
-    view === "month"
-      ? { "feesHistory.paidDate": { $gte: startOfMonth, $lt: endOfMonth } }
-      : { "feesHistory.paidDate": { $exists: true, $ne: null } };
-  const feesPipeline =
-    view === "month"
-      ? [
-          { $unwind: "$feesHistory" },
-          {
-            $match: {
-              "feesHistory.paidDate": {
-                $gte: startOfMonth,
-                $lt: endOfMonth,
-              },
-            },
-          },
-          { $sort: { "feesHistory.paidDate": -1 } },
-          {
-            $project: {
-              name: 1,
-              grade: 1,
-              "feesHistory.amount": 1,
-              "feesHistory.paidDate": 1,
-              "feesHistory.note": 1,
-            },
-          },
-        ]
-      : [
-          { $unwind: "$feesHistory" },
-          {
-            $match: {
-              "feesHistory.paidDate": { $exists: true, $ne: null },
-            },
-          },
-          { $sort: { "feesHistory.paidDate": -1 } },
-          {
-            $group: {
-              _id: {
-                $dateToString: {
-                  format: "%Y-%m-%d",
-                  date: "$feesHistory.paidDate",
-                },
-              },
-              records: {
-                $push: {
-                  name: "$name",
-                  grade: "$grade",
-                  amount: "$feesHistory.amount",
-                  paidDate: "$feesHistory.paidDate",
-                  note: "$feesHistory.note",
-                },
-              },
-            },
-          },
-          { $sort: { _id: -1 } },
-          { $limit: 3 },
-          { $unwind: "$records" },
-          {
-            $project: {
-              name: "$records.name",
-              grade: "$records.grade",
-              "feesHistory.amount": "$records.amount",
-              "feesHistory.paidDate": "$records.paidDate",
-              "feesHistory.note": "$records.note",
-            },
-          },
-        ];
   const [studentResult, archiveFeesThisMonth] = await Promise.all([
     Student.aggregate([
       { $match: { owner: req.user._id } },
@@ -100,7 +32,50 @@ module.exports.fund = catchAsync(async (req, res) => {
             },
             { $count: "count" },
           ],
-          feesThisMonth: feesPipeline,
+          feesThisMonth: [
+            { $unwind: "$feesHistory" },
+            {
+              $match: {
+                "feesHistory.paidDate": {
+                  $gte: startOfMonth,
+                  $lt: endOfMonth,
+                },
+              },
+            },
+            { $sort: { "feesHistory.paidDate": -1 } },
+            {
+              $group: {
+                _id: {
+                  $dateToString: {
+                    format: "%Y-%m-%d",
+                    date: "$feesHistory.paidDate",
+                    timezone: "Asia/Kolkata",
+                  },
+                },
+                records: {
+                  $push: {
+                    name: "$name",
+                    grade: "$grade",
+                    amount: "$feesHistory.amount",
+                    paidDate: "$feesHistory.paidDate",
+                    note: "$feesHistory.note",
+                  },
+                },
+              },
+            },
+            { $sort: { _id: -1 } },
+            { $limit: 3 },
+            { $unwind: "$records" },
+            {
+              $project: {
+                name: "$records.name",
+                grade: "$records.grade",
+                "feesHistory.amount": "$records.amount",
+                "feesHistory.paidDate": "$records.paidDate",
+                "feesHistory.note": "$records.note",
+              },
+            },
+          ],
           studentsThisMonth: [
             {
               $match: {
@@ -152,26 +127,26 @@ module.exports.fund = catchAsync(async (req, res) => {
   const month = now.getMonth() + 1;
   const year = now.getFullYear();
   let thisMonthData = await MonthlyReport.findOneAndUpdate(
-  { owner: req.user._id, month, year },
-  {
-    $setOnInsert: {
-      owner: req.user._id,
-      month,
-      year,
-      totalEarning: 0,
-      expenses: [],
-      totalExpenses: 0,
-      newStudents: 0,
-      studentsLeft: 0,
-      createdAt: new Date(),
+    { owner: req.user._id, month, year },
+    {
+      $setOnInsert: {
+        owner: req.user._id,
+        month,
+        year,
+        totalEarning: 0,
+        expenses: [],
+        totalExpenses: 0,
+        newStudents: 0,
+        studentsLeft: 0,
+        createdAt: new Date(),
+      },
     },
-  },
-  {
-    upsert: true,
-    new: true,
-    lean: true,
-  }
-);
+    {
+      upsert: true,
+      new: true,
+      lean: true,
+    }
+  );
   // ✅ Calculate expenses
   const total = thisMonthData.expenses.reduce((sum, e) => sum + e.amount, 0);
   const balance = Number(thisMonthData.totalEarning) - total;
@@ -180,7 +155,6 @@ module.exports.fund = catchAsync(async (req, res) => {
     todayDate,
     feesThisMonth,
     total,
-    view,
     balance,
     thisMonthData,
     stuThisMonth,
@@ -188,6 +162,49 @@ module.exports.fund = catchAsync(async (req, res) => {
     totalStudents,
     paidStudents,
   });
+});
+module.exports.fullFeeHis = catchAsync(async (req, res) => {
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const monthFeeHis = await Student.aggregate([
+    {
+      $match: {
+        owner: req.user._id,
+      },
+    },
+    {
+      $unwind: "$feesHistory",
+    },
+    {
+      $match: {
+        "feesHistory.paidDate": {
+          $gte: startOfMonth,
+          $lt: endOfMonth,
+        },
+      },
+    },
+    {
+      $sort: {
+        "feesHistory.paidDate": -1,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        grade: 1,
+        amount: "$feesHistory.amount",
+        paidDate: "$feesHistory.paidDate",
+        note: "$feesHistory.note",
+      },
+    },
+  ]);
+  if (!monthFeeHis.length) {
+    return res.status(404).json({
+      message: "Payment history not found",
+    });
+  }
+  res.json(monthFeeHis);
 });
 module.exports.addExpense = catchAsync(async (req, res) => {
   const { note, amount, paidDate } = req.body;

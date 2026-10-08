@@ -4,4 +4,5 @@ const { isLoggedIn } = require("../middleware/isLoggedIn");
 router.route("/").get(isLoggedIn, fund.fund);
 router.route("/expenses").post(isLoggedIn, fund.addExpense);
 router.get("/previous", isLoggedIn, fund.getPreviousReports);
+router.get("/fullFeeHis", isLoggedIn, fund.fullFeeHis);
 module.exports = router;

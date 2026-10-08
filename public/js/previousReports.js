@@ -72,11 +72,33 @@ function renderReportCard(data) {
   `;
   container.appendChild(div);
 }
-document.querySelector("#lastTDays")?.addEventListener("click", () => {
-  document.querySelector("#lastTDays")?.classList.add("active");
-  document.querySelector("#fullM")?.classList.remove("active");
-});
-document.querySelector("#fullM")?.addEventListener("click", () => {
-  document.querySelector("#fullM")?.classList.add("active");
-  document.querySelector("#lastTDays")?.classList.remove("active");
+const allHisBtn = document.querySelector("#showAll");
+const box = document.querySelector(".feeHistory");
+allHisBtn.addEventListener("click", async () => {
+  try {
+    const res = await fetch(`/fund/fullFeeHis`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch payment history");
+    }
+    const data = await res.json();
+    box.innerHTML = ``;
+    data.forEach((fee) => {
+      const li = document.createElement("li");
+      li.className = "fee-entry";
+      li.innerHTML = `
+        <strong> ${fee.amount} ₹  — ${fee.name} / ${fee.grade} </strong>
+        <span>On : ${new Date(fee.paidDate).toLocaleDateString("en-GB", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        })}
+        ${fee.note ? `<p>Note : ${fee.note}</p>` : ""}
+              </li>
+      `;
+      box.appendChild(li);
+    });
+  } catch (err) {
+    console.error(err);
+    allHisBtn.textContent = "Try again";
+  }
 });

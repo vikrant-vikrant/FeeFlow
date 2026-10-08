@@ -69,10 +69,6 @@
           <h2 class="title">
             <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;Fees History
           </h2>
-          <div class="links-group"> 
-            <a href="/fund" id="lastTDays" class="active">Last 3 Days</a>
-            <a href="/fund?view=month" id="fullM" >Full Month <%=paidStudents%> / <%=totalStudents%></a>
-          </div>
           <div class="feeHistory">
             <% if (feesThisMonth && feesThisMonth.length) { %> <%
             feesThisMonth.forEach(fee => { %>
@@ -99,6 +95,7 @@
                   : <%= fee.feesHistory.note %> <%}%></span><br>
               </li>
             <% })} %>
+            <button id="showAll">Show all history <%=paidStudents%> / <%=totalStudents%></button>
           </div>
         </div>
         <form class="form" action="/fund/expenses" method="post">

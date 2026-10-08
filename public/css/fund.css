@@ -10,49 +10,6 @@ body {
   height: 100%;
   width: 100%;
 }
-div.links-group {
-  display: flex;
-  border: 1px solid #f1f1eb;
-  width: fit-content;
-  padding: 0.25rem;
-  position: relative;
-  border-radius: 50px;
-}
-div.links-group::after {
-  background: #a0d8ff;
-  content: "";
-  position: absolute;
-  top: calc(anchor(top));
-  left: calc(anchor(left));
-  right: calc(anchor(right));
-  bottom: calc(anchor(bottom));
-  border-radius: 50px;
-  z-index: 1;
-  position-anchor: --active-link;
-  transition: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-div.links-group a {
-  position: relative;
-  color: #f1f1eb;
-  padding: 0.25rem;
-  z-index: 2;
-  text-decoration: none;
-  transition: color 0.3s;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 600;
-  -webkit-tap-highlight-color: transparent;
-}
-div.links-group a.active {
-  anchor-name: --active-link;
-  color: #1a1a2e;
-}
-div.links-group:has(a.active)::after {
-  top: anchor(top);
-  left: anchor(left);
-  right: anchor(right);
-  bottom: anchor(bottom);
-}
 .main {
   position: relative;
   background-color: #f3efea;
@@ -176,6 +133,14 @@ div.links-group:has(a.active)::after {
   font-size: 1.4rem;
   /* border-bottom: 1px dashed #515151; */
   padding: 5px 0;
+  cursor: pointer;
+}
+#showAll{
+  border: none;
+  padding: .3rem;
+  border-radius: .7rem;
+  background-color: #f0f0f0;
+  font-size: .8rem;
   cursor: pointer;
 }
 
