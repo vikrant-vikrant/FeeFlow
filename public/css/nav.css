@@ -225,7 +225,7 @@ nav a:hover::before {
   height: 3px;
   content: "";
   box-shadow: 0 0 10px var(--color);
-  animation: timeOut 3s linear 1 forwards;
+  animation: timeOut 1.5s linear 1 forwards;
 }
 @keyframes timeOut {
   to {
